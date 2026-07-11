@@ -540,7 +540,7 @@ const app = {
     
     state.quiz.timeLeft = QUIZ_AUTO_ADVANCE_SECONDS;
     const timerEl = document.getElementById("quiz-timer");
-    timerEl.innerHTML = '<i class="fa-regular fa-clock"></i> 自動跳題';
+    timerEl.innerHTML = '<i class="fa-regular fa-clock"></i> 每題 5 秒自動跳題';
     timerEl.classList.remove("urgent");
     
     state.quiz.timer = setInterval(() => {
