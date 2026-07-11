@@ -529,7 +529,7 @@ const app = {
     
     state.quiz.selectedOption = null;
     
-    // 每題限時，自動跳題；畫面不顯示倒數
+    // 每題限時，自動跳題，並顯示倒數秒數
     this.startQuizTimer();
   },
   
@@ -539,12 +539,11 @@ const app = {
     }
     
     state.quiz.timeLeft = QUIZ_AUTO_ADVANCE_SECONDS;
-    const timerEl = document.getElementById("quiz-timer");
-    timerEl.innerHTML = '<i class="fa-regular fa-clock"></i> 每題 5 秒自動跳題';
-    timerEl.classList.remove("urgent");
+    this.updateQuizTimerDisplay();
     
     state.quiz.timer = setInterval(() => {
       state.quiz.timeLeft--;
+      this.updateQuizTimerDisplay();
       
       if (state.quiz.timeLeft <= 0) {
         clearInterval(state.quiz.timer);
@@ -552,6 +551,15 @@ const app = {
         this.handleQuizTimeout();
       }
     }, 1000);
+  },
+
+  updateQuizTimerDisplay() {
+    const timerEl = document.getElementById("quiz-timer");
+    if (!timerEl) return;
+
+    const seconds = Math.max(state.quiz.timeLeft, 0);
+    timerEl.innerHTML = `<i class="fa-regular fa-clock"></i> 倒數 ${seconds} 秒`;
+    timerEl.classList.toggle("urgent", seconds <= 2);
   },
   
   handleQuizTimeout() {
