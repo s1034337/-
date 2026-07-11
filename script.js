@@ -1,0 +1,1204 @@
+/**
+ * 國中九年級形音義練習系統 - 核心控制邏輯 (script.js)
+ */
+
+// ==========================================================================
+// 全域狀態管理
+// ==========================================================================
+const state = {
+  // 用戶學習數據
+  notebook: {
+    starred: [], // 收藏的字卡: { id, round, question, answer, note, type }
+    wrong: []    // 測驗錯題: { id, round, question, options, answer, explanation }
+  },
+  progress: {
+    round1: [], // 已複習的索引列表
+    round2: [],
+    round3: []
+  },
+  scores: {
+    quiz1: 0,
+    quiz2: 0,
+    quiz3: 0,
+    gameHigh: 0,
+    gameClearedGroups: [],
+    gameGroupBest: {},
+    gameGroupBestTime: {},
+    gameGroupFinishOrder: []
+  },
+  
+  // 當前進行中的狀態
+  currentRound: 1,
+  currentCardIndex: 0,
+  isCardFlipped: false,
+  
+  // 測驗進行中狀態
+  quiz: {
+    questions: [], // 隨機抽選的 10 題
+    currentIndex: 0,
+    score: 0,
+    selectedOption: null,
+    timer: null,
+    autoNextTimer: null,
+    timeLeft: 20,
+    correctCount: 0,
+    wrongCount: 0,
+    answeredCorrect: new Set(),
+    retryQuestion: false,
+    failedByMistakes: false,
+    wrongAnswersCollected: [] // 本次測驗錯題
+  }
+};
+
+const QUIZ_AUTO_ADVANCE_SECONDS = 5;
+const PERSONAL_QUIZ_WRONG_CHANCES = 3;
+
+// ==========================================================================
+// 初始化與本地儲存
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  // 從 LocalStorage 載入數據
+  loadFromLocalStorage();
+  applyPreviewMode();
+  
+  // 初始化主題
+  initTheme();
+  
+  // 更新主頁進度顯示與統計數據
+  updateDashboardStats();
+  
+  // 綁定通用事件
+  document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+  
+  // 顯示儀表板或預覽指定頁面
+  app.showPage(isPreviewMode() ? "game" : "dashboard");
+});
+
+function isPreviewMode() {
+  return new URLSearchParams(window.location.search).get("preview") === "challenge";
+}
+
+function applyPreviewMode() {
+  if (!isPreviewMode()) return;
+
+  state.progress.round1 = Array.from({ length: 25 }, (_, i) => i);
+  state.progress.round2 = Array.from({ length: 18 }, (_, i) => i);
+  state.progress.round3 = Array.from({ length: 7 }, (_, i) => i);
+  state.scores.quiz1 = 100;
+  state.scores.quiz2 = 84;
+  state.scores.quiz3 = 0;
+  state.scores.gameHigh = 7500;
+  state.scores.gameClearedGroups = [2, 5, 1];
+  state.scores.gameGroupBest = {
+    1: 7500,
+    2: 7600,
+    3: 4100,
+    4: 0,
+    5: 7520,
+    6: 0
+  };
+  state.scores.gameGroupBestTime = {
+    2: 356,
+    5: 384,
+    1: 421
+  };
+  state.scores.gameGroupFinishOrder = [2, 5, 1];
+}
+
+function loadFromLocalStorage() {
+  const savedNotebook = localStorage.getItem("yy_notebook");
+  if (savedNotebook) {
+    try {
+      state.notebook = JSON.parse(savedNotebook);
+    } catch (e) {
+      console.error("解析筆記本數據失敗，重設數據", e);
+    }
+  }
+  
+  const savedProgress = localStorage.getItem("yy_progress");
+  if (savedProgress) {
+    try {
+      state.progress = { ...state.progress, ...JSON.parse(savedProgress) };
+      state.progress.round1 = state.progress.round1 || [];
+      state.progress.round2 = state.progress.round2 || [];
+      state.progress.round3 = state.progress.round3 || [];
+    } catch (e) {
+      console.error("解析進度數據失敗", e);
+    }
+  }
+  
+  const savedScores = localStorage.getItem("yy_scores");
+  if (savedScores) {
+    try {
+      state.scores = { ...state.scores, ...JSON.parse(savedScores) };
+      state.scores.gameClearedGroups = state.scores.gameClearedGroups || [];
+      state.scores.gameGroupBest = state.scores.gameGroupBest || {};
+      state.scores.gameGroupBestTime = state.scores.gameGroupBestTime || {};
+      state.scores.gameGroupFinishOrder = state.scores.gameGroupFinishOrder || [];
+    } catch (e) {
+      console.error("解析分數數據失敗", e);
+    }
+  }
+  
+  updateNotebookBadge();
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem("yy_notebook", JSON.stringify(state.notebook));
+  localStorage.setItem("yy_progress", JSON.stringify(state.progress));
+  localStorage.setItem("yy_scores", JSON.stringify(state.scores));
+  updateNotebookBadge();
+}
+
+function updateNotebookBadge() {
+  const total = state.notebook.starred.length + state.notebook.wrong.length;
+  document.getElementById("notebook-count").textContent = total;
+}
+
+// ==========================================================================
+// 主題切換 (Light/Dark Theme)
+// ==========================================================================
+function initTheme() {
+  const isLight = localStorage.getItem("yy_theme") === "light";
+  if (isLight) {
+    document.body.classList.remove("dark-theme");
+    document.body.classList.add("light-theme");
+    document.getElementById("theme-toggle").innerHTML = '<i class="fa-solid fa-moon"></i>';
+  } else {
+    document.body.classList.remove("light-theme");
+    document.body.classList.add("dark-theme");
+    document.getElementById("theme-toggle").innerHTML = '<i class="fa-solid fa-sun"></i>';
+  }
+}
+
+function toggleTheme() {
+  const body = document.body;
+  if (body.classList.contains("dark-theme")) {
+    body.classList.remove("dark-theme");
+    body.classList.add("light-theme");
+    localStorage.setItem("yy_theme", "light");
+    document.getElementById("theme-toggle").innerHTML = '<i class="fa-solid fa-moon"></i>';
+  } else {
+    body.classList.remove("light-theme");
+    body.classList.add("dark-theme");
+    localStorage.setItem("yy_theme", "dark");
+    document.getElementById("theme-toggle").innerHTML = '<i class="fa-solid fa-sun"></i>';
+  }
+}
+
+// ==========================================================================
+// 儀表板數據統計
+// ==========================================================================
+function updateDashboardStats() {
+  // 1. 進度計算
+  const r1Total = 25;
+  const r2Total = 25;
+  const r3Total = 25;
+  const totalCards = r1Total + r2Total + r3Total;
+  
+  const r1Reviewed = state.progress.round1.length;
+  const r2Reviewed = state.progress.round2.length;
+  const r3Reviewed = state.progress.round3.length;
+  const totalReviewed = r1Reviewed + r2Reviewed + r3Reviewed;
+  
+  const r1Pct = Math.round((r1Reviewed / r1Total) * 100);
+  const r2Pct = Math.round((r2Reviewed / r2Total) * 100);
+  const r3Pct = Math.round((r3Reviewed / r3Total) * 100);
+  const totalPct = Math.round((totalReviewed / totalCards) * 100);
+  const r1ClearText = state.scores.quiz1 === 100 ? "已破關" : "尚未破關";
+  const r2ClearText = state.scores.quiz2 === 100 ? "已破關" : "尚未破關";
+  const r3ClearText = state.scores.quiz3 === 100 ? "已破關" : "尚未破關";
+  const round2Locked = state.scores.quiz1 !== 100;
+  const round3Locked = state.scores.quiz2 !== 100;
+  
+  // 更新儀表板進度條
+  document.getElementById("progress-r1").style.width = `${r1Pct}%`;
+  document.getElementById("progress-text-r1").textContent = `已複習 ${r1Reviewed}/${r1Total} · ${r1ClearText}`;
+  
+  document.getElementById("progress-r2").style.width = `${r2Pct}%`;
+  document.getElementById("progress-text-r2").textContent = round2Locked ? "第一回全對後解鎖" : `已複習 ${r2Reviewed}/${r2Total} · ${r2ClearText}`;
+  
+  document.getElementById("progress-r3").style.width = `${r3Pct}%`;
+  document.getElementById("progress-text-r3").textContent = round3Locked ? "第二回全對後解鎖" : `已複習 ${r3Reviewed}/${r3Total} · ${r3ClearText}`;
+
+  setRoundLockState(2, round2Locked);
+  setRoundLockState(3, round3Locked);
+  
+  // 更新頂部三個大數據卡
+  document.getElementById("stat-reviewed-pct").textContent = `${totalPct}%`;
+  
+  const bestScore = Math.max(state.scores.quiz1, state.scores.quiz2, state.scores.quiz3);
+  document.getElementById("stat-best-score").textContent = bestScore > 0 ? `${bestScore}分` : "無";
+  
+  const gameHigh = state.scores.gameHigh;
+  document.getElementById("stat-game-score").textContent = gameHigh > 0 ? `${gameHigh}分` : "無";
+}
+
+function setRoundLockState(roundNum, isLocked) {
+  const card = document.getElementById(`card-round-${roundNum}`);
+  const reviewBtn = document.getElementById(`btn-review-r${roundNum}`);
+  const quizBtn = document.getElementById(`btn-quiz-r${roundNum}`);
+  if (!card || !reviewBtn || !quizBtn) return;
+
+  card.classList.toggle("locked", isLocked);
+  reviewBtn.disabled = isLocked;
+  quizBtn.disabled = isLocked;
+  reviewBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回全對破關` : "";
+  quizBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回全對破關` : "";
+}
+
+// ==========================================================================
+// SPA 路由與頁面切換控制
+// ==========================================================================
+const app = {
+  showPage(pageId) {
+    // 隱藏所有頁面
+    document.querySelectorAll(".page").forEach(page => {
+      page.classList.remove("active");
+    });
+    
+    // 停止測驗與遊戲計時器防止溢出
+    if (state.quiz.timer) {
+      clearInterval(state.quiz.timer);
+      state.quiz.timer = null;
+    }
+    if (state.quiz.autoNextTimer) {
+      clearTimeout(state.quiz.autoNextTimer);
+      state.quiz.autoNextTimer = null;
+    }
+    game.stop();
+    
+    // 顯示指定頁面
+    const targetPage = document.getElementById(`page-${pageId}`);
+    if (targetPage) {
+      targetPage.classList.add("active");
+      window.scrollTo(0, 0);
+    }
+    
+    // 載入特定頁面的渲染數據
+    if (pageId === "dashboard") {
+      updateDashboardStats();
+    } else if (pageId === "notebook") {
+      this.renderNotebook();
+    } else if (pageId === "game") {
+      game.showMenu();
+    }
+  },
+  
+  // ==========================================================================
+  // 字卡複習邏輯 (Review Mode)
+  // ==========================================================================
+  isRoundUnlocked(roundNum) {
+    if (roundNum <= 1) return true;
+    return state.scores[`quiz${roundNum - 1}`] === 100;
+  },
+
+  showLockedRoundMessage(roundNum) {
+    alert(`請先完成第 ${roundNum - 1} 回全對破關，再挑戰第 ${roundNum} 回。`);
+  },
+
+  startReview(roundNum) {
+    if (!this.isRoundUnlocked(roundNum)) {
+      this.showLockedRoundMessage(roundNum);
+      return;
+    }
+
+    state.currentRound = roundNum;
+    state.currentCardIndex = 0;
+    state.isCardFlipped = false;
+    
+    // 載入當前 Round 標題資訊
+    const roundData = REVIEW_DATA.find(r => r.round === roundNum);
+    document.getElementById("review-round-title").textContent = roundData.title;
+    document.getElementById("review-round-subtitle").textContent = `第 ${roundNum} 回複習`;
+    
+    // 獲取這回的所有複習卡 (依據 data.js 中 type = shape/pronunciation 過濾)
+    const cards = RAW_SHEET_DATA.filter(item => item.round === roundNum);
+    this.currentCards = cards;
+    
+    // 重設翻卡樣式
+    const flashcard = document.getElementById("flashcard");
+    flashcard.classList.remove("flipped");
+    
+    this.renderCurrentCard();
+    this.showPage("review");
+    
+    // 標記當前卡片為已讀進度
+    this.markCardAsRead(0);
+  },
+  
+  renderCurrentCard() {
+    const card = this.currentCards[state.currentCardIndex];
+    if (!card) return;
+    
+    // 區分字音與字形卡片標籤
+    const badge = document.getElementById("card-type-badge");
+    badge.textContent = card.type === "shape" ? "字形篇" : "字音篇";
+    badge.style.borderColor = card.type === "shape" ? "var(--accent-primary)" : "var(--accent-secondary)";
+    badge.style.color = card.type === "shape" ? "var(--accent-primary)" : "var(--accent-secondary)";
+    
+    // 正面
+    document.getElementById("card-front-word").textContent = card.question;
+    
+    // 背面
+    document.getElementById("card-back-answer").textContent = card.answer;
+    document.getElementById("card-back-detail").textContent = card.note;
+    
+    // 更新收藏狀態星星圖標
+    const isStarred = state.notebook.starred.some(s => s.question === card.question && s.round === state.currentRound);
+    const starBtn = document.getElementById("card-star-btn");
+    if (isStarred) {
+      starBtn.classList.add("active");
+      starBtn.innerHTML = '<i class="fa-solid fa-star"></i>';
+    } else {
+      starBtn.classList.remove("active");
+      starBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
+    }
+    
+    // 更新頁碼索引與進度條
+    const total = this.currentCards.length;
+    document.getElementById("card-index-text").textContent = `${state.currentCardIndex + 1} / ${total}`;
+    
+    const pct = Math.round(((state.currentCardIndex + 1) / total) * 100);
+    document.getElementById("review-progress-fill").style.width = `${pct}%`;
+    
+    // 控制前後按鈕
+    document.getElementById("btn-prev-card").disabled = state.currentCardIndex === 0;
+    document.getElementById("btn-next-card").disabled = state.currentCardIndex === total - 1;
+    
+    // 每次切換卡片重設翻牌狀態 (回到正面)
+    const flashcard = document.getElementById("flashcard");
+    flashcard.classList.remove("flipped");
+    state.isCardFlipped = false;
+  },
+  
+  flipCard() {
+    const flashcard = document.getElementById("flashcard");
+    state.isCardFlipped = !state.isCardFlipped;
+    if (state.isCardFlipped) {
+      flashcard.classList.add("flipped");
+    } else {
+      flashcard.classList.remove("flipped");
+    }
+  },
+  
+  prevCard() {
+    if (state.currentCardIndex > 0) {
+      state.currentCardIndex--;
+      this.renderCurrentCard();
+      this.markCardAsRead(state.currentCardIndex);
+    }
+  },
+  
+  nextCard() {
+    if (state.currentCardIndex < this.currentCards.length - 1) {
+      state.currentCardIndex++;
+      this.renderCurrentCard();
+      this.markCardAsRead(state.currentCardIndex);
+    }
+  },
+  
+  // 記錄複習卡片進度
+  markCardAsRead(index) {
+    const key = `round${state.currentRound}`;
+    if (!state.progress[key].includes(index)) {
+      state.progress[key].push(index);
+      saveToLocalStorage();
+    }
+  },
+  
+  toggleStarCurrentCard() {
+    const card = this.currentCards[state.currentCardIndex];
+    if (!card) return;
+    
+    const index = state.notebook.starred.findIndex(s => s.question === card.question && s.round === state.currentRound);
+    const starBtn = document.getElementById("card-star-btn");
+    
+    if (index > -1) {
+      // 取消收藏
+      state.notebook.starred.splice(index, 1);
+      starBtn.classList.remove("active");
+      starBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
+    } else {
+      // 新增收藏
+      state.notebook.starred.push({
+        round: state.currentRound,
+        type: card.type,
+        question: card.question,
+        answer: card.answer,
+        note: card.note
+      });
+      starBtn.classList.add("active");
+      starBtn.innerHTML = '<i class="fa-solid fa-star"></i>';
+    }
+    
+    saveToLocalStorage();
+  },
+  
+  // ==========================================================================
+  // 模擬測驗邏輯 (Quiz Mode)
+  // ==========================================================================
+  startQuiz(roundNum) {
+    if (!this.isRoundUnlocked(roundNum)) {
+      this.showLockedRoundMessage(roundNum);
+      return;
+    }
+
+    state.currentRound = roundNum;
+    
+    // 獲取該回所有考題
+    const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
+    
+    // 每回合完整 25 題，必須全對才破關
+    state.quiz.questions = this.getRandomSubarray(allQuestions, allQuestions.length);
+    state.quiz.currentIndex = 0;
+    state.quiz.score = 0;
+    state.quiz.correctCount = 0;
+    state.quiz.wrongCount = 0;
+    state.quiz.answeredCorrect = new Set();
+    state.quiz.retryQuestion = false;
+    state.quiz.failedByMistakes = false;
+    state.quiz.wrongAnswersCollected = [];
+    
+    // 顯示測驗容器
+    document.getElementById("quiz-active-container").style.display = "block";
+    document.getElementById("quiz-result-container").style.display = "none";
+    
+    this.renderQuizQuestion();
+    this.showPage("quiz");
+  },
+  
+  startQuizFromReview() {
+    this.startQuiz(state.currentRound);
+  },
+  
+  restartQuiz() {
+    this.startQuiz(state.currentRound);
+  },
+  
+  // 隨機選取陣列子項
+  getRandomSubarray(arr, size) {
+    let shuffled = arr.slice(0), i = arr.length, temp, index;
+    while (i--) {
+      index = Math.floor((i + 1) * Math.random());
+      temp = shuffled[index];
+      shuffled[index] = shuffled[i];
+      shuffled[i] = temp;
+    }
+    return shuffled.slice(0, size);
+  },
+  
+  renderQuizQuestion() {
+    const questionData = state.quiz.questions[state.quiz.currentIndex];
+    if (!questionData) return;
+    questionData.currentOptions = this.getRandomSubarray(questionData.options, questionData.options.length);
+    
+    // 隱藏解析面板
+    document.getElementById("quiz-explanation-box").style.display = "none";
+    
+    // 設定題號與進度
+    document.getElementById("quiz-progress-text").textContent = `題號: ${state.quiz.currentIndex + 1} / ${state.quiz.questions.length}`;
+    
+    // 設定題目類型標籤與題目內容
+    const typeBadge = document.getElementById("quiz-question-type");
+    typeBadge.textContent = questionData.type === "shape" ? "字形選擇題" : "字音選擇題";
+    
+    let questionText = "";
+    if (questionData.type === "shape") {
+      questionText = `下列括號中的字，正確寫法為何？<br><strong style="font-family:'Noto Serif TC',serif; font-size:1.8rem; display:block; margin: 10px 0; letter-spacing:2px;">${questionData.question}</strong>`;
+    } else {
+      questionText = `下列括號中的字，標準讀音為何？<br><strong style="font-family:'Noto Serif TC',serif; font-size:1.8rem; display:block; margin: 10px 0; letter-spacing:2px;">${questionData.question}</strong>`;
+    }
+    document.getElementById("quiz-question-text").innerHTML = questionText;
+    
+    // 渲染選項
+    const optionsContainer = document.getElementById("quiz-options");
+    optionsContainer.innerHTML = "";
+    
+    const letters = ["A", "B", "C", "D"];
+    questionData.currentOptions.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.innerHTML = `
+        <span class="option-letter">${letters[idx]}</span>
+        <span class="option-text">${opt}</span>
+      `;
+      btn.addEventListener("click", () => this.selectOption(idx));
+      optionsContainer.appendChild(btn);
+    });
+    
+    state.quiz.selectedOption = null;
+    
+    // 每題限時，自動跳題；畫面不顯示倒數
+    this.startQuizTimer();
+  },
+  
+  startQuizTimer() {
+    if (state.quiz.timer) {
+      clearInterval(state.quiz.timer);
+    }
+    
+    state.quiz.timeLeft = QUIZ_AUTO_ADVANCE_SECONDS;
+    const timerEl = document.getElementById("quiz-timer");
+    timerEl.innerHTML = '<i class="fa-regular fa-clock"></i> 自動跳題';
+    timerEl.classList.remove("urgent");
+    
+    state.quiz.timer = setInterval(() => {
+      state.quiz.timeLeft--;
+      
+      if (state.quiz.timeLeft <= 0) {
+        clearInterval(state.quiz.timer);
+        state.quiz.timer = null;
+        this.handleQuizTimeout();
+      }
+    }, 1000);
+  },
+  
+  handleQuizTimeout() {
+    // 時間到，自動視為答錯
+    state.quiz.selectedOption = -1;
+    this.revealAnswer(-1);
+    state.quiz.autoNextTimer = setTimeout(() => {
+      state.quiz.autoNextTimer = null;
+      if (state.quiz.failedByMistakes) {
+        this.failQuizRound();
+      } else {
+        this.retryCurrentQuestion();
+      }
+    }, 1500);
+  },
+  
+  selectOption(optionIndex) {
+    if (state.quiz.selectedOption !== null) return; // 防止重複答題
+    
+    clearInterval(state.quiz.timer);
+    state.quiz.selectedOption = optionIndex;
+    
+    this.revealAnswer(optionIndex);
+  },
+  
+  revealAnswer(selectedIndex) {
+    const questionData = state.quiz.questions[state.quiz.currentIndex];
+    // 找出正確選項的索引
+    const activeOptions = questionData.currentOptions || questionData.options;
+    const correctIndex = activeOptions.indexOf(questionData.answer);
+    
+    const optionsContainer = document.getElementById("quiz-options");
+    const optionButtons = optionsContainer.querySelectorAll(".option-btn");
+    
+    // 禁用所有按鈕並加上樣式
+    optionButtons.forEach((btn, idx) => {
+      btn.classList.add("disabled");
+      if (idx === correctIndex) {
+        btn.classList.add("correct-ans");
+      } else if (idx === selectedIndex) {
+        btn.classList.add("wrong-ans");
+      }
+    });
+    
+    const explanationBox = document.getElementById("quiz-explanation-box");
+    const statusEl = document.getElementById("explanation-status");
+    const textEl = document.getElementById("explanation-text");
+    const nextBtn = explanationBox.querySelector("button");
+    
+    const isCorrect = selectedIndex === correctIndex;
+    
+    if (isCorrect) {
+      if (!state.quiz.answeredCorrect.has(state.quiz.currentIndex)) {
+        state.quiz.answeredCorrect.add(state.quiz.currentIndex);
+        state.quiz.correctCount++;
+      }
+      state.quiz.retryQuestion = false;
+      state.quiz.score = Math.round((state.quiz.correctCount / state.quiz.questions.length) * 100);
+      statusEl.className = "explanation-status correct-status";
+      statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> 答對了！';
+      if (nextBtn) nextBtn.innerHTML = '下一題 <i class="fa-solid fa-arrow-right"></i>';
+    } else {
+      state.quiz.wrongCount++;
+      state.quiz.retryQuestion = true;
+      state.quiz.failedByMistakes = state.quiz.wrongCount > PERSONAL_QUIZ_WRONG_CHANCES;
+      statusEl.className = "explanation-status wrong-status";
+      statusEl.innerHTML = state.quiz.failedByMistakes
+        ? '<i class="fa-solid fa-circle-xmark"></i> 錯誤超過 3 次'
+        : selectedIndex === -1 
+          ? '<i class="fa-solid fa-circle-xmark"></i> 時間到！答錯了' 
+          : '<i class="fa-solid fa-circle-xmark"></i> 答錯了！';
+      if (nextBtn) {
+        nextBtn.innerHTML = state.quiz.failedByMistakes
+          ? '<i class="fa-solid fa-arrow-rotate-left"></i> 重新開始本回合'
+          : '<i class="fa-solid fa-arrow-rotate-left"></i> 重新作答';
+      }
+      
+      // 搜集錯題，等會兒加到錯題本或在結算頁面展示
+      state.quiz.wrongAnswersCollected.push(questionData);
+      
+      // 自動將錯題加入錯題本庫中 (不重複)
+      const exists = state.notebook.wrong.some(w => w.question === questionData.question && w.round === state.currentRound);
+      if (!exists) {
+        state.notebook.wrong.push({
+          round: state.currentRound,
+          type: questionData.type,
+          question: questionData.question,
+          answer: questionData.answer,
+          explanation: questionData.note
+        });
+        saveToLocalStorage();
+      }
+    }
+    
+    textEl.innerHTML = `正確答案為：<strong>${questionData.answer}</strong><br><br>${questionData.note}`;
+    explanationBox.style.display = "block";
+  },
+  
+  nextQuestion() {
+    if (state.quiz.autoNextTimer) {
+      clearTimeout(state.quiz.autoNextTimer);
+      state.quiz.autoNextTimer = null;
+    }
+    if (state.quiz.retryQuestion) {
+      if (state.quiz.failedByMistakes) {
+        this.failQuizRound();
+        return;
+      }
+      this.retryCurrentQuestion();
+      return;
+    }
+    state.quiz.currentIndex++;
+    if (state.quiz.currentIndex < state.quiz.questions.length) {
+      this.renderQuizQuestion();
+    } else {
+      this.showQuizResult();
+    }
+  },
+
+  retryCurrentQuestion() {
+    state.quiz.retryQuestion = false;
+    state.quiz.selectedOption = null;
+    this.renderQuizQuestion();
+  },
+
+  failQuizRound() {
+    if (state.quiz.timer) {
+      clearInterval(state.quiz.timer);
+      state.quiz.timer = null;
+    }
+    if (state.quiz.autoNextTimer) {
+      clearTimeout(state.quiz.autoNextTimer);
+      state.quiz.autoNextTimer = null;
+    }
+
+    document.getElementById("quiz-active-container").style.display = "none";
+    document.getElementById("quiz-result-container").style.display = "block";
+    document.getElementById("result-score").textContent = state.quiz.score;
+    document.getElementById("result-medal").textContent = "💥";
+    document.getElementById("result-title").textContent = "本回合需要重新開始";
+    document.getElementById("result-summary-text").textContent =
+      `第 ${state.currentRound} 回只能錯 ${PERSONAL_QUIZ_WRONG_CHANCES} 次。本次已超過錯誤次數，請重新開始本回合。`;
+
+    const wrongBox = document.getElementById("wrong-questions-box");
+    const wrongList = document.getElementById("wrong-questions-list");
+    wrongList.innerHTML = "";
+    if (state.quiz.wrongAnswersCollected.length > 0) {
+      wrongBox.style.display = "block";
+      state.quiz.wrongAnswersCollected.forEach(q => {
+        const item = document.createElement("div");
+        item.className = "wrong-item";
+        item.innerHTML = `
+          <span class="wrong-item-text">${q.question.replace("「", "【").replace("」", "】")}</span>
+          <span class="wrong-item-ans">答案：${q.answer}</span>
+        `;
+        wrongList.appendChild(item);
+      });
+    } else {
+      wrongBox.style.display = "none";
+    }
+  },
+  
+  showQuizResult() {
+    // 停止任何計時器
+    if (state.quiz.timer) {
+      clearInterval(state.quiz.timer);
+    }
+    
+    // 更新最高分
+    state.quiz.score = Math.round((state.quiz.correctCount / state.quiz.questions.length) * 100);
+    const scoreKey = `quiz${state.currentRound}`;
+    if (state.quiz.score > (state.scores[scoreKey] || 0)) {
+      state.scores[scoreKey] = state.quiz.score;
+      saveToLocalStorage();
+    }
+    
+    document.getElementById("quiz-active-container").style.display = "none";
+    document.getElementById("quiz-result-container").style.display = "block";
+    
+    // 渲染得分與回饋文字
+    document.getElementById("result-score").textContent = state.quiz.score;
+    
+    const medalEl = document.getElementById("result-medal");
+    const titleEl = document.getElementById("result-title");
+    const summaryEl = document.getElementById("result-summary-text");
+    
+    if (state.quiz.score === 100) {
+      medalEl.textContent = "👑";
+      titleEl.textContent = "完美通關！A++ 級達人";
+      summaryEl.textContent = `太強了！本關 ${state.quiz.questions.length} 題全部答對，正式破關！`;
+    } else if (state.quiz.score >= 80) {
+      medalEl.textContent = "🔥";
+      titleEl.textContent = "差一點破關！再挑戰一次";
+      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。必須全對才算破關，複習錯題後再來拿下滿分！`;
+    } else if (state.quiz.score >= 60) {
+      medalEl.textContent = "🎖️";
+      titleEl.textContent = "尚未破關！繼續加油";
+      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。破關條件是本關全對，先把錯題補強，再回來挑戰滿分！`;
+    } else {
+      medalEl.textContent = "💪";
+      titleEl.textContent = "尚未破關！加油衝刺";
+      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。每一關要全對才能破關，利用下方錯題列表重新溫書吧！`;
+    }
+    
+    // 顯示錯題清單
+    const wrongBox = document.getElementById("wrong-questions-box");
+    const wrongList = document.getElementById("wrong-questions-list");
+    
+    wrongList.innerHTML = "";
+    if (state.quiz.wrongAnswersCollected.length > 0) {
+      wrongBox.style.display = "block";
+      state.quiz.wrongAnswersCollected.forEach(q => {
+        const item = document.createElement("div");
+        item.className = "wrong-item";
+        item.innerHTML = `
+          <span class="wrong-item-text">${q.question.replace("「", "【").replace("」", "】")}</span>
+          <span class="wrong-item-ans">答案：${q.answer}</span>
+        `;
+        wrongList.appendChild(item);
+      });
+    } else {
+      wrongBox.style.display = "none";
+    }
+  },
+  
+  confirmExitQuiz() {
+    if (confirm("測驗尚未結束，確定要離開嗎？（離開將不記錄本次成績）")) {
+      this.showPage("dashboard");
+    }
+  },
+  
+  // ==========================================================================
+  // 錯題與收藏本渲染 (Notebook Mode)
+  // ==========================================================================
+  currentNotebookTab: "starred",
+  
+  switchNotebookTab(tabName) {
+    this.currentNotebookTab = tabName;
+    
+    const tabStarred = document.getElementById("tab-starred");
+    const tabWrong = document.getElementById("tab-wrong");
+    const secStarred = document.getElementById("starred-list-section");
+    const secWrong = document.getElementById("wrong-list-section");
+    
+    if (tabName === "starred") {
+      tabStarred.classList.add("active");
+      tabWrong.classList.remove("active");
+      secStarred.classList.add("active");
+      secWrong.classList.remove("active");
+    } else {
+      tabStarred.classList.remove("active");
+      tabWrong.classList.add("active");
+      secStarred.classList.remove("active");
+      secWrong.classList.add("active");
+    }
+    this.renderNotebook();
+  },
+  
+  renderNotebook() {
+    // 顯示計數
+    document.getElementById("starred-count-badge").textContent = state.notebook.starred.length;
+    document.getElementById("wrong-count-badge").textContent = state.notebook.wrong.length;
+    
+    const starredGrid = document.getElementById("starred-cards-grid");
+    const starredEmpty = document.getElementById("starred-empty");
+    const wrongList = document.getElementById("wrong-quiz-items-list");
+    const wrongEmpty = document.getElementById("wrong-empty");
+    
+    // 1. 渲染收藏字卡
+    starredGrid.innerHTML = "";
+    if (state.notebook.starred.length > 0) {
+      starredEmpty.style.display = "none";
+      state.notebook.starred.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "starred-item-card";
+        card.innerHTML = `
+          <div class="starred-item-top">
+            <span class="starred-item-badge">回數 ${item.round} · ${item.type === "shape" ? "形" : "音"}</span>
+            <button class="unstar-btn" onclick="app.removeStarred(${idx})" title="取消收藏">
+              <i class="fa-solid fa-star"></i>
+            </button>
+          </div>
+          <div class="starred-item-word">${item.question}</div>
+          <div class="starred-item-ans">${item.answer}</div>
+          <div class="starred-item-desc">${item.note}</div>
+        `;
+        starredGrid.appendChild(card);
+      });
+    } else {
+      starredEmpty.style.display = "flex";
+    }
+    
+    // 2. 渲染測驗錯題
+    wrongList.innerHTML = "";
+    if (state.notebook.wrong.length > 0) {
+      wrongEmpty.style.display = "none";
+      state.notebook.wrong.forEach((item, idx) => {
+        const row = document.createElement("div");
+        row.className = "wrong-quiz-item";
+        row.innerHTML = `
+          <div class="wrong-quiz-content">
+            <div class="wrong-quiz-round">第 ${item.round} 回 · 模擬測驗錯題</div>
+            <div class="wrong-quiz-q">${item.question.replace("「", "【").replace("」", "】")}</div>
+            <div class="wrong-quiz-a">正確答案為：<strong>${item.answer}</strong><br>${item.explanation}</div>
+          </div>
+          <button class="delete-wrong-btn" onclick="app.removeWrong(${idx})" title="刪除此紀錄">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        `;
+        wrongList.appendChild(row);
+      });
+    } else {
+      wrongEmpty.style.display = "flex";
+    }
+  },
+  
+  removeStarred(index) {
+    state.notebook.starred.splice(index, 1);
+    saveToLocalStorage();
+    this.renderNotebook();
+  },
+  
+  removeWrong(index) {
+    state.notebook.wrong.splice(index, 1);
+    saveToLocalStorage();
+    this.renderNotebook();
+  },
+  
+  clearNotebook() {
+    if (confirm("確定要清空所有收藏與測驗錯題記錄嗎？此動作不可復原。")) {
+      state.notebook.starred = [];
+      state.notebook.wrong = [];
+      saveToLocalStorage();
+      this.renderNotebook();
+    }
+  }
+};
+
+// ==========================================================================
+// 六組打怪闖關遊戲控制邏輯 (Boss Battle Game)
+// ==========================================================================
+const GAME_GROUPS = [
+  { id: 1, title: "第一組", name: "第一組同學", boss: "總複習魔王", icon: "fa-users" },
+  { id: 2, title: "第二組", name: "第二組同學", boss: "總複習魔王", icon: "fa-users" },
+  { id: 3, title: "第三組", name: "第三組同學", boss: "總複習魔王", icon: "fa-users" },
+  { id: 4, title: "第四組", name: "第四組同學", boss: "總複習魔王", icon: "fa-users" },
+  { id: 5, title: "第五組", name: "第五組同學", boss: "總複習魔王", icon: "fa-users" },
+  { id: 6, title: "第六組", name: "第六組同學", boss: "總複習魔王", icon: "fa-users" }
+];
+
+const GROUP_TEST_WRONG_CHANCES = 6;
+
+const game = {
+  active: false,
+  score: 0,
+  hearts: GROUP_TEST_WRONG_CHANCES,
+  timeLeft: 45,
+  timer: null,
+  combo: 0,
+  currentGroup: GAME_GROUPS[0],
+  currentQuestion: null,
+  groupQuestions: [],
+  questionIndex: 0,
+  wrongCount: 0,
+  monsterHp: 500,
+  monsterMaxHp: 500,
+
+  showMenu() {
+    this.stop();
+    document.getElementById("game-menu").style.display = "block";
+    document.getElementById("game-play").style.display = "none";
+    document.getElementById("game-over").style.display = "none";
+    this.renderGroupMap();
+  },
+
+  renderGroupMap() {
+    const grid = document.getElementById("boss-groups-grid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+    GAME_GROUPS.forEach(group => {
+      const cleared = state.scores.gameClearedGroups.includes(group.id);
+      const best = state.scores.gameGroupBest[group.id] || 0;
+      const bestTime = state.scores.gameGroupBestTime[group.id];
+      const rank = state.scores.gameGroupFinishOrder.indexOf(group.id) + 1;
+      const count = this.getGroupQuestions(group.id).length;
+      const card = document.createElement("button");
+      card.className = `boss-group-card${cleared ? " cleared" : ""}`;
+      card.type = "button";
+      card.onclick = () => this.start(group.id);
+      const stateText = cleared ? (rank > 0 ? `第 ${rank} 名完成` : "已完成") : "待挑戰";
+      card.innerHTML = `
+        <span class="boss-group-state">${stateText}</span>
+        <span class="boss-group-icon"><i class="fa-solid ${group.icon}"></i></span>
+        <span class="boss-group-title">${group.title}</span>
+        <strong>${group.name}</strong>
+        <span class="boss-name"><i class="fa-solid fa-dragon"></i> ${group.boss}</span>
+        <span class="boss-best">總複習 ${count} 題 · ${GROUP_TEST_WRONG_CHANCES} 次錯誤機會</span>
+        <span class="boss-best">${bestTime ? `最佳 ${this.formatTime(bestTime)}` : `目前 ${best} 分`}</span>
+      `;
+      grid.appendChild(card);
+    });
+  },
+
+  getGroupQuestions(groupId) {
+    return RAW_SHEET_DATA.slice();
+  },
+
+  formatTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min}:${String(sec).padStart(2, "0")}`;
+  },
+
+  resetRace() {
+    if (!confirm("確定要重置六組PK完成紀錄嗎？分數與名次會重新開始。")) return;
+    state.scores.gameHigh = 0;
+    state.scores.gameClearedGroups = [];
+    state.scores.gameGroupBest = {};
+    state.scores.gameGroupBestTime = {};
+    state.scores.gameGroupFinishOrder = [];
+    saveToLocalStorage();
+    this.renderGroupMap();
+  },
+  
+  start(groupId = 1) {
+    this.currentGroup = GAME_GROUPS.find(group => group.id === groupId) || GAME_GROUPS[0];
+    this.groupQuestions = this.shuffle(this.getGroupQuestions(this.currentGroup.id));
+    this.active = true;
+    this.score = 0;
+    this.hearts = GROUP_TEST_WRONG_CHANCES;
+    this.timeLeft = 0;
+    this.combo = 0;
+    this.questionIndex = 0;
+    this.wrongCount = 0;
+    this.monsterMaxHp = this.groupQuestions.length * 100;
+    this.monsterHp = this.monsterMaxHp;
+    
+    document.getElementById("game-menu").style.display = "none";
+    document.getElementById("game-over").style.display = "none";
+    document.getElementById("game-play").style.display = "block";
+    
+    document.getElementById("game-group-label").textContent = `${this.currentGroup.title} · ${this.currentGroup.name}`;
+    document.getElementById("game-boss-name").textContent = this.currentGroup.boss;
+    this.updateHeartsUI();
+    this.updateBattleStats();
+    document.getElementById("game-current-score").textContent = this.score;
+    document.getElementById("game-time-left").textContent = this.formatTime(this.timeLeft);
+    document.getElementById("game-combo-box").style.opacity = 0;
+    document.getElementById("game-timer-bar").style.width = "0%";
+    
+    this.startTimer();
+    this.nextLevel();
+  },
+
+  restartCurrentGroup() {
+    this.start(this.currentGroup.id);
+  },
+
+  shuffle(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  },
+  
+  startTimer() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    
+    this.timer = setInterval(() => {
+      this.timeLeft++;
+      document.getElementById("game-time-left").textContent = this.formatTime(this.timeLeft);
+      
+      const pct = Math.min((this.questionIndex / Math.max(this.groupQuestions.length, 1)) * 100, 100);
+      document.getElementById("game-timer-bar").style.width = `${pct}%`;
+      
+      const barFill = document.getElementById("game-timer-bar");
+      barFill.style.background = "var(--success-gradient)";
+    }, 1000);
+  },
+  
+  nextLevel() {
+    if (this.questionIndex >= this.groupQuestions.length) {
+      this.end(this.wrongCount <= GROUP_TEST_WRONG_CHANCES);
+      return;
+    }
+
+    this.currentQuestion = this.groupQuestions[this.questionIndex];
+    this.currentQuestion.currentOptions = this.shuffle(this.currentQuestion.options);
+    document.getElementById("game-feedback-overlay").style.display = "none";
+    this.updateBattleStats();
+    
+    const container = document.getElementById("game-letters-box");
+    container.innerHTML = "";
+    document.getElementById("game-question-text").innerHTML = `
+      <span class="quiz-question-type">${this.currentQuestion.type === "shape" ? "字形題" : "字音題"}</span>
+      <strong>${this.currentQuestion.question}</strong>
+    `;
+    
+    const letters = ["A", "B", "C", "D"];
+    this.currentQuestion.currentOptions.forEach((option, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn game-option-btn";
+      btn.innerHTML = `
+        <span class="option-letter">${letters[idx]}</span>
+        <span class="option-text">${option}</span>
+      `;
+      btn.addEventListener("click", () => this.handleLetterClick(idx, btn));
+      container.appendChild(btn);
+    });
+  },
+  
+  handleLetterClick(clickedIdx, btnElement) {
+    if (!this.active) return;
+    
+    const activeOptions = this.currentQuestion.currentOptions || this.currentQuestion.options;
+    const correctIndex = activeOptions.indexOf(this.currentQuestion.answer);
+    
+    if (clickedIdx === correctIndex) {
+      this.combo++;
+      const comboBonus = Math.floor(this.combo / 3) * 30;
+      const gainedScore = 100 + comboBonus;
+      this.score += gainedScore;
+      this.monsterHp = Math.max(this.monsterHp - 100, 0);
+      this.questionIndex++;
+      
+      document.getElementById("game-current-score").textContent = this.score;
+      this.updateBattleStats();
+      
+      const comboEl = document.getElementById("game-combo-box");
+      const comboCount = document.getElementById("game-combo-count");
+      if (this.combo > 1) {
+        comboCount.textContent = this.combo;
+        comboEl.style.opacity = 1;
+        comboEl.style.transform = "scale(1.2)";
+        setTimeout(() => comboEl.style.transform = "scale(1)", 150);
+      }
+      
+      btnElement.classList.add("correct-highlight");
+      this.active = false;
+      this.showFeedback(true, gainedScore);
+      const finishedGroup = this.questionIndex >= this.groupQuestions.length;
+      if (finishedGroup && this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+      
+      setTimeout(() => {
+        this.active = true;
+        this.nextLevel();
+      }, 1800);
+      
+    } else {
+      this.combo = 0;
+      this.wrongCount++;
+      this.hearts = Math.max(GROUP_TEST_WRONG_CHANCES - this.wrongCount, 0);
+      document.getElementById("game-combo-box").style.opacity = 0;
+      this.updateHeartsUI();
+      btnElement.classList.add("shake");
+      setTimeout(() => btnElement.classList.remove("shake"), 500);
+
+      if (this.wrongCount > GROUP_TEST_WRONG_CHANCES) {
+        this.end(false);
+      }
+    }
+  },
+
+  showFeedback(isCorrect, gainedScore) {
+    const feedbackOverlay = document.getElementById("game-feedback-overlay");
+    feedbackOverlay.className = "game-feedback-overlay";
+    document.getElementById("game-feedback-icon").innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+    document.getElementById("game-feedback-title").textContent = `命中！-${100} 血 / +${gainedScore}分`;
+    document.getElementById("game-feedback-desc").innerHTML = `
+      正確答案是【<strong>${this.currentQuestion.answer}</strong>】。<br>
+      <span style="display:block; margin-top:8px; font-size:0.9rem; color:var(--text-muted);">${this.currentQuestion.note}</span>
+    `;
+    feedbackOverlay.style.display = "flex";
+  },
+
+  updateBattleStats() {
+    document.getElementById("game-question-count").textContent = `${Math.min(this.questionIndex + 1, this.groupQuestions.length)} / ${this.groupQuestions.length}`;
+    document.getElementById("boss-hp-text").textContent = `${this.monsterHp} / ${this.monsterMaxHp}`;
+    const hpPct = this.monsterMaxHp > 0 ? (this.monsterHp / this.monsterMaxHp) * 100 : 0;
+    document.getElementById("boss-hp-fill").style.width = `${hpPct}%`;
+  },
+  
+  updateHeartsUI() {
+    const container = document.getElementById("game-hearts");
+    container.innerHTML = "";
+    
+    for (let i = 0; i < GROUP_TEST_WRONG_CHANCES; i++) {
+      const heart = document.createElement("i");
+      heart.className = i < this.hearts ? "fa-solid fa-heart" : "fa-solid fa-heart lost-heart";
+      container.appendChild(heart);
+    }
+    const label = document.createElement("span");
+    label.className = "mistakes-left";
+    label.textContent = `剩餘 ${this.hearts}/${GROUP_TEST_WRONG_CHANCES}`;
+    container.appendChild(label);
+  },
+  
+  stop() {
+    this.active = false;
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  },
+  
+  end(cleared = false) {
+    this.stop();
+    
+    if (this.score > state.scores.gameHigh) {
+      state.scores.gameHigh = this.score;
+    }
+    if (this.score > (state.scores.gameGroupBest[this.currentGroup.id] || 0)) {
+      state.scores.gameGroupBest[this.currentGroup.id] = this.score;
+    }
+    if (cleared && !state.scores.gameClearedGroups.includes(this.currentGroup.id)) {
+      state.scores.gameClearedGroups.push(this.currentGroup.id);
+    }
+    if (cleared && !state.scores.gameGroupFinishOrder.includes(this.currentGroup.id)) {
+      state.scores.gameGroupFinishOrder.push(this.currentGroup.id);
+    }
+    if (cleared) {
+      const currentBestTime = state.scores.gameGroupBestTime[this.currentGroup.id];
+      if (!currentBestTime || this.timeLeft < currentBestTime) {
+        state.scores.gameGroupBestTime[this.currentGroup.id] = this.timeLeft;
+      }
+    }
+    saveToLocalStorage();
+    
+    document.getElementById("game-play").style.display = "none";
+    document.getElementById("game-over").style.display = "block";
+    document.getElementById("game-final-score").textContent = this.score;
+    
+    const summaryEl = document.getElementById("game-summary-text");
+    const rank = state.scores.gameGroupFinishOrder.indexOf(this.currentGroup.id) + 1;
+    if (cleared) {
+      const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `使用了 ${this.wrongCount}/${GROUP_TEST_WRONG_CHANCES} 次錯誤機會`;
+      summaryEl.textContent = `完成總複習！${this.currentGroup.title} ${wrongText}，用時 ${this.formatTime(this.timeLeft)}，目前排名第 ${rank} 名。下一組上場！`;
+    } else {
+      summaryEl.textContent = `本輪挑戰失敗。${this.currentGroup.title} 已超過 ${GROUP_TEST_WRONG_CHANCES} 次錯誤機會，必須重新開始本組。`;
+    }
+  }
+};
