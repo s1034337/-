@@ -59,6 +59,7 @@ const state = {
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
 const ROUND_COUNT = REVIEW_DATA.length;
+const OPEN_ROUNDS_COUNT = 3;
 
 function getRoundTotal(roundNum) {
   return RAW_SHEET_DATA.filter(item => item.round === roundNum).length;
@@ -240,7 +241,7 @@ function updateDashboardStats() {
     const scoreKey = `quiz${roundNum}`;
     const reviewed = state.progress[progressKey].length;
     const pct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
-    const isLocked = roundNum > 1 && state.scores[`quiz${roundNum - 1}`] !== 100;
+    const isLocked = roundNum > OPEN_ROUNDS_COUNT && state.scores[`quiz${roundNum - 1}`] !== 100;
     const clearText = state.scores[scoreKey] === 100 ? "已破關" : "尚未破關";
 
     totalCards += total;
@@ -320,7 +321,7 @@ const app = {
   // 字卡複習邏輯 (Review Mode)
   // ==========================================================================
   isRoundUnlocked(roundNum) {
-    if (roundNum <= 1) return true;
+    if (roundNum <= OPEN_ROUNDS_COUNT) return true;
     return state.scores[`quiz${roundNum - 1}`] === 100;
   },
 
@@ -1244,5 +1245,6 @@ const game = {
     }
   }
 };
+
 
 
