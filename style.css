@@ -1261,6 +1261,74 @@ button {
   margin-bottom: 2rem;
 }
 
+
+.leaderboard-submit-panel {
+  display: none;
+  text-align: left;
+  background-color: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-submit-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.leaderboard-submit-panel h3 i {
+  color: var(--accent-gold);
+}
+
+.leaderboard-submit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.leaderboard-submit-grid label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.leaderboard-submit-grid input {
+  width: 100%;
+  min-height: 2.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+.leaderboard-submit-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.leaderboard-submit-actions span {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 560px) {
+  .leaderboard-submit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 錯題區 */
 .wrong-questions-section {
   text-align: left;
@@ -2317,4 +2385,3 @@ body.light-theme .game-feedback-overlay {
     right: 1.2rem;
   }
 }
-

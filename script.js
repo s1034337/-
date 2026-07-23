@@ -55,7 +55,8 @@ const state = {
     failedByMistakes: false,
     wrongAnswersCollected: [], // 本次測驗錯題
     playerName: '',
-    startedAt: 0
+    startedAt: 0,
+    leaderboardSubmitted: false
   }
 };
 
@@ -308,18 +309,20 @@ function formatQuizDuration(seconds) {
   return minutes > 0 ? `${minutes}分${String(rest).padStart(2, "0")}秒` : `${rest}秒`;
 }
 
-function recordRoundLeaderboardAttempt({ completed }) {
+function recordRoundLeaderboardAttempt({ completed, name, score }) {
   const roundNum = state.currentRound;
   const elapsedSeconds = state.quiz.startedAt ? Math.max(1, Math.round((Date.now() - state.quiz.startedAt) / 1000)) : 0;
+  const manualScore = Number.isFinite(Number(score)) ? Math.max(0, Math.min(100, Math.round(Number(score)))) : state.quiz.score;
+  const total = state.quiz.questions.length;
   const entry = {
-    name: normalizePlayerName(state.quiz.playerName),
-    score: state.quiz.score,
-    correct: state.quiz.correctCount,
-    total: state.quiz.questions.length,
+    name: normalizePlayerName(name || state.quiz.playerName),
+    score: manualScore,
+    correct: Math.round((manualScore / 100) * total),
+    total,
     wrong: state.quiz.wrongCount,
     time: elapsedSeconds,
     completed: Boolean(completed),
-    cleared: state.quiz.score === 100,
+    cleared: Boolean(completed) && manualScore === 100,
     at: new Date().toISOString()
   };
 
@@ -640,11 +643,7 @@ const app = {
     }
 
     state.currentRound = roundNum;
-    const savedName = getSavedPlayerName();
-    const typedName = prompt("請輸入姓名或座號，將用於本回合排行榜：", savedName);
-    if (typedName === null) return;
-    state.quiz.playerName = normalizePlayerName(typedName);
-    localStorage.setItem("yy_player_name", state.quiz.playerName);
+    state.quiz.playerName = getSavedPlayerName();
     
     // 獲取該回所有考題
     const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
@@ -660,6 +659,7 @@ const app = {
     state.quiz.failedByMistakes = false;
     state.quiz.wrongAnswersCollected = [];
     state.quiz.startedAt = Date.now();
+    state.quiz.leaderboardSubmitted = false;
     
     // 顯示測驗容器
     document.getElementById("quiz-active-container").style.display = "block";
@@ -905,7 +905,7 @@ const app = {
     document.getElementById("result-title").textContent = "本回合需要重新開始";
     document.getElementById("result-summary-text").textContent =
       `第 ${state.currentRound} 回只能錯 ${PERSONAL_QUIZ_WRONG_CHANCES} 次。本次已超過錯誤次數，請重新開始本回合。`;
-    recordRoundLeaderboardAttempt({ completed: false });
+    this.prepareLeaderboardSubmit(false);
 
     const wrongBox = document.getElementById("wrong-questions-box");
     const wrongList = document.getElementById("wrong-questions-list");
@@ -938,7 +938,8 @@ const app = {
     if (state.quiz.score > (state.scores[scoreKey] || 0)) {
       state.scores[scoreKey] = state.quiz.score;
     }
-    recordRoundLeaderboardAttempt({ completed: true });
+    saveToLocalStorage();
+    this.prepareLeaderboardSubmit(true);
     
     document.getElementById("quiz-active-container").style.display = "none";
     document.getElementById("quiz-result-container").style.display = "block";
@@ -989,6 +990,54 @@ const app = {
     }
   },
   
+
+  prepareLeaderboardSubmit(completed) {
+    const panel = document.getElementById("leaderboard-submit-panel");
+    const nameInput = document.getElementById("leaderboard-player-name");
+    const scoreInput = document.getElementById("leaderboard-score-input");
+    const submitBtn = document.getElementById("leaderboard-submit-btn");
+    const status = document.getElementById("leaderboard-submit-status");
+    if (!panel || !nameInput || !scoreInput || !submitBtn || !status) return;
+
+    panel.style.display = "block";
+    panel.dataset.completed = completed ? "true" : "false";
+    nameInput.value = getSavedPlayerName();
+    scoreInput.value = state.quiz.score;
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> 加入排行榜';
+    status.textContent = "不加入也可以直接回首頁或再測一次。";
+  },
+
+  submitRoundLeaderboard() {
+    if (state.quiz.leaderboardSubmitted) return;
+
+    const panel = document.getElementById("leaderboard-submit-panel");
+    const nameInput = document.getElementById("leaderboard-player-name");
+    const scoreInput = document.getElementById("leaderboard-score-input");
+    const submitBtn = document.getElementById("leaderboard-submit-btn");
+    const status = document.getElementById("leaderboard-submit-status");
+    if (!panel || !nameInput || !scoreInput || !submitBtn || !status) return;
+
+    const score = Number(scoreInput.value);
+    if (!Number.isFinite(score) || score < 0 || score > 100) {
+      status.textContent = "請輸入 0 到 100 之間的成績。";
+      scoreInput.focus();
+      return;
+    }
+
+    const playerName = normalizePlayerName(nameInput.value);
+    state.quiz.playerName = playerName;
+    localStorage.setItem("yy_player_name", playerName);
+    recordRoundLeaderboardAttempt({
+      completed: panel.dataset.completed === "true",
+      name: playerName,
+      score
+    });
+    state.quiz.leaderboardSubmitted = true;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已加入排行榜';
+    status.textContent = `已加入第 ${state.currentRound} 回排行榜。`;
+  },
   confirmExitQuiz() {
     if (confirm("測驗尚未結束，確定要離開嗎？（離開將不記錄本次成績）")) {
       this.showPage("dashboard");
@@ -1444,17 +1493,3 @@ const game = {
     }
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

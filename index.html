@@ -326,6 +326,26 @@
               每一關必須全對才算破關，錯一題就再挑戰一次！
             </p>
 
+            <div class="leaderboard-submit-panel" id="leaderboard-submit-panel">
+              <h3><i class="fa-solid fa-ranking-star"></i> 是否加入本回合排行榜</h3>
+              <div class="leaderboard-submit-grid">
+                <label>
+                  <span>姓名或座號</span>
+                  <input type="text" id="leaderboard-player-name" placeholder="例：12號 小明">
+                </label>
+                <label>
+                  <span>登榜成績</span>
+                  <input type="number" id="leaderboard-score-input" min="0" max="100" step="1">
+                </label>
+              </div>
+              <div class="leaderboard-submit-actions">
+                <button class="btn btn-primary" id="leaderboard-submit-btn" onclick="app.submitRoundLeaderboard()">
+                  <i class="fa-solid fa-check"></i> 加入排行榜
+                </button>
+                <span id="leaderboard-submit-status">不加入也可以直接回首頁或再測一次。</span>
+              </div>
+            </div>
+
             <!-- 錯題清單快捷操作 -->
             <div class="wrong-questions-section" id="wrong-questions-box">
               <h3><i class="fa-solid fa-triangle-exclamation"></i> 本次錯題紀錄</h3>
@@ -528,19 +548,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-roundrank"></script>
-  <script src="script.js?v=20260723-roundrank"></script>
+  <script src="data.js?v=20260723-manualrank"></script>
+  <script src="script.js?v=20260723-manualrank"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
