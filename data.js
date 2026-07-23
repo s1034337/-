@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
  * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
  * 共 75 題，分為六回，題數依序為 13、12、13、12、13、12 題。
@@ -985,44 +985,35 @@ const RAW_SHEET_DATA = [
 const REVIEW_DATA = [
     {
         "round":  1,
-        "title":  "第一回：草木字形上——字形篇",
+        "title":  "第一回：美食有形",
         "subtitle":  "第 1 回複習"
     },
     {
         "round":  2,
-        "title":  "第二回：草木字形下——字形篇",
+        "title":  "第二回：美食之音",
         "subtitle":  "第 2 回複習"
     },
     {
         "round":  3,
-        "title":  "第三回：饕客讀音上——字音篇",
+        "title":  "第三回：自然景觀",
         "subtitle":  "第 3 回複習"
     },
     {
         "round":  4,
-        "title":  "第四回：饕客讀音下——字音篇",
+        "title":  "第四回：蟲蟲危機",
         "subtitle":  "第 4 回複習"
     },
     {
         "round":  5,
-        "title":  "第五回：萬物字形上——字形篇",
+        "title":  "第五回：使物鼓事盡衝",
         "subtitle":  "第 5 回複習"
     },
     {
         "round":  6,
-        "title":  "第六回：萬物字形下——字形篇",
+        "title":  "第六回：種花植草",
         "subtitle":  "第 6 回複習"
     }
 ];
 
 // 舊版除錯大作戰保留名稱；目前六組打怪模式直接使用 RAW_SHEET_DATA。
 const GAME_WORDS_DATABASE = [];
-
-
-
-
-
-
-
-
-
