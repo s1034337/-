@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 國中九年級形音義練習系統 - 核心控制邏輯 (script.js)
  */
 
@@ -52,6 +52,24 @@ const state = {
 
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
+
+function getQuestionTypeLabel(type, short = false) {
+  if (type === "shape") return short ? "字形題" : "字形選擇題";
+  if (type === "meaning") return short ? "字義題" : "字義選擇題";
+  return short ? "字音題" : "字音選擇題";
+}
+
+function getCardTypeLabel(type) {
+  if (type === "shape") return "字形篇";
+  if (type === "meaning") return "字義篇";
+  return "字音篇";
+}
+
+function getNotebookTypeLabel(type) {
+  if (type === "shape") return "形";
+  if (type === "meaning") return "義";
+  return "音";
+}
 
 // ==========================================================================
 // 初始化與本地儲存
@@ -333,7 +351,7 @@ const app = {
     
     // 區分字音與字形卡片標籤
     const badge = document.getElementById("card-type-badge");
-    badge.textContent = card.type === "shape" ? "字形篇" : "字音篇";
+    badge.textContent = getCardTypeLabel(card.type);
     badge.style.borderColor = card.type === "shape" ? "var(--accent-primary)" : "var(--accent-secondary)";
     badge.style.color = card.type === "shape" ? "var(--accent-primary)" : "var(--accent-secondary)";
     
@@ -501,11 +519,13 @@ const app = {
     
     // 設定題目類型標籤與題目內容
     const typeBadge = document.getElementById("quiz-question-type");
-    typeBadge.textContent = questionData.type === "shape" ? "字形選擇題" : "字音選擇題";
+    typeBadge.textContent = getQuestionTypeLabel(questionData.type);
     
     let questionText = "";
     if (questionData.type === "shape") {
       questionText = `下列括號中的字，正確寫法為何？<br><strong style="font-family:'Noto Serif TC',serif; font-size:1.8rem; display:block; margin: 10px 0; letter-spacing:2px;">${questionData.question}</strong>`;
+    } else if (questionData.type === "meaning") {
+      questionText = `下列詞語中括號字的字義為何？<br><strong style="font-family:'Noto Serif TC',serif; font-size:1.8rem; display:block; margin: 10px 0; letter-spacing:2px;">${questionData.question}</strong>`;
     } else {
       questionText = `下列括號中的字，標準讀音為何？<br><strong style="font-family:'Noto Serif TC',serif; font-size:1.8rem; display:block; margin: 10px 0; letter-spacing:2px;">${questionData.question}</strong>`;
     }
@@ -837,7 +857,7 @@ const app = {
         card.className = "starred-item-card";
         card.innerHTML = `
           <div class="starred-item-top">
-            <span class="starred-item-badge">回數 ${item.round} · ${item.type === "shape" ? "形" : "音"}</span>
+            <span class="starred-item-badge">回數 ${item.round} · ${getNotebookTypeLabel(item.type)}</span>
             <button class="unstar-btn" onclick="app.removeStarred(${idx})" title="取消收藏">
               <i class="fa-solid fa-star"></i>
             </button>
@@ -1059,7 +1079,7 @@ const game = {
     const container = document.getElementById("game-letters-box");
     container.innerHTML = "";
     document.getElementById("game-question-text").innerHTML = `
-      <span class="quiz-question-type">${this.currentQuestion.type === "shape" ? "字形題" : "字音題"}</span>
+      <span class="quiz-question-type">${getQuestionTypeLabel(this.currentQuestion.type, true)}</span>
       <strong>${this.currentQuestion.question}</strong>
     `;
     
@@ -1210,3 +1230,4 @@ const game = {
     }
   }
 };
+
