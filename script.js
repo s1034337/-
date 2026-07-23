@@ -31,7 +31,9 @@ const state = {
     gameGroupBest: {},
     gameGroupBestTime: {},
     gameGroupFinishOrder: [],
-    gameGroupStats: {}
+    gameGroupStats: {},
+    activeGroupBattle: 1,
+    groupBattles: {}
   },
   
   // 當前進行中的狀態
@@ -155,6 +157,23 @@ function applyPreviewMode() {
     2: { correct: 75, totalTime: 760, attempts: 2 },
     5: { correct: 75, totalTime: 720, attempts: 2 }
   };
+  state.scores.activeGroupBattle = 1;
+  state.scores.groupBattles = {
+    1: normalizeGroupBattleRecord({
+      gameHigh: state.scores.gameHigh,
+      gameClearedGroups: state.scores.gameClearedGroups,
+      gameGroupBest: state.scores.gameGroupBest,
+      gameGroupBestTime: state.scores.gameGroupBestTime,
+      gameGroupFinishOrder: state.scores.gameGroupFinishOrder,
+      gameGroupStats: state.scores.gameGroupStats
+    }),
+    2: normalizeGroupBattleRecord({
+      gameGroupStats: {
+        3: { correct: 64, totalTime: 598, attempts: 2 },
+        4: { correct: 52, totalTime: 410, attempts: 1 }
+      }
+    })
+  };
 }
 
 function loadFromLocalStorage() {
@@ -186,6 +205,9 @@ function loadFromLocalStorage() {
       state.scores.gameGroupBestTime = state.scores.gameGroupBestTime || {};
       state.scores.gameGroupFinishOrder = state.scores.gameGroupFinishOrder || [];
       state.scores.gameGroupStats = state.scores.gameGroupStats || {};
+      state.scores.activeGroupBattle = Number(state.scores.activeGroupBattle) || 1;
+      state.scores.groupBattles = state.scores.groupBattles || {};
+      ensureGroupBattleState();
       ensureRoundState();
     } catch (e) {
       console.error("解析分數數據失敗", e);
@@ -276,7 +298,8 @@ function updateDashboardStats() {
   const bestScore = Math.max(...scores, 0);
   document.getElementById("stat-best-score").textContent = bestScore > 0 ? `${bestScore}分` : "無";
 
-  const groupStats = Object.values(state.scores.gameGroupStats || {});
+  ensureGroupBattleState();
+  const groupStats = Object.values(state.scores.groupBattles || {}).flatMap(battle => Object.values(battle.gameGroupStats || {}));
   const statsHigh = groupStats.reduce((max, stats) => Math.max(max, stats.correct || 0), 0);
   const legacyHigh = state.scores.gameHigh <= RAW_SHEET_DATA.length ? state.scores.gameHigh : 0;
   const gameHigh = Math.max(statsHigh, legacyHigh);
@@ -461,6 +484,7 @@ const app = {
         state.progress = { ...state.progress, ...(saveData.progress || {}) };
         state.scores = { ...state.scores, ...(saveData.scores || {}) };
         ensureRoundState();
+        ensureGroupBattleState();
         saveToLocalStorage();
 
         if (saveData.theme) {
@@ -1176,7 +1200,59 @@ const GAME_GROUPS = [
 const GROUP_TEST_WRONG_CHANCES = 6;
 const GROUP_TEST_QUESTION_COUNT = 10;
 
+const GROUP_BATTLE_SETS = [
+  { id: 1, label: "第一次團體戰", shortLabel: "第一次", desc: "六回總複習後的第一次分組PK" },
+  { id: 2, label: "第二次團體戰", shortLabel: "第二次", desc: "之後每六回再進行的第二次分組PK" }
+];
+
+function createGroupBattleRecord() {
+  return {
+    gameHigh: 0,
+    gameClearedGroups: [],
+    gameGroupBest: {},
+    gameGroupBestTime: {},
+    gameGroupFinishOrder: [],
+    gameGroupStats: {}
+  };
+}
+
+function normalizeGroupBattleRecord(record = {}) {
+  return {
+    ...createGroupBattleRecord(),
+    ...record,
+    gameClearedGroups: record.gameClearedGroups || [],
+    gameGroupBest: record.gameGroupBest || {},
+    gameGroupBestTime: record.gameGroupBestTime || {},
+    gameGroupFinishOrder: record.gameGroupFinishOrder || [],
+    gameGroupStats: record.gameGroupStats || {}
+  };
+}
+
+function ensureGroupBattleState() {
+  state.scores.activeGroupBattle = GROUP_BATTLE_SETS.some(set => set.id === Number(state.scores.activeGroupBattle))
+    ? Number(state.scores.activeGroupBattle)
+    : 1;
+  state.scores.groupBattles = state.scores.groupBattles || {};
+
+  const hasLegacyStats = Object.keys(state.scores.gameGroupStats || {}).length > 0;
+  if (!state.scores.groupBattles[1] && hasLegacyStats) {
+    state.scores.groupBattles[1] = normalizeGroupBattleRecord({
+      gameHigh: state.scores.gameHigh || 0,
+      gameClearedGroups: state.scores.gameClearedGroups || [],
+      gameGroupBest: state.scores.gameGroupBest || {},
+      gameGroupBestTime: state.scores.gameGroupBestTime || {},
+      gameGroupFinishOrder: state.scores.gameGroupFinishOrder || [],
+      gameGroupStats: state.scores.gameGroupStats || {}
+    });
+  }
+
+  GROUP_BATTLE_SETS.forEach(set => {
+    state.scores.groupBattles[set.id] = normalizeGroupBattleRecord(state.scores.groupBattles[set.id]);
+  });
+}
+
 const game = {
+  activeBattleId: 1,
   active: false,
   score: 0,
   hearts: GROUP_TEST_WRONG_CHANCES,
@@ -1200,17 +1276,35 @@ const game = {
     this.renderGroupMap();
   },
 
+  getActiveBattle() {
+    ensureGroupBattleState();
+    this.activeBattleId = Number(state.scores.activeGroupBattle) || 1;
+    return state.scores.groupBattles[this.activeBattleId];
+  },
+
+  getBattleConfig() {
+    return GROUP_BATTLE_SETS.find(set => set.id === this.activeBattleId) || GROUP_BATTLE_SETS[0];
+  },
+
+  setBattle(battleId) {
+    this.stop();
+    state.scores.activeGroupBattle = Number(battleId) || 1;
+    this.activeBattleId = state.scores.activeGroupBattle;
+    ensureGroupBattleState();
+    saveToLocalStorage();
+    this.renderGroupMap();
+  },
+
   getGroupStats(groupId) {
-    state.scores.gameGroupStats = state.scores.gameGroupStats || {};
+    const battle = this.getActiveBattle();
     const key = String(groupId);
-    state.scores.gameGroupStats[key] = state.scores.gameGroupStats[key] || {
+    battle.gameGroupStats[key] = battle.gameGroupStats[key] || {
       correct: 0,
       totalTime: 0,
       attempts: 0
     };
-    return state.scores.gameGroupStats[key];
+    return battle.gameGroupStats[key];
   },
-
   getGroupRankings() {
     return GAME_GROUPS
       .map(group => ({ group, stats: this.getGroupStats(group.id) }))
@@ -1231,6 +1325,19 @@ const game = {
     const grid = document.getElementById("boss-groups-grid");
     if (!grid) return;
 
+    this.getActiveBattle();
+    const config = this.getBattleConfig();
+    const title = document.getElementById("game-battle-title");
+    const desc = document.getElementById("game-battle-desc");
+    const summary = document.getElementById("battle-set-summary");
+    if (title) title.textContent = config.label;
+    if (desc) desc.textContent = `${config.desc}，每組可多次挑戰並累積同一場排名。`;
+    if (summary) summary.textContent = `目前顯示：${config.label}，排名只計算這一場團體戰。`;
+    GROUP_BATTLE_SETS.forEach(set => {
+      const btn = document.getElementById(`battle-set-${set.id}`);
+      if (btn) btn.classList.toggle("active", set.id === this.activeBattleId);
+    });
+
     grid.innerHTML = "";
     GAME_GROUPS.forEach(group => {
       const stats = this.getGroupStats(group.id);
@@ -1240,7 +1347,7 @@ const game = {
       card.className = `boss-group-card${stats.attempts > 0 ? " cleared" : ""}`;
       card.type = "button";
       card.onclick = () => this.start(group.id);
-      const stateText = rank > 0 ? `目前第 ${rank} 名` : "尚未挑戰";
+      const stateText = rank > 0 ? `${config.shortLabel}第 ${rank} 名` : `${config.shortLabel}尚未挑戰`;
       card.innerHTML = `
         <span class="boss-group-state">${stateText}</span>
         <span class="boss-group-icon"><i class="fa-solid ${group.icon}"></i></span>
@@ -1265,17 +1372,22 @@ const game = {
   },
 
   resetRace() {
-    if (!confirm("確定要重置六組累積排行嗎？答對題數、總時長與名次會重新開始。")) return;
-    state.scores.gameHigh = 0;
-    state.scores.gameClearedGroups = [];
-    state.scores.gameGroupBest = {};
-    state.scores.gameGroupBestTime = {};
-    state.scores.gameGroupFinishOrder = [];
-    state.scores.gameGroupStats = {};
+    this.getActiveBattle();
+    const config = this.getBattleConfig();
+    if (!confirm(`確定要重置${config.label}的六組累積排行嗎？答對題數、總時長與名次會重新開始。`)) return;
+    state.scores.groupBattles[this.activeBattleId] = createGroupBattleRecord();
+    if (this.activeBattleId === 1) {
+      state.scores.gameHigh = 0;
+      state.scores.gameClearedGroups = [];
+      state.scores.gameGroupBest = {};
+      state.scores.gameGroupBestTime = {};
+      state.scores.gameGroupFinishOrder = [];
+      state.scores.gameGroupStats = {};
+    }
     saveToLocalStorage();
+    updateDashboardStats();
     this.renderGroupMap();
   },
-  
   start(groupId = 1) {
     this.currentGroup = GAME_GROUPS.find(group => group.id === groupId) || GAME_GROUPS[0];
     this.groupQuestions = this.shuffle(this.getGroupQuestions(this.currentGroup.id));
@@ -1294,7 +1406,7 @@ const game = {
     document.getElementById("game-over").style.display = "none";
     document.getElementById("game-play").style.display = "block";
     
-    document.getElementById("game-group-label").textContent = `${this.currentGroup.title} · ${this.currentGroup.name}`;
+    document.getElementById("game-group-label").textContent = `${this.getBattleConfig().shortLabel} · ${this.currentGroup.title} · ${this.currentGroup.name}`;
     document.getElementById("game-boss-name").textContent = this.currentGroup.boss;
     this.updateHeartsUI();
     this.updateBattleStats();
@@ -1469,6 +1581,7 @@ const game = {
   end(cleared = false) {
     this.stop();
 
+    const battle = this.getActiveBattle();
     const stats = this.getGroupStats(this.currentGroup.id);
     stats.correct += this.correctCount;
     stats.totalTime += this.timeLeft;
@@ -1476,18 +1589,26 @@ const game = {
     stats.lastCorrect = this.correctCount;
     stats.lastTime = this.timeLeft;
 
-    if (stats.correct > state.scores.gameHigh) {
-      state.scores.gameHigh = stats.correct;
+    if (stats.correct > battle.gameHigh) {
+      battle.gameHigh = stats.correct;
     }
-    if (stats.correct > (state.scores.gameGroupBest[this.currentGroup.id] || 0)) {
-      state.scores.gameGroupBest[this.currentGroup.id] = stats.correct;
+    if (stats.correct > (battle.gameGroupBest[this.currentGroup.id] || 0)) {
+      battle.gameGroupBest[this.currentGroup.id] = stats.correct;
     }
-    state.scores.gameGroupBestTime[this.currentGroup.id] = stats.totalTime;
+    battle.gameGroupBestTime[this.currentGroup.id] = stats.totalTime;
 
-    if (!state.scores.gameClearedGroups.includes(this.currentGroup.id)) {
-      state.scores.gameClearedGroups.push(this.currentGroup.id);
+    if (!battle.gameClearedGroups.includes(this.currentGroup.id)) {
+      battle.gameClearedGroups.push(this.currentGroup.id);
     }
-    state.scores.gameGroupFinishOrder = this.getGroupRankings().map(entry => entry.group.id);
+    battle.gameGroupFinishOrder = this.getGroupRankings().map(entry => entry.group.id);
+    if (this.activeBattleId === 1) {
+      state.scores.gameHigh = battle.gameHigh;
+      state.scores.gameClearedGroups = battle.gameClearedGroups;
+      state.scores.gameGroupBest = battle.gameGroupBest;
+      state.scores.gameGroupBestTime = battle.gameGroupBestTime;
+      state.scores.gameGroupFinishOrder = battle.gameGroupFinishOrder;
+      state.scores.gameGroupStats = battle.gameGroupStats;
+    }
     saveToLocalStorage();
 
     document.getElementById("game-play").style.display = "none";
@@ -1498,9 +1619,9 @@ const game = {
     const rank = this.getGroupRank(this.currentGroup.id);
     const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `本次錯 ${this.wrongCount} 次`;
     if (cleared) {
-      summaryEl.textContent = `${this.currentGroup.title} 本次完成 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
+      summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} 本次完成 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
     } else {
-      summaryEl.textContent = `${this.currentGroup.title} 本次答對 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。已累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），目前排名第 ${rank} 名。`;
+      summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} 本次答對 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。已累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），目前排名第 ${rank} 名。`;
     }
   }
 };

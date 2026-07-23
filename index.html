@@ -374,13 +374,22 @@
             <div class="game-logo-large">
               <i class="fa-solid fa-dragon"></i>
             </div>
-            <h2>六組總複習PK</h2>
-            <p>六組分別進入分組挑戰，一組人數不限。每次隨機 10 題，系統會累積各組答對題數與總秒數，最後先比正確度，再比累積秒數。</p>
+            <h2 id="game-battle-title">第一次團體戰</h2>
+            <p id="game-battle-desc">六回總複習後的第一次分組PK，六組分別進入分組挑戰，一組人數不限。每次隨機 10 題，系統會累積各組答對題數與總秒數，最後先比正確度，再比累積秒數。</p>
             <div class="game-rules">
               <div><i class="fa-solid fa-people-group"></i> 每組人數不限，每次進入隨機挑戰 10 題。</div>
               <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時，累積總時長與秒數；正確越多越高，正確相同則秒數越少越高。</div>
               <div><i class="fa-solid fa-heart red-heart"></i> 總共 6 次錯誤機會，超過 6 次會結束本次挑戰，但答對題數與時間仍會累積。</div>
             </div>
+            <div class="battle-set-tabs" role="group" aria-label="團體戰場次">
+              <button class="battle-set-tab active" id="battle-set-1" type="button" onclick="game.setBattle(1)">
+                <i class="fa-solid fa-flag"></i> 第一次團體戰
+              </button>
+              <button class="battle-set-tab" id="battle-set-2" type="button" onclick="game.setBattle(2)">
+                <i class="fa-solid fa-flag-checkered"></i> 第二次團體戰
+              </button>
+            </div>
+            <div class="battle-set-summary" id="battle-set-summary">目前顯示：第一次團體戰，排名只計算這一場團體戰。</div>
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="game.resetRace()">
                 <i class="fa-solid fa-flag-checkered"></i> 重置PK紀錄
@@ -548,7 +557,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260724-round2-foodsound"></script>
-  <script src="script.js?v=20260724-round2-foodsound"></script>
+  <script src="data.js?v=20260724-group2"></script>
+  <script src="script.js?v=20260724-group2"></script>
 </body>
 </html>

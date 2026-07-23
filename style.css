@@ -1392,6 +1392,44 @@ button {
   gap: 1.2rem;
 }
 
+
+.battle-set-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.battle-set-tab {
+  min-height: 3rem;
+  border: 1px solid rgba(255, 222, 166, 0.28);
+  border-radius: 8px;
+  background: rgba(22, 20, 18, 0.7);
+  color: var(--text-secondary);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.battle-set-tab:hover,
+.battle-set-tab.active {
+  transform: translateY(-2px);
+  border-color: rgba(246, 184, 98, 0.75);
+  background: linear-gradient(135deg, rgba(246, 184, 98, 0.24), rgba(83, 189, 191, 0.18));
+  color: var(--text-primary);
+}
+
+.battle-set-summary {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 560px) {
+  .battle-set-tabs {
+    grid-template-columns: 1fr;
+  }
+}
 /* ==========================================================================
    除錯大作戰遊戲 (Game Mode) 樣式
    ========================================================================== */
