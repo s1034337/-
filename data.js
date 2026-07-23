@@ -1,7 +1,7 @@
 /**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
  * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
- * 共 100 題，分為六回，題數依序為 13、12、25、12、13、25 題。
+ * 共 101 題，分為六回，題數依序為 13、12、13、25、13、25 題。
  */
 
 const RAW_SHEET_DATA = [
@@ -332,6 +332,175 @@ const RAW_SHEET_DATA = [
     },
     {
         "round":  3,
+        "type":  "pronunciation",
+        "question":  "牛肉「燴」飯的讀音",
+        "answer":  "ㄏㄨㄟˋ",
+        "options":  [
+                        "ㄏㄨㄟˊ",
+                        "ㄎㄨㄟˋ",
+                        "ㄏㄨㄟ",
+                        "ㄏㄨㄟˋ"
+                    ],
+        "note":  "「牛肉「燴」飯的讀音」的正確答案是「ㄏㄨㄟˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「餛」飩湯的讀音",
+        "answer":  "ㄏㄨㄣˊ",
+        "options":  [
+                        "ㄏㄨㄣ",
+                        "ㄏㄨㄥˊ",
+                        "ㄏㄨㄣˊ",
+                        "ㄏㄨㄣˋ"
+                    ],
+        "note":  "「「餛」飩湯的讀音」的正確答案是「ㄏㄨㄣˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「咖」哩飯的讀音",
+        "answer":  "ㄎㄚ",
+        "options":  [
+                        "ㄎㄚˇ",
+                        "ㄎㄚ",
+                        "ㄐㄧㄚ",
+                        "ㄍㄚ"
+                    ],
+        "note":  "「「咖」哩飯的讀音」的正確答案是「ㄎㄚ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「蚵」仔煎的讀音",
+        "answer":  "ㄜˊ",
+        "options":  [
+                        "ㄜˊ",
+                        "ㄎㄜ",
+                        "ㄜˋ",
+                        "ㄏㄜˊ"
+                    ],
+        "note":  "「「蚵」仔煎的讀音」的正確答案是「ㄜˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "綜「合」果汁的讀音",
+        "answer":  "ㄏㄜˊ",
+        "options":  [
+                        "ㄍㄜˊ",
+                        "ㄏㄜˋ",
+                        "ㄜˊ",
+                        "ㄏㄜˊ"
+                    ],
+        "note":  "「綜「合」果汁的讀音」的正確答案是「ㄏㄜˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「涮」羊肉的讀音",
+        "answer":  "ㄕㄨㄚ",
+        "options":  [
+                        "ㄕㄨㄚˋ",
+                        "ㄙㄨㄚ",
+                        "ㄕㄨㄚ",
+                        "ㄕㄨㄢˋ"
+                    ],
+        "note":  "「「涮」羊肉的讀音」的正確答案是「ㄕㄨㄚ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「炸」醬麵的讀音",
+        "answer":  "ㄓㄚˋ",
+        "options":  [
+                        "ㄗㄚˋ",
+                        "ㄓㄚˋ",
+                        "ㄓㄚˊ",
+                        "ㄓㄚ"
+                    ],
+        "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "肉「燉」飯的讀音",
+        "answer":  "ㄉㄨㄣˋ",
+        "options":  [
+                        "ㄉㄨㄣˋ",
+                        "ㄉㄨㄣ",
+                        "ㄊㄨㄣˊ",
+                        "ㄉㄨㄢˋ"
+                    ],
+        "note":  "「肉「燉」飯的讀音」的正確答案是「ㄉㄨㄣˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「什」錦炒麵的讀音",
+        "answer":  "ㄕˊ",
+        "options":  [
+                        "ㄕ",
+                        "ㄕˋ",
+                        "ㄙˊ",
+                        "ㄕˊ"
+                    ],
+        "note":  "「「什」錦炒麵的讀音」的正確答案是「ㄕˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「蛤」蜊濃湯的讀音",
+        "answer":  "ㄍㄚ",
+        "options":  [
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ",
+                        "ㄍㄚ",
+                        "ㄅㄚ"
+                    ],
+        "note":  "「「蛤」蜊濃湯的讀音」的正確答案是「ㄍㄚ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "勾「芡」料理的讀音",
+        "answer":  "ㄑㄧㄢˋ",
+        "options":  [
+                        "ㄑㄧㄥˋ",
+                        "ㄑㄧㄢˋ",
+                        "ㄑㄧㄢ",
+                        "ㄒㄧㄢˋ"
+                    ],
+        "note":  "「勾「芡」料理的讀音」的正確答案是「ㄑㄧㄢˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「汆」燙肉片的讀音",
+        "answer":  "ㄘㄨㄢ",
+        "options":  [
+                        "ㄘㄨㄢ",
+                        "ㄔㄨㄢ",
+                        "ㄘㄨㄢˋ",
+                        "ㄙㄨㄢ"
+                    ],
+        "note":  "「「汆」燙肉片的讀音」的正確答案是「ㄘㄨㄢ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "味「噌」湯的讀音",
+        "answer":  "ㄇㄧˋ",
+        "options":  [
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ",
+                        "ㄇㄧˋ"
+                    ],
+        "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
+    },
+    {
+        "round":  4,
         "type":  "meaning",
         "question":  "「使」性子的字義",
         "answer":  "放縱、放任",
@@ -344,7 +513,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「使」性子的字義」的正確字義是「放縱、放任」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「使」功不如使過的字義",
         "answer":  "派用、任用",
@@ -357,7 +526,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「使」功不如使過的字義」的正確字義是「派用、任用」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "長「使」英雄淚滿襟的字義",
         "answer":  "讓、以致於",
@@ -370,7 +539,7 @@ const RAW_SHEET_DATA = [
         "note":  "「長「使」英雄淚滿襟的字義」的正確字義是「讓、以致於」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "晏子「使」楚的字義",
         "answer":  "出使",
@@ -383,7 +552,7 @@ const RAW_SHEET_DATA = [
         "note":  "「晏子「使」楚的字義」的正確字義是「出使」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "綠衣「使」者的字義",
         "answer":  "奉命到外國執行任務或留駐的人員",
@@ -396,7 +565,7 @@ const RAW_SHEET_DATA = [
         "note":  "「綠衣「使」者的字義」的正確字義是「奉命到外國執行任務或留駐的人員」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「物」色人選的字義",
         "answer":  "尋找",
@@ -409,7 +578,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「物」色人選的字義」的正確字義是「尋找」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "言之有「物」的字義",
         "answer":  "內容",
@@ -422,7 +591,7 @@ const RAW_SHEET_DATA = [
         "note":  "「言之有「物」的字義」的正確字義是「內容」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「物」外之趣的字義",
         "answer":  "物體",
@@ -435,7 +604,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「物」外之趣的字義」的正確字義是「物體」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "待人接「物」的字義",
         "answer":  "人、事、境界",
@@ -448,7 +617,7 @@ const RAW_SHEET_DATA = [
         "note":  "「待人接「物」的字義」的正確字義是「人、事、境界」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「鼓」動翅膀的字義",
         "answer":  "振動",
@@ -461,7 +630,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」動翅膀的字義」的正確字義是「振動」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「鼓」著腮幫子的字義",
         "answer":  "漲起",
@@ -474,7 +643,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」著腮幫子的字義」的正確字義是「漲起」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「鼓」起勇氣的字義",
         "answer":  "振作、激勵",
@@ -487,7 +656,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」起勇氣的字義」的正確字義是「振作、激勵」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "敲鑼打「鼓」的字義",
         "answer":  "樂器名",
@@ -500,7 +669,7 @@ const RAW_SHEET_DATA = [
         "note":  "「敲鑼打「鼓」的字義」的正確字義是「樂器名」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「事」之以禮的字義",
         "answer":  "侍奉",
@@ -513,7 +682,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「事」之以禮的字義」的正確字義是「侍奉」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "人「事」全非的字義",
         "answer":  "人類所作所為",
@@ -526,7 +695,7 @@ const RAW_SHEET_DATA = [
         "note":  "「人「事」全非的字義」的正確字義是「人類所作所為」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "多「事」之秋的字義",
         "answer":  "變故",
@@ -539,7 +708,7 @@ const RAW_SHEET_DATA = [
         "note":  "「多「事」之秋的字義」的正確字義是「變故」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "無所「事」事的字義",
         "answer":  "從事",
@@ -552,7 +721,7 @@ const RAW_SHEET_DATA = [
         "note":  "「無所「事」事的字義」的正確字義是「從事」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「盡」力而為的字義",
         "answer":  "全部取出",
@@ -565,7 +734,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「盡」力而為的字義」的正確字義是「全部取出」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "不「盡」相同的字義",
         "answer":  "全部、都",
@@ -578,7 +747,7 @@ const RAW_SHEET_DATA = [
         "note":  "「不「盡」相同的字義」的正確字義是「全部、都」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "取之不「盡」的字義",
         "answer":  "完結、終止",
@@ -591,7 +760,7 @@ const RAW_SHEET_DATA = [
         "note":  "「取之不「盡」的字義」的正確字義是「完結、終止」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "孤帆遠影碧山「盡」的字義",
         "answer":  "隱沒",
@@ -604,7 +773,7 @@ const RAW_SHEET_DATA = [
         "note":  "「孤帆遠影碧山「盡」的字義」的正確字義是「隱沒」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "「衝」鋒陷陣的字義",
         "answer":  "突擊",
@@ -617,7 +786,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「衝」鋒陷陣的字義」的正確字義是「突擊」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "橫「衝」直撞的字義",
         "answer":  "急速前進",
@@ -630,7 +799,7 @@ const RAW_SHEET_DATA = [
         "note":  "「橫「衝」直撞的字義」的正確字義是「急速前進」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "怒髮「衝」冠的字義",
         "answer":  "直著向上頂",
@@ -643,7 +812,7 @@ const RAW_SHEET_DATA = [
         "note":  "「怒髮「衝」冠的字義」的正確字義是「直著向上頂」。"
     },
     {
-        "round":  3,
+        "round":  4,
         "type":  "meaning",
         "question":  "道路要「衝」的字義",
         "answer":  "交通要道",
@@ -654,162 +823,6 @@ const RAW_SHEET_DATA = [
                         "直著向上頂"
                     ],
         "note":  "「道路要「衝」的字義」的正確字義是「交通要道」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "牛肉「煲」湯的讀音",
-        "answer":  "ㄅㄠ",
-        "options":  [
-                        "ㄅㄠˋ",
-                        "ㄆㄠ",
-                        "ㄅㄠ",
-                        "ㄅㄠˇ"
-                    ],
-        "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "元「盅」雞湯的讀音",
-        "answer":  "ㄓㄨㄥ",
-        "options":  [
-                        "ㄓㄨㄥˊ",
-                        "ㄓㄨㄥ",
-                        "ㄓㄨㄥˋ",
-                        "ㄔㄨㄥ"
-                    ],
-        "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "菜「脯」蛋的讀音",
-        "answer":  "ㄆㄨˇ",
-        "options":  [
-                        "ㄆㄨˇ",
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ",
-                        "ㄉㄨˋ"
-                    ],
-        "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "「莧」菜小魚的讀音",
-        "answer":  "ㄒㄧㄢˋ",
-        "options":  [
-                        "ㄒㄧㄢ",
-                        "ㄐㄧㄢˋ",
-                        "ㄒㄧㄢˊ",
-                        "ㄒㄧㄢˋ"
-                    ],
-        "note":  "「莧菜」的「莧」讀作「ㄒㄧㄢˋ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "金「桔」檸檬的讀音",
-        "answer":  "ㄐㄩˊ",
-        "options":  [
-                        "ㄐㄧㄝˊ",
-                        "ㄐㄧˊ",
-                        "ㄐㄩˊ",
-                        "ㄐㄧˇ"
-                    ],
-        "note":  "「金桔」的「桔」同「橘」，讀作「ㄐㄩˊ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "豬「肚」湯的讀音",
-        "answer":  "ㄉㄨˇ",
-        "options":  [
-                        "ㄉㄨ",
-                        "ㄉㄨˇ",
-                        "ㄉㄨˋ",
-                        "ㄊㄨˇ"
-                    ],
-        "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "新港「飴」的讀音",
-        "answer":  "ㄧˊ",
-        "options":  [
-                        "ㄧˊ",
-                        "ㄧˋ",
-                        "ㄊㄞˊ",
-                        "ㄧˇ"
-                    ],
-        "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "草「仔」粿的讀音",
-        "answer":  "ㄗˇ",
-        "options":  [
-                        "ㄗㄞˇ",
-                        "ㄗ",
-                        "ㄐㄧˇ",
-                        "ㄗˇ"
-                    ],
-        "note":  "「草「仔」粿的讀音」的正確答案是「ㄗˇ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "紅燒蹄「膀」的讀音",
-        "answer":  "ㄅㄤˇ",
-        "options":  [
-                        "ㄆㄤˊ",
-                        "ㄅㄤ",
-                        "ㄅㄤˇ",
-                        "ㄅㄤˋ"
-                    ],
-        "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "鼎邊「趖」的讀音",
-        "answer":  "ㄙㄨㄛ",
-        "options":  [
-                        "ㄉㄨˋ",
-                        "ㄙㄨㄛ",
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ"
-                    ],
-        "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "「菲」力牛排的讀音",
-        "answer":  "ㄈㄟ",
-        "options":  [
-                        "ㄈㄟˊ",
-                        "ㄈㄟ",
-                        "ㄆㄟˊ",
-                        "ㄈㄟˇ"
-                    ],
-        "note":  "「菲力牛排」的「菲」讀作「ㄈㄟ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "「煨」牛肉的讀音",
-        "answer":  "ㄨㄟ",
-        "options":  [
-                        "ㄨㄟˋ",
-                        "ㄨㄟˊ",
-                        "ㄨㄟˇ",
-                        "ㄨㄟ"
-                    ],
-        "note":  "「「煨」牛肉的讀音」的正確答案是「ㄨㄟ」。"
     },
     {
         "round":  5,
@@ -1320,12 +1333,12 @@ const REVIEW_DATA = [
     },
     {
         "round":  3,
-        "title":  "第三回：使物鼓事盡衝",
+        "title":  "第三回：自然景觀",
         "subtitle":  "第 3 回複習"
     },
     {
         "round":  4,
-        "title":  "第四回：蟲蟲危機",
+        "title":  "第四回：使物鼓事盡衝",
         "subtitle":  "第 4 回複習"
     },
     {
