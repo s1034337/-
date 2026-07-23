@@ -541,7 +541,7 @@ const RAW_SHEET_DATA = [
     {
         "round":  4,
         "type":  "pronunciation",
-        "question":  "莧「菜」小魚的讀音",
+        "question":  "「莧」菜小魚的讀音",
         "answer":  "ㄒㄧㄢˋ",
         "options":  [
                         "ㄒㄧㄢ",
@@ -549,20 +549,20 @@ const RAW_SHEET_DATA = [
                         "ㄒㄧㄢˊ",
                         "ㄒㄧㄢˋ"
                     ],
-        "note":  "「莧「菜」小魚的讀音」的正確答案是「ㄒㄧㄢˋ」。"
+        "note":  "「莧菜」的「莧」讀作「ㄒㄧㄢˋ」。"
     },
     {
         "round":  4,
         "type":  "pronunciation",
         "question":  "金「桔」檸檬的讀音",
-        "answer":  "ㄐㄧˊ",
+        "answer":  "ㄐㄩˊ",
         "options":  [
                         "ㄐㄧㄝˊ",
-                        "ㄐㄧˇ",
                         "ㄐㄧˊ",
-                        "ㄐㄧ"
+                        "ㄐㄩˊ",
+                        "ㄐㄧˇ"
                     ],
-        "note":  "「金「桔」檸檬的讀音」的正確答案是「ㄐㄧˊ」。"
+        "note":  "「金桔」的「桔」同「橘」，讀作「ㄐㄩˊ」。"
     },
     {
         "round":  4,
@@ -632,15 +632,15 @@ const RAW_SHEET_DATA = [
     {
         "round":  4,
         "type":  "pronunciation",
-        "question":  "「腓」力牛排的讀音",
-        "answer":  "ㄈㄟˊ",
+        "question":  "「菲」力牛排的讀音",
+        "answer":  "ㄈㄟ",
         "options":  [
                         "ㄈㄟˊ",
                         "ㄈㄟ",
                         "ㄆㄟˊ",
                         "ㄈㄟˇ"
                     ],
-        "note":  "「「腓」力牛排的讀音」的正確答案是「ㄈㄟˊ」。"
+        "note":  "「菲力牛排」的「菲」讀作「ㄈㄟ」。"
     },
     {
         "round":  4,
@@ -766,11 +766,11 @@ const RAW_SHEET_DATA = [
         "answer":  "穹",
         "options":  [
                         "芎",
-                        "選4",
+                        "弓",
                         "穹",
                         "窮"
                     ],
-        "note":  "「廣闊蒼「ㄑㄩㄥ」」的正確答案是「穹」。"
+        "note":  "「蒼穹」的正確寫法是「穹」。"
     },
     {
         "round":  5,
@@ -892,7 +892,7 @@ const RAW_SHEET_DATA = [
     {
         "round":  6,
         "type":  "shape",
-        "question":  "驚「ㄊㄠˊ」駭浪",
+        "question":  "驚「ㄊㄠ」駭浪",
         "answer":  "濤",
         "options":  [
                         "濤",
@@ -900,7 +900,7 @@ const RAW_SHEET_DATA = [
                         "淘",
                         "掏"
                     ],
-        "note":  "「驚「ㄊㄠˊ」駭浪」的正確答案是「濤」。"
+        "note":  "「驚濤駭浪」的正確寫法是「濤」。"
     },
     {
         "round":  6,
@@ -931,15 +931,15 @@ const RAW_SHEET_DATA = [
     {
         "round":  6,
         "type":  "shape",
-        "question":  "未雨綢「ㄇㄧㄡˋ」",
+        "question":  "未雨綢「ㄇㄡˊ」",
         "answer":  "繆",
         "options":  [
-                        "膠",
+                        "謀",
                         "繆",
-                        "謬",
-                        "廖"
+                        "牟",
+                        "眸"
                     ],
-        "note":  "「未雨綢「ㄇㄧㄡˋ」」的正確答案是「繆」。"
+        "note":  "「未雨綢繆」的正確寫法是「繆」，此處讀作「ㄇㄡˊ」。"
     },
     {
         "round":  6,
@@ -1017,6 +1017,7 @@ const REVIEW_DATA = [
 
 // 舊版除錯大作戰保留名稱；目前六組打怪模式直接使用 RAW_SHEET_DATA。
 const GAME_WORDS_DATABASE = [];
+
 
 
 
