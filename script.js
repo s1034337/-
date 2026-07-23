@@ -66,7 +66,7 @@ const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
 const PERSONAL_QUIZ_QUESTION_COUNT = 25;
 const ROUND_COUNT = REVIEW_DATA.length;
-const OPEN_ROUNDS_COUNT = 4;
+const OPEN_ROUNDS_COUNT = 6;
 
 function getRoundTotal(roundNum) {
   return RAW_SHEET_DATA.filter(item => item.round === roundNum).length;
