@@ -1,7 +1,7 @@
 /**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
  * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
- * 共 101 題，分為六回，題數依序為 13、12、13、25、13、25 題。
+ * 共 100 題，分為六回，題數依序為 13、12、13、12、25、25 題。
  */
 
 const RAW_SHEET_DATA = [
@@ -501,6 +501,162 @@ const RAW_SHEET_DATA = [
     },
     {
         "round":  4,
+        "type":  "pronunciation",
+        "question":  "牛肉「煲」湯的讀音",
+        "answer":  "ㄅㄠ",
+        "options":  [
+                        "ㄅㄠˋ",
+                        "ㄆㄠ",
+                        "ㄅㄠ",
+                        "ㄅㄠˇ"
+                    ],
+        "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "元「盅」雞湯的讀音",
+        "answer":  "ㄓㄨㄥ",
+        "options":  [
+                        "ㄓㄨㄥˊ",
+                        "ㄓㄨㄥ",
+                        "ㄓㄨㄥˋ",
+                        "ㄔㄨㄥ"
+                    ],
+        "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "菜「脯」蛋的讀音",
+        "answer":  "ㄆㄨˇ",
+        "options":  [
+                        "ㄆㄨˇ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ"
+                    ],
+        "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "「莧」菜小魚的讀音",
+        "answer":  "ㄒㄧㄢˋ",
+        "options":  [
+                        "ㄒㄧㄢ",
+                        "ㄐㄧㄢˋ",
+                        "ㄒㄧㄢˊ",
+                        "ㄒㄧㄢˋ"
+                    ],
+        "note":  "「莧菜」的「莧」讀作「ㄒㄧㄢˋ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "金「桔」檸檬的讀音",
+        "answer":  "ㄐㄩˊ",
+        "options":  [
+                        "ㄐㄧㄝˊ",
+                        "ㄐㄧˊ",
+                        "ㄐㄩˊ",
+                        "ㄐㄧˇ"
+                    ],
+        "note":  "「金桔」的「桔」同「橘」，讀作「ㄐㄩˊ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "豬「肚」湯的讀音",
+        "answer":  "ㄉㄨˇ",
+        "options":  [
+                        "ㄉㄨ",
+                        "ㄉㄨˇ",
+                        "ㄉㄨˋ",
+                        "ㄊㄨˇ"
+                    ],
+        "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "新港「飴」的讀音",
+        "answer":  "ㄧˊ",
+        "options":  [
+                        "ㄧˊ",
+                        "ㄧˋ",
+                        "ㄊㄞˊ",
+                        "ㄧˇ"
+                    ],
+        "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "草「仔」粿的讀音",
+        "answer":  "ㄗˇ",
+        "options":  [
+                        "ㄗㄞˇ",
+                        "ㄗ",
+                        "ㄐㄧˇ",
+                        "ㄗˇ"
+                    ],
+        "note":  "「草「仔」粿的讀音」的正確答案是「ㄗˇ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "紅燒蹄「膀」的讀音",
+        "answer":  "ㄅㄤˇ",
+        "options":  [
+                        "ㄆㄤˊ",
+                        "ㄅㄤ",
+                        "ㄅㄤˇ",
+                        "ㄅㄤˋ"
+                    ],
+        "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "鼎邊「趖」的讀音",
+        "answer":  "ㄙㄨㄛ",
+        "options":  [
+                        "ㄉㄨˋ",
+                        "ㄙㄨㄛ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ"
+                    ],
+        "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "「菲」力牛排的讀音",
+        "answer":  "ㄈㄟ",
+        "options":  [
+                        "ㄈㄟˊ",
+                        "ㄈㄟ",
+                        "ㄆㄟˊ",
+                        "ㄈㄟˇ"
+                    ],
+        "note":  "「菲力牛排」的「菲」讀作「ㄈㄟ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "「煨」牛肉的讀音",
+        "answer":  "ㄨㄟ",
+        "options":  [
+                        "ㄨㄟˋ",
+                        "ㄨㄟˊ",
+                        "ㄨㄟˇ",
+                        "ㄨㄟ"
+                    ],
+        "note":  "「「煨」牛肉的讀音」的正確答案是「ㄨㄟ」。"
+    },
+    {
+        "round":  5,
         "type":  "meaning",
         "question":  "「使」性子的字義",
         "answer":  "放縱、放任",
@@ -513,7 +669,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「使」性子的字義」的正確字義是「放縱、放任」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「使」功不如使過的字義",
         "answer":  "派用、任用",
@@ -526,7 +682,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「使」功不如使過的字義」的正確字義是「派用、任用」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "長「使」英雄淚滿襟的字義",
         "answer":  "讓、以致於",
@@ -539,7 +695,7 @@ const RAW_SHEET_DATA = [
         "note":  "「長「使」英雄淚滿襟的字義」的正確字義是「讓、以致於」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "晏子「使」楚的字義",
         "answer":  "出使",
@@ -552,7 +708,7 @@ const RAW_SHEET_DATA = [
         "note":  "「晏子「使」楚的字義」的正確字義是「出使」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "綠衣「使」者的字義",
         "answer":  "奉命到外國執行任務或留駐的人員",
@@ -565,7 +721,7 @@ const RAW_SHEET_DATA = [
         "note":  "「綠衣「使」者的字義」的正確字義是「奉命到外國執行任務或留駐的人員」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「物」色人選的字義",
         "answer":  "尋找",
@@ -578,7 +734,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「物」色人選的字義」的正確字義是「尋找」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "言之有「物」的字義",
         "answer":  "內容",
@@ -591,7 +747,7 @@ const RAW_SHEET_DATA = [
         "note":  "「言之有「物」的字義」的正確字義是「內容」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「物」外之趣的字義",
         "answer":  "物體",
@@ -604,7 +760,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「物」外之趣的字義」的正確字義是「物體」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "待人接「物」的字義",
         "answer":  "人、事、境界",
@@ -617,7 +773,7 @@ const RAW_SHEET_DATA = [
         "note":  "「待人接「物」的字義」的正確字義是「人、事、境界」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「鼓」動翅膀的字義",
         "answer":  "振動",
@@ -630,7 +786,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」動翅膀的字義」的正確字義是「振動」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「鼓」著腮幫子的字義",
         "answer":  "漲起",
@@ -643,7 +799,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」著腮幫子的字義」的正確字義是「漲起」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「鼓」起勇氣的字義",
         "answer":  "振作、激勵",
@@ -656,7 +812,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「鼓」起勇氣的字義」的正確字義是「振作、激勵」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "敲鑼打「鼓」的字義",
         "answer":  "樂器名",
@@ -669,7 +825,7 @@ const RAW_SHEET_DATA = [
         "note":  "「敲鑼打「鼓」的字義」的正確字義是「樂器名」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「事」之以禮的字義",
         "answer":  "侍奉",
@@ -682,7 +838,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「事」之以禮的字義」的正確字義是「侍奉」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "人「事」全非的字義",
         "answer":  "人類所作所為",
@@ -695,7 +851,7 @@ const RAW_SHEET_DATA = [
         "note":  "「人「事」全非的字義」的正確字義是「人類所作所為」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "多「事」之秋的字義",
         "answer":  "變故",
@@ -708,7 +864,7 @@ const RAW_SHEET_DATA = [
         "note":  "「多「事」之秋的字義」的正確字義是「變故」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "無所「事」事的字義",
         "answer":  "從事",
@@ -721,7 +877,7 @@ const RAW_SHEET_DATA = [
         "note":  "「無所「事」事的字義」的正確字義是「從事」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「盡」力而為的字義",
         "answer":  "全部取出",
@@ -734,7 +890,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「盡」力而為的字義」的正確字義是「全部取出」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "不「盡」相同的字義",
         "answer":  "全部、都",
@@ -747,7 +903,7 @@ const RAW_SHEET_DATA = [
         "note":  "「不「盡」相同的字義」的正確字義是「全部、都」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "取之不「盡」的字義",
         "answer":  "完結、終止",
@@ -760,7 +916,7 @@ const RAW_SHEET_DATA = [
         "note":  "「取之不「盡」的字義」的正確字義是「完結、終止」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "孤帆遠影碧山「盡」的字義",
         "answer":  "隱沒",
@@ -773,7 +929,7 @@ const RAW_SHEET_DATA = [
         "note":  "「孤帆遠影碧山「盡」的字義」的正確字義是「隱沒」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "「衝」鋒陷陣的字義",
         "answer":  "突擊",
@@ -786,7 +942,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「衝」鋒陷陣的字義」的正確字義是「突擊」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "橫「衝」直撞的字義",
         "answer":  "急速前進",
@@ -799,7 +955,7 @@ const RAW_SHEET_DATA = [
         "note":  "「橫「衝」直撞的字義」的正確字義是「急速前進」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "怒髮「衝」冠的字義",
         "answer":  "直著向上頂",
@@ -812,7 +968,7 @@ const RAW_SHEET_DATA = [
         "note":  "「怒髮「衝」冠的字義」的正確字義是「直著向上頂」。"
     },
     {
-        "round":  4,
+        "round":  5,
         "type":  "meaning",
         "question":  "道路要「衝」的字義",
         "answer":  "交通要道",
@@ -823,175 +979,6 @@ const RAW_SHEET_DATA = [
                         "直著向上頂"
                     ],
         "note":  "「道路要「衝」的字義」的正確字義是「交通要道」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "水池乾「ㄏㄜˊ」",
-        "answer":  "涸",
-        "options":  [
-                        "固",
-                        "沽",
-                        "涸",
-                        "錮"
-                    ],
-        "note":  "「水池乾「ㄏㄜˊ」」的正確答案是「涸」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "「ㄔˋ」吒風雲",
-        "answer":  "叱",
-        "options":  [
-                        "吒",
-                        "叱",
-                        "吃",
-                        "斥"
-                    ],
-        "note":  "「「ㄔˋ」吒風雲」的正確答案是「叱」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "「ㄏㄤˋ」瀣一氣",
-        "answer":  "沆",
-        "options":  [
-                        "沆",
-                        "航",
-                        "杭",
-                        "抗"
-                    ],
-        "note":  "「「ㄏㄤˋ」瀣一氣」的正確答案是「沆」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "「ㄐㄧㄥ」渭分明",
-        "answer":  "涇",
-        "options":  [
-                        "徑",
-                        "經",
-                        "莖",
-                        "涇"
-                    ],
-        "note":  "「「ㄐㄧㄥ」渭分明」的正確答案是「涇」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "正值「ㄕㄤˇ」午",
-        "answer":  "晌",
-        "options":  [
-                        "響",
-                        "晃",
-                        "晌",
-                        "餉"
-                    ],
-        "note":  "「正值「ㄕㄤˇ」午」的正確答案是「晌」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "寒「ㄒㄩㄢ」問候",
-        "answer":  "暄",
-        "options":  [
-                        "煊",
-                        "暄",
-                        "喧",
-                        "宣"
-                    ],
-        "note":  "「寒「ㄒㄩㄢ」問候」的正確答案是「暄」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "落日餘「ㄒㄧ」",
-        "answer":  "晞",
-        "options":  [
-                        "晞",
-                        "希",
-                        "稀",
-                        "烯"
-                    ],
-        "note":  "「落日餘「ㄒㄧ」」的正確答案是「晞」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "颯「ㄙㄚˋ」風響",
-        "answer":  "颯",
-        "options":  [
-                        "薩",
-                        "灑",
-                        "煞",
-                        "颯"
-                    ],
-        "note":  "「颯「ㄙㄚˋ」風響」的正確答案是「颯」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "廣闊蒼「ㄑㄩㄥ」",
-        "answer":  "穹",
-        "options":  [
-                        "芎",
-                        "弓",
-                        "穹",
-                        "窮"
-                    ],
-        "note":  "「蒼穹」的正確寫法是「穹」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "「ㄕㄨˇ」光乍現",
-        "answer":  "曙",
-        "options":  [
-                        "薯",
-                        "曙",
-                        "暑",
-                        "署"
-                    ],
-        "note":  "「「ㄕㄨˇ」光乍現」的正確答案是「曙」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "冬溫夏「ㄑㄧㄥˋ」",
-        "answer":  "凊",
-        "options":  [
-                        "凊",
-                        "清",
-                        "晴",
-                        "情"
-                    ],
-        "note":  "「冬溫夏「ㄑㄧㄥˋ」」的正確答案是「凊」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "夜觀星「ㄒㄧㄡˋ」",
-        "answer":  "宿",
-        "options":  [
-                        "秀",
-                        "袖",
-                        "繡",
-                        "宿"
-                    ],
-        "note":  "「夜觀星「ㄒㄧㄡˋ」」的正確答案是「宿」。"
-    },
-    {
-        "round":  5,
-        "type":  "shape",
-        "question":  "「ㄙㄨㄥ」山少林",
-        "answer":  "嵩",
-        "options":  [
-                        "松",
-                        "崧",
-                        "嵩",
-                        "聳"
-                    ],
-        "note":  "「「ㄙㄨㄥ」山少林」的正確答案是「嵩」。"
     },
     {
         "round":  6,
@@ -1338,12 +1325,12 @@ const REVIEW_DATA = [
     },
     {
         "round":  4,
-        "title":  "第四回：使物鼓事盡衝",
+        "title":  "第四回：蟲蟲危機",
         "subtitle":  "第 4 回複習"
     },
     {
         "round":  5,
-        "title":  "第五回：萬物字形上",
+        "title":  "第五回：使物鼓事盡衝",
         "subtitle":  "第 5 回複習"
     },
     {
