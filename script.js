@@ -30,7 +30,8 @@ const state = {
     gameClearedGroups: [],
     gameGroupBest: {},
     gameGroupBestTime: {},
-    gameGroupFinishOrder: []
+    gameGroupFinishOrder: [],
+    gameGroupStats: {}
   },
   
   // 當前進行中的狀態
@@ -143,6 +144,11 @@ function applyPreviewMode() {
     1: 421
   };
   state.scores.gameGroupFinishOrder = [2, 5, 1];
+  state.scores.gameGroupStats = {
+    1: { correct: 58, totalTime: 421, attempts: 1 },
+    2: { correct: 75, totalTime: 760, attempts: 2 },
+    5: { correct: 75, totalTime: 720, attempts: 2 }
+  };
 }
 
 function loadFromLocalStorage() {
@@ -173,6 +179,7 @@ function loadFromLocalStorage() {
       state.scores.gameGroupBest = state.scores.gameGroupBest || {};
       state.scores.gameGroupBestTime = state.scores.gameGroupBestTime || {};
       state.scores.gameGroupFinishOrder = state.scores.gameGroupFinishOrder || [];
+      state.scores.gameGroupStats = state.scores.gameGroupStats || {};
       ensureRoundState();
     } catch (e) {
       console.error("解析分數數據失敗", e);
@@ -263,8 +270,11 @@ function updateDashboardStats() {
   const bestScore = Math.max(...scores, 0);
   document.getElementById("stat-best-score").textContent = bestScore > 0 ? `${bestScore}分` : "無";
 
-  const gameHigh = state.scores.gameHigh;
-  document.getElementById("stat-game-score").textContent = gameHigh > 0 ? `${gameHigh}分` : "無";
+  const groupStats = Object.values(state.scores.gameGroupStats || {});
+  const statsHigh = groupStats.reduce((max, stats) => Math.max(max, stats.correct || 0), 0);
+  const legacyHigh = state.scores.gameHigh <= RAW_SHEET_DATA.length ? state.scores.gameHigh : 0;
+  const gameHigh = Math.max(statsHigh, legacyHigh);
+  document.getElementById("stat-game-score").textContent = gameHigh > 0 ? `${gameHigh}題` : "無";
 }
 function setRoundLockState(roundNum, isLocked) {
   const card = document.getElementById(`card-round-${roundNum}`);
@@ -1030,6 +1040,7 @@ const game = {
   currentQuestion: null,
   groupQuestions: [],
   questionIndex: 0,
+  correctCount: 0,
   wrongCount: 0,
   monsterHp: 500,
   monsterMaxHp: 500,
@@ -1042,35 +1053,60 @@ const game = {
     this.renderGroupMap();
   },
 
+  getGroupStats(groupId) {
+    state.scores.gameGroupStats = state.scores.gameGroupStats || {};
+    const key = String(groupId);
+    state.scores.gameGroupStats[key] = state.scores.gameGroupStats[key] || {
+      correct: 0,
+      totalTime: 0,
+      attempts: 0
+    };
+    return state.scores.gameGroupStats[key];
+  },
+
+  getGroupRankings() {
+    return GAME_GROUPS
+      .map(group => ({ group, stats: this.getGroupStats(group.id) }))
+      .filter(entry => entry.stats.attempts > 0)
+      .sort((a, b) => {
+        if (b.stats.correct !== a.stats.correct) return b.stats.correct - a.stats.correct;
+        if (b.stats.totalTime !== a.stats.totalTime) return b.stats.totalTime - a.stats.totalTime;
+        return a.group.id - b.group.id;
+      });
+  },
+
+  getGroupRank(groupId) {
+    const rankings = this.getGroupRankings();
+    const index = rankings.findIndex(entry => entry.group.id === groupId);
+    return index >= 0 ? index + 1 : 0;
+  },
   renderGroupMap() {
     const grid = document.getElementById("boss-groups-grid");
     if (!grid) return;
 
     grid.innerHTML = "";
     GAME_GROUPS.forEach(group => {
-      const cleared = state.scores.gameClearedGroups.includes(group.id);
-      const best = state.scores.gameGroupBest[group.id] || 0;
-      const bestTime = state.scores.gameGroupBestTime[group.id];
-      const rank = state.scores.gameGroupFinishOrder.indexOf(group.id) + 1;
+      const stats = this.getGroupStats(group.id);
+      const rank = this.getGroupRank(group.id);
       const count = this.getGroupQuestions(group.id).length;
       const card = document.createElement("button");
-      card.className = `boss-group-card${cleared ? " cleared" : ""}`;
+      card.className = `boss-group-card${stats.attempts > 0 ? " cleared" : ""}`;
       card.type = "button";
       card.onclick = () => this.start(group.id);
-      const stateText = cleared ? (rank > 0 ? `第 ${rank} 名完成` : "已完成") : "待挑戰";
+      const stateText = rank > 0 ? `目前第 ${rank} 名` : "尚未挑戰";
       card.innerHTML = `
         <span class="boss-group-state">${stateText}</span>
         <span class="boss-group-icon"><i class="fa-solid ${group.icon}"></i></span>
         <span class="boss-group-title">${group.title}</span>
         <strong>${group.name}</strong>
         <span class="boss-name"><i class="fa-solid fa-dragon"></i> ${group.boss}</span>
-        <span class="boss-best">總複習 ${count} 題 · ${GROUP_TEST_WRONG_CHANCES} 次錯誤機會</span>
-        <span class="boss-best">${bestTime ? `最佳 ${this.formatTime(bestTime)}` : `目前 ${best} 分`}</span>
+        <span class="boss-best">人數不限 · 每次挑戰 ${count} 題</span>
+        <span class="boss-best">累積答對 ${stats.correct} 題 · ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒）</span>
+        <span class="boss-best">已挑戰 ${stats.attempts} 次</span>
       `;
       grid.appendChild(card);
     });
   },
-
   getGroupQuestions(groupId) {
     return RAW_SHEET_DATA.slice();
   },
@@ -1082,12 +1118,13 @@ const game = {
   },
 
   resetRace() {
-    if (!confirm("確定要重置六組PK完成紀錄嗎？分數與名次會重新開始。")) return;
+    if (!confirm("確定要重置六組累積排行嗎？答對題數、總時長與名次會重新開始。")) return;
     state.scores.gameHigh = 0;
     state.scores.gameClearedGroups = [];
     state.scores.gameGroupBest = {};
     state.scores.gameGroupBestTime = {};
     state.scores.gameGroupFinishOrder = [];
+    state.scores.gameGroupStats = {};
     saveToLocalStorage();
     this.renderGroupMap();
   },
@@ -1101,6 +1138,7 @@ const game = {
     this.timeLeft = 0;
     this.combo = 0;
     this.questionIndex = 0;
+    this.correctCount = 0;
     this.wrongCount = 0;
     this.monsterMaxHp = this.groupQuestions.length * 100;
     this.monsterHp = this.monsterMaxHp;
@@ -1113,7 +1151,7 @@ const game = {
     document.getElementById("game-boss-name").textContent = this.currentGroup.boss;
     this.updateHeartsUI();
     this.updateBattleStats();
-    document.getElementById("game-current-score").textContent = this.score;
+    document.getElementById("game-current-score").textContent = this.correctCount;
     document.getElementById("game-time-left").textContent = this.formatTime(this.timeLeft);
     document.getElementById("game-combo-box").style.opacity = 0;
     document.getElementById("game-timer-bar").style.width = "0%";
@@ -1194,10 +1232,11 @@ const game = {
       const comboBonus = Math.floor(this.combo / 3) * 30;
       const gainedScore = 100 + comboBonus;
       this.score += gainedScore;
+      this.correctCount++;
       this.monsterHp = Math.max(this.monsterHp - 100, 0);
       this.questionIndex++;
       
-      document.getElementById("game-current-score").textContent = this.score;
+      document.getElementById("game-current-score").textContent = this.correctCount;
       this.updateBattleStats();
       
       const comboEl = document.getElementById("game-combo-box");
@@ -1282,41 +1321,49 @@ const game = {
   
   end(cleared = false) {
     this.stop();
-    
-    if (this.score > state.scores.gameHigh) {
-      state.scores.gameHigh = this.score;
+
+    const stats = this.getGroupStats(this.currentGroup.id);
+    stats.correct += this.correctCount;
+    stats.totalTime += this.timeLeft;
+    stats.attempts += 1;
+    stats.lastCorrect = this.correctCount;
+    stats.lastTime = this.timeLeft;
+
+    if (stats.correct > state.scores.gameHigh) {
+      state.scores.gameHigh = stats.correct;
     }
-    if (this.score > (state.scores.gameGroupBest[this.currentGroup.id] || 0)) {
-      state.scores.gameGroupBest[this.currentGroup.id] = this.score;
+    if (stats.correct > (state.scores.gameGroupBest[this.currentGroup.id] || 0)) {
+      state.scores.gameGroupBest[this.currentGroup.id] = stats.correct;
     }
-    if (cleared && !state.scores.gameClearedGroups.includes(this.currentGroup.id)) {
+    state.scores.gameGroupBestTime[this.currentGroup.id] = stats.totalTime;
+
+    if (!state.scores.gameClearedGroups.includes(this.currentGroup.id)) {
       state.scores.gameClearedGroups.push(this.currentGroup.id);
     }
-    if (cleared && !state.scores.gameGroupFinishOrder.includes(this.currentGroup.id)) {
-      state.scores.gameGroupFinishOrder.push(this.currentGroup.id);
-    }
-    if (cleared) {
-      const currentBestTime = state.scores.gameGroupBestTime[this.currentGroup.id];
-      if (!currentBestTime || this.timeLeft < currentBestTime) {
-        state.scores.gameGroupBestTime[this.currentGroup.id] = this.timeLeft;
-      }
-    }
+    state.scores.gameGroupFinishOrder = this.getGroupRankings().map(entry => entry.group.id);
     saveToLocalStorage();
-    
+
     document.getElementById("game-play").style.display = "none";
     document.getElementById("game-over").style.display = "block";
-    document.getElementById("game-final-score").textContent = this.score;
-    
+    document.getElementById("game-final-score").textContent = `${this.correctCount} / ${this.groupQuestions.length}`;
+
     const summaryEl = document.getElementById("game-summary-text");
-    const rank = state.scores.gameGroupFinishOrder.indexOf(this.currentGroup.id) + 1;
+    const rank = this.getGroupRank(this.currentGroup.id);
+    const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `本次錯 ${this.wrongCount} 次`;
     if (cleared) {
-      const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `使用了 ${this.wrongCount}/${GROUP_TEST_WRONG_CHANCES} 次錯誤機會`;
-      summaryEl.textContent = `完成總複習！${this.currentGroup.title} ${wrongText}，用時 ${this.formatTime(this.timeLeft)}，目前排名第 ${rank} 名。下一組上場！`;
+      summaryEl.textContent = `${this.currentGroup.title} 本次完成 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
     } else {
-      summaryEl.textContent = `本輪挑戰失敗。${this.currentGroup.title} 已超過 ${GROUP_TEST_WRONG_CHANCES} 次錯誤機會，必須重新開始本組。`;
+      summaryEl.textContent = `${this.currentGroup.title} 本次答對 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。已累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），目前排名第 ${rank} 名。`;
     }
   }
 };
+
+
+
+
+
+
+
 
 
 

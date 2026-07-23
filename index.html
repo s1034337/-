@@ -73,7 +73,7 @@
             </div>
             <div class="stat-card">
               <div class="stat-num" id="stat-game-score">--</div>
-              <div class="stat-label">除錯最高分</div>
+              <div class="stat-label">團戰最高答對</div>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
         </div>
         <div class="section-title">
           <h2><i class="fa-solid fa-people-group"></i> 六組分組測驗</h2>
-          <p>六組輪流挑戰同一份 75 題總複習，合力作答；每組總共只有 6 次錯誤機會，PK 哪一組最快完成。</p>
+          <p>六組分別進入同一份 75 題總複習，人數不限；系統累積各組答對題數與總秒數，答對越多排名越高，答對相同時時間越多排名越高。</p>
         </div>
 
         <!-- 輔助區網格 -->
@@ -151,7 +151,7 @@
             <div class="tool-content">
               <span class="mini-tag">社團熱門</span>
               <h3><i class="fa-solid fa-shield-halved"></i> 六組總複習PK</h3>
-              <p>每組挑戰同一套 75 題，只有 6 次錯誤機會，最快完成的組別登上排行榜第一名。</p>
+              <p>每組可多次進入累積成績；答對越多越前面，若答對數相同，累積秒數越多排名越高。</p>
             </div>
             <div class="tool-btn">
               <i class="fa-solid fa-play"></i>
@@ -349,11 +349,11 @@
               <i class="fa-solid fa-dragon"></i>
             </div>
             <h2>六組總複習PK</h2>
-            <p>六組同學一組一組上場，挑戰同一份 75 題總複習。每組只有 6 次錯誤機會，系統會記錄完成名次與用時。</p>
+            <p>六組分別進入挑戰同一份 75 題總複習，一組人數不限。系統會累積各組答對題數與總秒數，作為最後總排名。</p>
             <div class="game-rules">
-              <div><i class="fa-solid fa-people-group"></i> 每組都挑戰完整 75 題，不切題庫。</div>
-              <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時，比誰最快完成總複習。</div>
-              <div><i class="fa-solid fa-heart red-heart"></i> 總共 6 次錯誤機會，超過 6 次本輪挑戰失敗。</div>
+              <div><i class="fa-solid fa-people-group"></i> 每組人數不限，進入後挑戰完整 75 題，不切題庫。</div>
+              <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時，累積總時長與秒數；正確越多越高，正確相同則時間越多越高。</div>
+              <div><i class="fa-solid fa-heart red-heart"></i> 總共 6 次錯誤機會，超過 6 次會結束本次挑戰，但答對題數與時間仍會累積。</div>
             </div>
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="game.resetRace()">
@@ -375,7 +375,7 @@
             </div>
             <!-- 計分 -->
             <div class="game-score">
-              得分: <span id="game-current-score">0</span>
+              答對: <span id="game-current-score">0</span>
             </div>
             <!-- 連擊 -->
             <div class="game-combo" id="game-combo-box" style="opacity: 0;">
@@ -439,7 +439,7 @@
             <h2>戰鬥結束！</h2>
             <div class="result-score-display">
               <div class="score-num" id="game-final-score">1500</div>
-              <div class="score-label">獲得總分</div>
+              <div class="score-label">本次答對</div>
             </div>
             <p class="result-summary" id="game-summary-text">
               太厲害了！你擊敗了題庫怪物！
@@ -522,10 +522,12 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-savefile"></script>
-  <script src="script.js?v=20260723-savefile"></script>
+  <script src="data.js?v=20260723-groupstats"></script>
+  <script src="script.js?v=20260723-groupstats"></script>
 </body>
 </html>
+
+
 
 
 
