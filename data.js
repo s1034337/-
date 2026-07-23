@@ -1,178 +1,48 @@
 /**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
  * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
- * 共 112 題，分為六回，題數依序為 25、12、13、12、25、25 題。
+ * 共 125 題，分為六回，題數依序為 25、25、13、12、25、25 題。
  */
 
 const RAW_SHEET_DATA = [
     {
         "round":  1,
         "type":  "shape",
-        "question":  "大「ㄎㄨㄞˋ」朵頤",
-        "answer":  "快",
+        "question":  "「ㄧㄢ」芭樂",
+        "answer":  "醃",
         "options":  [
-                        "快",
-                        "塊",
-                        "筷",
-                        "膾"
+                        "醃",
+                        "淹",
+                        "掩",
+                        "奄"
                     ],
-        "note":  "「大「ㄎㄨㄞˋ」朵頤」的正確答案是「快」。"
+        "note":  "「「ㄧㄢ」芭樂」的正確答案是「醃」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "番「ㄑㄧㄝˊ」炒蛋",
-        "answer":  "茄",
+        "question":  "蒸「ㄌㄧㄡˋ」水",
+        "answer":  "餾",
         "options":  [
-                        "協",
-                        "伽",
-                        "笳",
-                        "茄"
+                        "流",
+                        "留",
+                        "榴",
+                        "餾"
                     ],
-        "note":  "「番「ㄑㄧㄝˊ」炒蛋」的正確答案是「茄」。"
+        "note":  "「蒸「ㄌㄧㄡˋ」水」的正確答案是「餾」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "刀「ㄒㄧㄠ」麵",
-        "answer":  "削",
+        "question":  "「ㄓㄣ」果拿鐵",
+        "answer":  "榛",
         "options":  [
-                        "消",
-                        "霄",
-                        "削",
-                        "宵"
+                        "蓁",
+                        "臻",
+                        "榛",
+                        "珍"
                     ],
-        "note":  "「刀「ㄒㄧㄠ」麵」的正確答案是「削」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "「ㄊㄨˇ」魠魚",
-        "answer":  "𩵚",
-        "options":  [
-                        "兔",
-                        "𩵚",
-                        "土",
-                        "吐"
-                    ],
-        "note":  "「「ㄊㄨˇ」魠魚」的正確答案是「𩵚」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "小米「ㄓㄡ」",
-        "answer":  "粥",
-        "options":  [
-                        "粥",
-                        "州",
-                        "洲",
-                        "週"
-                    ],
-        "note":  "「小米「ㄓㄡ」」的正確答案是「粥」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "人參枸「ㄑㄧˇ」",
-        "answer":  "杞",
-        "options":  [
-                        "起",
-                        "己",
-                        "紀",
-                        "杞"
-                    ],
-        "note":  "「人參枸「ㄑㄧˇ」」的正確答案是「杞」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "雞「ㄖㄨㄥˊ」玉米濃湯",
-        "answer":  "茸",
-        "options":  [
-                        "絨",
-                        "容",
-                        "茸",
-                        "融"
-                    ],
-        "note":  "「雞「ㄖㄨㄥˊ」玉米濃湯」的正確答案是「茸」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "香酥排「ㄌㄜˋ」",
-        "answer":  "肋",
-        "options":  [
-                        "脅",
-                        "肋",
-                        "勒",
-                        "助"
-                    ],
-        "note":  "「香酥排「ㄌㄜˋ」」的正確答案是「肋」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "北京「ㄌㄠˋ」餅",
-        "answer":  "烙",
-        "options":  [
-                        "烙",
-                        "落",
-                        "洛",
-                        "絡"
-                    ],
-        "note":  "「北京「ㄌㄠˋ」餅」的正確答案是「烙」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "豆「ㄔˇ」牡蠣",
-        "answer":  "豉",
-        "options":  [
-                        "鼓",
-                        "豆",
-                        "皷",
-                        "豉"
-                    ],
-        "note":  "「豆「ㄔˇ」牡蠣」的正確答案是「豉」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "「ㄋㄨㄛˋ」米飯",
-        "answer":  "糯",
-        "options":  [
-                        "儒",
-                        "濡",
-                        "糯",
-                        "懦"
-                    ],
-        "note":  "「「ㄋㄨㄛˋ」米飯」的正確答案是「糯」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "「ㄘㄠ」米飯",
-        "answer":  "糙",
-        "options":  [
-                        "躁",
-                        "糙",
-                        "操",
-                        "燥"
-                    ],
-        "note":  "「「ㄘㄠ」米飯」的正確答案是「糙」。"
-    },
-    {
-        "round":  1,
-        "type":  "shape",
-        "question":  "「ㄐㄩˊ」烤飯",
-        "answer":  "焗",
-        "options":  [
-                        "焗",
-                        "局",
-                        "鋦",
-                        "拘"
-                    ],
-        "note":  "「「ㄐㄩˊ」烤飯」的正確答案是「焗」。"
+        "note":  "「「ㄓㄣ」果拿鐵」的正確答案是「榛」。"
     },
     {
         "round":  1,
@@ -216,41 +86,41 @@ const RAW_SHEET_DATA = [
     {
         "round":  1,
         "type":  "shape",
-        "question":  "「ㄧㄢ」芭樂",
-        "answer":  "醃",
+        "question":  "「ㄌㄨˇ」肉飯",
+        "answer":  "滷",
         "options":  [
-                        "醃",
-                        "淹",
-                        "掩",
-                        "奄"
+                        "鹵",
+                        "擄",
+                        "滷",
+                        "魯"
                     ],
-        "note":  "「「ㄧㄢ」芭樂」的正確答案是「醃」。"
+        "note":  "「「ㄌㄨˇ」肉飯」的正確答案是「滷」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "蒸「ㄌㄧㄡˋ」水",
-        "answer":  "餾",
+        "question":  "清「ㄉㄨㄣˋ」牛肉",
+        "answer":  "燉",
         "options":  [
-                        "流",
-                        "留",
-                        "榴",
-                        "餾"
+                        "鈍",
+                        "燉",
+                        "頓",
+                        "噸"
                     ],
-        "note":  "「蒸「ㄌㄧㄡˋ」水」的正確答案是「餾」。"
+        "note":  "「清「ㄉㄨㄣˋ」牛肉」的正確答案是「燉」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "「ㄓㄣ」果拿鐵",
-        "answer":  "榛",
+        "question":  "牛「ㄐㄧㄢˋ」切片",
+        "answer":  "腱",
         "options":  [
-                        "蓁",
-                        "臻",
-                        "榛",
-                        "珍"
+                        "腱",
+                        "健",
+                        "鍵",
+                        "建"
                     ],
-        "note":  "「「ㄓㄣ」果拿鐵」的正確答案是「榛」。"
+        "note":  "「牛「ㄐㄧㄢˋ」切片」的正確答案是「腱」。"
     },
     {
         "round":  1,
@@ -294,200 +164,174 @@ const RAW_SHEET_DATA = [
     {
         "round":  1,
         "type":  "shape",
-        "question":  "「ㄌㄨˇ」肉飯",
-        "answer":  "滷",
+        "question":  "「ㄐㄩˊ」烤飯",
+        "answer":  "焗",
         "options":  [
-                        "鹵",
-                        "擄",
-                        "滷",
-                        "魯"
+                        "焗",
+                        "局",
+                        "鋦",
+                        "拘"
                     ],
-        "note":  "「「ㄌㄨˇ」肉飯」的正確答案是「滷」。"
+        "note":  "「「ㄐㄩˊ」烤飯」的正確答案是「焗」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "清「ㄉㄨㄣˋ」牛肉",
-        "answer":  "燉",
+        "question":  "「ㄊㄨˇ」魠魚",
+        "answer":  "𩵚",
         "options":  [
-                        "鈍",
-                        "燉",
-                        "頓",
-                        "噸"
+                        "兔",
+                        "𩵚",
+                        "土",
+                        "吐"
                     ],
-        "note":  "「清「ㄉㄨㄣˋ」牛肉」的正確答案是「燉」。"
+        "note":  "「「ㄊㄨˇ」魠魚」的正確答案是「𩵚」。"
     },
     {
         "round":  1,
         "type":  "shape",
-        "question":  "牛「ㄐㄧㄢˋ」切片",
-        "answer":  "腱",
+        "question":  "小米「ㄓㄡ」",
+        "answer":  "粥",
         "options":  [
-                        "腱",
-                        "健",
-                        "鍵",
-                        "建"
+                        "粥",
+                        "州",
+                        "洲",
+                        "週"
                     ],
-        "note":  "「牛「ㄐㄧㄢˋ」切片」的正確答案是「腱」。"
+        "note":  "「小米「ㄓㄡ」」的正確答案是「粥」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "人參枸「ㄑㄧˇ」",
+        "answer":  "杞",
+        "options":  [
+                        "起",
+                        "己",
+                        "紀",
+                        "杞"
+                    ],
+        "note":  "「人參枸「ㄑㄧˇ」」的正確答案是「杞」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "大「ㄎㄨㄞˋ」朵頤",
+        "answer":  "快",
+        "options":  [
+                        "快",
+                        "塊",
+                        "筷",
+                        "膾"
+                    ],
+        "note":  "「大「ㄎㄨㄞˋ」朵頤」的正確答案是「快」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "番「ㄑㄧㄝˊ」炒蛋",
+        "answer":  "茄",
+        "options":  [
+                        "協",
+                        "伽",
+                        "笳",
+                        "茄"
+                    ],
+        "note":  "「番「ㄑㄧㄝˊ」炒蛋」的正確答案是「茄」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "刀「ㄒㄧㄠ」麵",
+        "answer":  "削",
+        "options":  [
+                        "消",
+                        "霄",
+                        "削",
+                        "宵"
+                    ],
+        "note":  "「刀「ㄒㄧㄠ」麵」的正確答案是「削」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "豆「ㄔˇ」牡蠣",
+        "answer":  "豉",
+        "options":  [
+                        "鼓",
+                        "豆",
+                        "皷",
+                        "豉"
+                    ],
+        "note":  "「豆「ㄔˇ」牡蠣」的正確答案是「豉」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "「ㄋㄨㄛˋ」米飯",
+        "answer":  "糯",
+        "options":  [
+                        "儒",
+                        "濡",
+                        "糯",
+                        "懦"
+                    ],
+        "note":  "「「ㄋㄨㄛˋ」米飯」的正確答案是「糯」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "「ㄘㄠ」米飯",
+        "answer":  "糙",
+        "options":  [
+                        "躁",
+                        "糙",
+                        "操",
+                        "燥"
+                    ],
+        "note":  "「「ㄘㄠ」米飯」的正確答案是「糙」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "雞「ㄖㄨㄥˊ」玉米濃湯",
+        "answer":  "茸",
+        "options":  [
+                        "絨",
+                        "容",
+                        "茸",
+                        "融"
+                    ],
+        "note":  "「雞「ㄖㄨㄥˊ」玉米濃湯」的正確答案是「茸」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "香酥排「ㄌㄜˋ」",
+        "answer":  "肋",
+        "options":  [
+                        "脅",
+                        "肋",
+                        "勒",
+                        "助"
+                    ],
+        "note":  "「香酥排「ㄌㄜˋ」」的正確答案是「肋」。"
+    },
+    {
+        "round":  1,
+        "type":  "shape",
+        "question":  "北京「ㄌㄠˋ」餅",
+        "answer":  "烙",
+        "options":  [
+                        "烙",
+                        "落",
+                        "洛",
+                        "絡"
+                    ],
+        "note":  "「北京「ㄌㄠˋ」餅」的正確答案是「烙」。"
     },
     {
         "round":  2,
-        "type":  "shape",
-        "question":  "青「ㄎㄜ」",
-        "answer":  "稞",
-        "options":  [
-                        "稞",
-                        "棵",
-                        "顆",
-                        "課"
-                    ],
-        "note":  "「青稞」的正確寫法是「稞」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄓ」子花開",
-        "answer":  "梔",
-        "options":  [
-                        "枝",
-                        "梔",
-                        "支",
-                        "肢"
-                    ],
-        "note":  "「梔子花」的正確寫法是「梔」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "桑「ㄩˊ」晚景",
-        "answer":  "榆",
-        "options":  [
-                        "愉",
-                        "榆",
-                        "愚",
-                        "渝"
-                    ],
-        "note":  "「桑榆晚景」的正確寫法是「榆」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄡˇ」斷絲連",
-        "answer":  "藕",
-        "options":  [
-                        "偶",
-                        "耦",
-                        "藕",
-                        "嘔"
-                    ],
-        "note":  "「藕斷絲連」的正確寫法是「藕」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "一「ㄒㄩㄣ」一蕕",
-        "answer":  "薰",
-        "options":  [
-                        "熏",
-                        "勳",
-                        "燻",
-                        "薰"
-                    ],
-        "note":  "「一薰一蕕」的正確寫法是「薰」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄘㄨˋ」漿草",
-        "answer":  "酢",
-        "options":  [
-                        "醋",
-                        "酢",
-                        "促",
-                        "觸"
-                    ],
-        "note":  "「酢漿草」的正確寫法是「酢」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄏㄨˋ」瓜",
-        "answer":  "瓠",
-        "options":  [
-                        "壺",
-                        "滬",
-                        "瓠",
-                        "互"
-                    ],
-        "note":  "「瓠瓜」的正確寫法是「瓠」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄊㄢˊ」花一現",
-        "answer":  "曇",
-        "options":  [
-                        "談",
-                        "潭",
-                        "檀",
-                        "曇"
-                    ],
-        "note":  "「曇花一現」的正確寫法是「曇」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "棕「ㄌㄩˊ」",
-        "answer":  "櫚",
-        "options":  [
-                        "櫚",
-                        "旅",
-                        "屢",
-                        "鋁"
-                    ],
-        "note":  "「棕櫚」的正確寫法是「櫚」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "臺灣「ㄌㄨㄢˊ」樹",
-        "answer":  "欒",
-        "options":  [
-                        "鸞",
-                        "欒",
-                        "巒",
-                        "孿"
-                    ],
-        "note":  "「臺灣欒樹」的正確寫法是「欒」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "朝鮮「ㄐㄧˋ」",
-        "answer":  "薊",
-        "options":  [
-                        "驥",
-                        "冀",
-                        "薊",
-                        "濟"
-                    ],
-        "note":  "「朝鮮薊」的正確寫法是「薊」。"
-    },
-    {
-        "round":  2,
-        "type":  "shape",
-        "question":  "「ㄒㄧㄢ」維植物",
-        "answer":  "纖",
-        "options":  [
-                        "鮮",
-                        "仙",
-                        "籤",
-                        "纖"
-                    ],
-        "note":  "「纖維植物」的正確寫法是「纖」。"
-    },
-    {
-        "round":  3,
         "type":  "pronunciation",
         "question":  "牛肉「燴」飯的讀音",
         "answer":  "ㄏㄨㄟˋ",
@@ -500,7 +344,7 @@ const RAW_SHEET_DATA = [
         "note":  "「牛肉「燴」飯的讀音」的正確答案是「ㄏㄨㄟˋ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「餛」飩湯的讀音",
         "answer":  "ㄏㄨㄣˊ",
@@ -513,7 +357,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「餛」飩湯的讀音」的正確答案是「ㄏㄨㄣˊ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「咖」哩飯的讀音",
         "answer":  "ㄎㄚ",
@@ -526,7 +370,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「咖」哩飯的讀音」的正確答案是「ㄎㄚ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「蚵」仔煎的讀音",
         "answer":  "ㄜˊ",
@@ -539,7 +383,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「蚵」仔煎的讀音」的正確答案是「ㄜˊ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "綜「合」果汁的讀音",
         "answer":  "ㄏㄜˊ",
@@ -552,7 +396,7 @@ const RAW_SHEET_DATA = [
         "note":  "「綜「合」果汁的讀音」的正確答案是「ㄏㄜˊ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「涮」羊肉的讀音",
         "answer":  "ㄕㄨㄚ",
@@ -565,7 +409,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「涮」羊肉的讀音」的正確答案是「ㄕㄨㄚ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「炸」醬麵的讀音",
         "answer":  "ㄓㄚˋ",
@@ -578,7 +422,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˋ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "肉「燉」飯的讀音",
         "answer":  "ㄉㄨㄣˋ",
@@ -591,7 +435,7 @@ const RAW_SHEET_DATA = [
         "note":  "「肉「燉」飯的讀音」的正確答案是「ㄉㄨㄣˋ」。"
     },
     {
-        "round":  3,
+        "round":  2,
         "type":  "pronunciation",
         "question":  "「什」錦炒麵的讀音",
         "answer":  "ㄕˊ",
@@ -602,6 +446,214 @@ const RAW_SHEET_DATA = [
                         "ㄕˊ"
                     ],
         "note":  "「「什」錦炒麵的讀音」的正確答案是「ㄕˊ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "「蛤」蜊濃湯的讀音",
+        "answer":  "ㄍㄚ",
+        "options":  [
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ",
+                        "ㄍㄚ",
+                        "ㄅㄚ"
+                    ],
+        "note":  "「「蛤」蜊濃湯的讀音」的正確答案是「ㄍㄚ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "勾「芡」料理的讀音",
+        "answer":  "ㄑㄧㄢˋ",
+        "options":  [
+                        "ㄑㄧㄥˋ",
+                        "ㄑㄧㄢˋ",
+                        "ㄑㄧㄢ",
+                        "ㄒㄧㄢˋ"
+                    ],
+        "note":  "「勾「芡」料理的讀音」的正確答案是「ㄑㄧㄢˋ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "「汆」燙肉片的讀音",
+        "answer":  "ㄘㄨㄢ",
+        "options":  [
+                        "ㄘㄨㄢ",
+                        "ㄔㄨㄢ",
+                        "ㄘㄨㄢˋ",
+                        "ㄙㄨㄢ"
+                    ],
+        "note":  "「「汆」燙肉片的讀音」的正確答案是「ㄘㄨㄢ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "味「噌」湯的讀音",
+        "answer":  "ㄇㄧˋ",
+        "options":  [
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ",
+                        "ㄇㄧˋ"
+                    ],
+        "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "牛肉「煲」湯的讀音",
+        "answer":  "ㄅㄠ",
+        "options":  [
+                        "ㄅㄠˋ",
+                        "ㄆㄠ",
+                        "ㄅㄠ",
+                        "ㄅㄠˇ"
+                    ],
+        "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "元「盅」雞湯的讀音",
+        "answer":  "ㄓㄨㄥ",
+        "options":  [
+                        "ㄓㄨㄥˊ",
+                        "ㄓㄨㄥ",
+                        "ㄓㄨㄥˋ",
+                        "ㄔㄨㄥ"
+                    ],
+        "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "菜「脯」蛋的讀音",
+        "answer":  "ㄆㄨˇ",
+        "options":  [
+                        "ㄆㄨˇ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ"
+                    ],
+        "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "莧「菜」小魚的讀音",
+        "answer":  "ㄒㄧㄢˋ",
+        "options":  [
+                        "ㄒㄧㄢ",
+                        "ㄐㄧㄢˋ",
+                        "ㄒㄧㄢˊ",
+                        "ㄒㄧㄢˋ"
+                    ],
+        "note":  "「莧「菜」小魚的讀音」的正確答案是「ㄒㄧㄢˋ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "金「桔」檸檬的讀音",
+        "answer":  "ㄐㄧˊ",
+        "options":  [
+                        "ㄐㄧㄝˊ",
+                        "ㄐㄧˇ",
+                        "ㄐㄧˊ",
+                        "ㄐㄧ"
+                    ],
+        "note":  "「金「桔」檸檬的讀音」的正確答案是「ㄐㄧˊ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "豬「肚」湯的讀音",
+        "answer":  "ㄉㄨˇ",
+        "options":  [
+                        "ㄉㄨ",
+                        "ㄉㄨˇ",
+                        "ㄉㄨˋ",
+                        "ㄊㄨˇ"
+                    ],
+        "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "新港「飴」的讀音",
+        "answer":  "ㄧˊ",
+        "options":  [
+                        "ㄧˊ",
+                        "ㄧˋ",
+                        "ㄊㄞˊ",
+                        "ㄧˇ"
+                    ],
+        "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "草「仔」粿的讀音",
+        "answer":  "ㄗˇ",
+        "options":  [
+                        "ㄗㄞˇ",
+                        "ㄗ",
+                        "ㄐㄧˇ",
+                        "ㄗˇ"
+                    ],
+        "note":  "「草「仔」粿的讀音」的正確答案是「ㄗˇ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "紅燒蹄「膀」的讀音",
+        "answer":  "ㄅㄤˇ",
+        "options":  [
+                        "ㄆㄤˊ",
+                        "ㄅㄤ",
+                        "ㄅㄤˇ",
+                        "ㄅㄤˋ"
+                    ],
+        "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "鼎邊「趖」的讀音",
+        "answer":  "ㄙㄨㄛ",
+        "options":  [
+                        "ㄉㄨˋ",
+                        "ㄙㄨㄛ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ"
+                    ],
+        "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "「腓」力牛排的讀音",
+        "answer":  "ㄈㄟˊ",
+        "options":  [
+                        "ㄈㄟˊ",
+                        "ㄈㄟ",
+                        "ㄆㄟˊ",
+                        "ㄈㄟˇ"
+                    ],
+        "note":  "「「腓」力牛排的讀音」的正確答案是「ㄈㄟˊ」。"
+    },
+    {
+        "round":  2,
+        "type":  "pronunciation",
+        "question":  "「煨」牛肉的讀音",
+        "answer":  "ㄨㄟ",
+        "options":  [
+                        "ㄨㄟˋ",
+                        "ㄨㄟˊ",
+                        "ㄨㄟˇ",
+                        "ㄨㄟ"
+                    ],
+        "note":  "「「煨」牛肉的讀音」的正確答案是「ㄨㄟ」。"
     },
     {
         "round":  3,
@@ -619,15 +671,41 @@ const RAW_SHEET_DATA = [
     {
         "round":  3,
         "type":  "pronunciation",
-        "question":  "勾「芡」料理的讀音",
-        "answer":  "ㄑㄧㄢˋ",
+        "question":  "「什」錦炒麵的讀音",
+        "answer":  "ㄕˊ",
         "options":  [
-                        "ㄑㄧㄥˋ",
-                        "ㄑㄧㄢˋ",
-                        "ㄑㄧㄢ",
-                        "ㄒㄧㄢˋ"
+                        "ㄕ",
+                        "ㄕˋ",
+                        "ㄙˊ",
+                        "ㄕˊ"
                     ],
-        "note":  "「勾「芡」料理的讀音」的正確答案是「ㄑㄧㄢˋ」。"
+        "note":  "「「什」錦炒麵的讀音」的正確答案是「ㄕˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "肉「燉」飯的讀音",
+        "answer":  "ㄉㄨㄣˋ",
+        "options":  [
+                        "ㄉㄨㄣˋ",
+                        "ㄉㄨㄣ",
+                        "ㄊㄨㄣˊ",
+                        "ㄉㄨㄢˋ"
+                    ],
+        "note":  "「肉「燉」飯的讀音」的正確答案是「ㄉㄨㄣˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "味「噌」湯的讀音",
+        "answer":  "ㄇㄧˋ",
+        "options":  [
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ",
+                        "ㄇㄧˋ"
+                    ],
+        "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
     },
     {
         "round":  3,
@@ -645,106 +723,106 @@ const RAW_SHEET_DATA = [
     {
         "round":  3,
         "type":  "pronunciation",
-        "question":  "味「噌」湯的讀音",
-        "answer":  "ㄇㄧˋ",
+        "question":  "勾「芡」料理的讀音",
+        "answer":  "ㄑㄧㄢˋ",
         "options":  [
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ",
-                        "ㄉㄨˋ",
-                        "ㄇㄧˋ"
-                    ],
-        "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "牛肉「煲」湯的讀音",
-        "answer":  "ㄅㄠ",
-        "options":  [
-                        "ㄅㄠˋ",
-                        "ㄆㄠ",
-                        "ㄅㄠ",
-                        "ㄅㄠˇ"
-                    ],
-        "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "元「盅」雞湯的讀音",
-        "answer":  "ㄓㄨㄥ",
-        "options":  [
-                        "ㄓㄨㄥˊ",
-                        "ㄓㄨㄥ",
-                        "ㄓㄨㄥˋ",
-                        "ㄔㄨㄥ"
-                    ],
-        "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "菜「脯」蛋的讀音",
-        "answer":  "ㄆㄨˇ",
-        "options":  [
-                        "ㄆㄨˇ",
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ",
-                        "ㄉㄨˋ"
-                    ],
-        "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
-    },
-    {
-        "round":  4,
-        "type":  "pronunciation",
-        "question":  "「莧」菜小魚的讀音",
-        "answer":  "ㄒㄧㄢˋ",
-        "options":  [
-                        "ㄒㄧㄢ",
-                        "ㄐㄧㄢˋ",
-                        "ㄒㄧㄢˊ",
+                        "ㄑㄧㄥˋ",
+                        "ㄑㄧㄢˋ",
+                        "ㄑㄧㄢ",
                         "ㄒㄧㄢˋ"
                     ],
-        "note":  "「莧菜」的「莧」讀作「ㄒㄧㄢˋ」。"
+        "note":  "「勾「芡」料理的讀音」的正確答案是「ㄑㄧㄢˋ」。"
     },
     {
-        "round":  4,
+        "round":  3,
         "type":  "pronunciation",
-        "question":  "金「桔」檸檬的讀音",
-        "answer":  "ㄐㄩˊ",
+        "question":  "「炸」醬麵的讀音",
+        "answer":  "ㄓㄚˋ",
         "options":  [
-                        "ㄐㄧㄝˊ",
-                        "ㄐㄧˊ",
-                        "ㄐㄩˊ",
-                        "ㄐㄧˇ"
+                        "ㄗㄚˋ",
+                        "ㄓㄚˋ",
+                        "ㄓㄚˊ",
+                        "ㄓㄚ"
                     ],
-        "note":  "「金桔」的「桔」同「橘」，讀作「ㄐㄩˊ」。"
+        "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˋ」。"
     },
     {
-        "round":  4,
+        "round":  3,
         "type":  "pronunciation",
-        "question":  "豬「肚」湯的讀音",
-        "answer":  "ㄉㄨˇ",
+        "question":  "「咖」哩飯的讀音",
+        "answer":  "ㄎㄚ",
         "options":  [
-                        "ㄉㄨ",
-                        "ㄉㄨˇ",
-                        "ㄉㄨˋ",
-                        "ㄊㄨˇ"
+                        "ㄎㄚˇ",
+                        "ㄎㄚ",
+                        "ㄐㄧㄚ",
+                        "ㄍㄚ"
                     ],
-        "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
+        "note":  "「「咖」哩飯的讀音」的正確答案是「ㄎㄚ」。"
     },
     {
-        "round":  4,
+        "round":  3,
         "type":  "pronunciation",
-        "question":  "新港「飴」的讀音",
-        "answer":  "ㄧˊ",
+        "question":  "「餛」飩湯的讀音",
+        "answer":  "ㄏㄨㄣˊ",
         "options":  [
-                        "ㄧˊ",
-                        "ㄧˋ",
-                        "ㄊㄞˊ",
-                        "ㄧˇ"
+                        "ㄏㄨㄣ",
+                        "ㄏㄨㄥˊ",
+                        "ㄏㄨㄣˊ",
+                        "ㄏㄨㄣˋ"
                     ],
-        "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
+        "note":  "「「餛」飩湯的讀音」的正確答案是「ㄏㄨㄣˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "牛肉「燴」飯的讀音",
+        "answer":  "ㄏㄨㄟˋ",
+        "options":  [
+                        "ㄏㄨㄟˊ",
+                        "ㄎㄨㄟˋ",
+                        "ㄏㄨㄟ",
+                        "ㄏㄨㄟˋ"
+                    ],
+        "note":  "「牛肉「燴」飯的讀音」的正確答案是「ㄏㄨㄟˋ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「涮」羊肉的讀音",
+        "answer":  "ㄕㄨㄚ",
+        "options":  [
+                        "ㄕㄨㄚˋ",
+                        "ㄙㄨㄚ",
+                        "ㄕㄨㄚ",
+                        "ㄕㄨㄢˋ"
+                    ],
+        "note":  "「「涮」羊肉的讀音」的正確答案是「ㄕㄨㄚ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "綜「合」果汁的讀音",
+        "answer":  "ㄏㄜˊ",
+        "options":  [
+                        "ㄍㄜˊ",
+                        "ㄏㄜˋ",
+                        "ㄜˊ",
+                        "ㄏㄜˊ"
+                    ],
+        "note":  "「綜「合」果汁的讀音」的正確答案是「ㄏㄜˊ」。"
+    },
+    {
+        "round":  3,
+        "type":  "pronunciation",
+        "question":  "「蚵」仔煎的讀音",
+        "answer":  "ㄜˊ",
+        "options":  [
+                        "ㄜˊ",
+                        "ㄎㄜ",
+                        "ㄜˋ",
+                        "ㄏㄜˊ"
+                    ],
+        "note":  "「「蚵」仔煎的讀音」的正確答案是「ㄜˊ」。"
     },
     {
         "round":  4,
@@ -762,28 +840,28 @@ const RAW_SHEET_DATA = [
     {
         "round":  4,
         "type":  "pronunciation",
-        "question":  "紅燒蹄「膀」的讀音",
-        "answer":  "ㄅㄤˇ",
+        "question":  "新港「飴」的讀音",
+        "answer":  "ㄧˊ",
         "options":  [
-                        "ㄆㄤˊ",
-                        "ㄅㄤ",
-                        "ㄅㄤˇ",
-                        "ㄅㄤˋ"
+                        "ㄧˊ",
+                        "ㄧˋ",
+                        "ㄊㄞˊ",
+                        "ㄧˇ"
                     ],
-        "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
+        "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
     },
     {
         "round":  4,
         "type":  "pronunciation",
-        "question":  "鼎邊「趖」的讀音",
-        "answer":  "ㄙㄨㄛ",
+        "question":  "豬「肚」湯的讀音",
+        "answer":  "ㄉㄨˇ",
         "options":  [
+                        "ㄉㄨ",
+                        "ㄉㄨˇ",
                         "ㄉㄨˋ",
-                        "ㄙㄨㄛ",
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ"
+                        "ㄊㄨˇ"
                     ],
-        "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
+        "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
     },
     {
         "round":  4,
@@ -801,6 +879,58 @@ const RAW_SHEET_DATA = [
     {
         "round":  4,
         "type":  "pronunciation",
+        "question":  "鼎邊「趖」的讀音",
+        "answer":  "ㄙㄨㄛ",
+        "options":  [
+                        "ㄉㄨˋ",
+                        "ㄙㄨㄛ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ"
+                    ],
+        "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "紅燒蹄「膀」的讀音",
+        "answer":  "ㄅㄤˇ",
+        "options":  [
+                        "ㄆㄤˊ",
+                        "ㄅㄤ",
+                        "ㄅㄤˇ",
+                        "ㄅㄤˋ"
+                    ],
+        "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "元「盅」雞湯的讀音",
+        "answer":  "ㄓㄨㄥ",
+        "options":  [
+                        "ㄓㄨㄥˊ",
+                        "ㄓㄨㄥ",
+                        "ㄓㄨㄥˋ",
+                        "ㄔㄨㄥ"
+                    ],
+        "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "牛肉「煲」湯的讀音",
+        "answer":  "ㄅㄠ",
+        "options":  [
+                        "ㄅㄠˋ",
+                        "ㄆㄠ",
+                        "ㄅㄠ",
+                        "ㄅㄠˇ"
+                    ],
+        "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
+    },
+    {
+        "round":  4,
+        "type":  "pronunciation",
         "question":  "「煨」牛肉的讀音",
         "answer":  "ㄨㄟ",
         "options":  [
@@ -812,160 +942,43 @@ const RAW_SHEET_DATA = [
         "note":  "「「煨」牛肉的讀音」的正確答案是「ㄨㄟ」。"
     },
     {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「使」性子的字義",
-        "answer":  "放縱、放任",
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "金「桔」檸檬的讀音",
+        "answer":  "ㄐㄩˊ",
         "options":  [
-                        "放縱、放任",
-                        "派用、任用",
-                        "讓、以致於",
-                        "出使"
+                        "ㄐㄧㄝˊ",
+                        "ㄐㄧˊ",
+                        "ㄐㄩˊ",
+                        "ㄐㄧˇ"
                     ],
-        "note":  "「「使」性子的字義」的正確字義是「放縱、放任」。"
+        "note":  "「金桔」的「桔」同「橘」，讀作「ㄐㄩˊ」。"
     },
     {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「使」功不如使過的字義",
-        "answer":  "派用、任用",
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "「莧」菜小魚的讀音",
+        "answer":  "ㄒㄧㄢˋ",
         "options":  [
-                        "派用、任用",
-                        "放縱、放任",
-                        "讓、以致於",
-                        "出使"
+                        "ㄒㄧㄢ",
+                        "ㄐㄧㄢˋ",
+                        "ㄒㄧㄢˊ",
+                        "ㄒㄧㄢˋ"
                     ],
-        "note":  "「「使」功不如使過的字義」的正確字義是「派用、任用」。"
+        "note":  "「莧菜」的「莧」讀作「ㄒㄧㄢˋ」。"
     },
     {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "長「使」英雄淚滿襟的字義",
-        "answer":  "讓、以致於",
+        "round":  4,
+        "type":  "pronunciation",
+        "question":  "菜「脯」蛋的讀音",
+        "answer":  "ㄆㄨˇ",
         "options":  [
-                        "讓、以致於",
-                        "出使",
-                        "派用、任用",
-                        "放縱、放任"
+                        "ㄆㄨˇ",
+                        "ㄅㄚ",
+                        "ㄆㄧㄥˊ",
+                        "ㄉㄨˋ"
                     ],
-        "note":  "「長「使」英雄淚滿襟的字義」的正確字義是「讓、以致於」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "晏子「使」楚的字義",
-        "answer":  "出使",
-        "options":  [
-                        "出使",
-                        "放縱、放任",
-                        "派用、任用",
-                        "讓、以致於"
-                    ],
-        "note":  "「晏子「使」楚的字義」的正確字義是「出使」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "綠衣「使」者的字義",
-        "answer":  "奉命到外國執行任務或留駐的人員",
-        "options":  [
-                        "奉命到外國執行任務或留駐的人員",
-                        "放縱、放任",
-                        "派用、任用",
-                        "讓、以致於"
-                    ],
-        "note":  "「綠衣「使」者的字義」的正確字義是「奉命到外國執行任務或留駐的人員」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「物」色人選的字義",
-        "answer":  "尋找",
-        "options":  [
-                        "尋找",
-                        "內容",
-                        "物體",
-                        "人、事、境界"
-                    ],
-        "note":  "「「物」色人選的字義」的正確字義是「尋找」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "言之有「物」的字義",
-        "answer":  "內容",
-        "options":  [
-                        "內容",
-                        "尋找",
-                        "物體",
-                        "人、事、境界"
-                    ],
-        "note":  "「言之有「物」的字義」的正確字義是「內容」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「物」外之趣的字義",
-        "answer":  "物體",
-        "options":  [
-                        "物體",
-                        "內容",
-                        "尋找",
-                        "人、事、境界"
-                    ],
-        "note":  "「「物」外之趣的字義」的正確字義是「物體」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "待人接「物」的字義",
-        "answer":  "人、事、境界",
-        "options":  [
-                        "人、事、境界",
-                        "內容",
-                        "物體",
-                        "尋找"
-                    ],
-        "note":  "「待人接「物」的字義」的正確字義是「人、事、境界」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「鼓」動翅膀的字義",
-        "answer":  "振動",
-        "options":  [
-                        "振動",
-                        "漲起",
-                        "振作、激勵",
-                        "樂器名"
-                    ],
-        "note":  "「「鼓」動翅膀的字義」的正確字義是「振動」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「鼓」著腮幫子的字義",
-        "answer":  "漲起",
-        "options":  [
-                        "漲起",
-                        "振動",
-                        "振作、激勵",
-                        "樂器名"
-                    ],
-        "note":  "「「鼓」著腮幫子的字義」的正確字義是「漲起」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「鼓」起勇氣的字義",
-        "answer":  "振作、激勵",
-        "options":  [
-                        "振作、激勵",
-                        "振動",
-                        "漲起",
-                        "樂器名"
-                    ],
-        "note":  "「「鼓」起勇氣的字義」的正確字義是「振作、激勵」。"
+        "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
     },
     {
         "round":  5,
@@ -979,32 +992,6 @@ const RAW_SHEET_DATA = [
                         "振作、激勵"
                     ],
         "note":  "「敲鑼打「鼓」的字義」的正確字義是「樂器名」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "「事」之以禮的字義",
-        "answer":  "侍奉",
-        "options":  [
-                        "侍奉",
-                        "人類所作所為",
-                        "變故",
-                        "從事"
-                    ],
-        "note":  "「「事」之以禮的字義」的正確字義是「侍奉」。"
-    },
-    {
-        "round":  5,
-        "type":  "meaning",
-        "question":  "人「事」全非的字義",
-        "answer":  "人類所作所為",
-        "options":  [
-                        "人類所作所為",
-                        "侍奉",
-                        "變故",
-                        "從事"
-                    ],
-        "note":  "「人「事」全非的字義」的正確字義是「人類所作所為」。"
     },
     {
         "round":  5,
@@ -1048,41 +1035,41 @@ const RAW_SHEET_DATA = [
     {
         "round":  5,
         "type":  "meaning",
-        "question":  "不「盡」相同的字義",
-        "answer":  "全部、都",
+        "question":  "「鼓」起勇氣的字義",
+        "answer":  "振作、激勵",
         "options":  [
-                        "全部、都",
-                        "全部取出",
-                        "完結、終止",
-                        "隱沒"
+                        "振作、激勵",
+                        "振動",
+                        "漲起",
+                        "樂器名"
                     ],
-        "note":  "「不「盡」相同的字義」的正確字義是「全部、都」。"
+        "note":  "「「鼓」起勇氣的字義」的正確字義是「振作、激勵」。"
     },
     {
         "round":  5,
         "type":  "meaning",
-        "question":  "取之不「盡」的字義",
-        "answer":  "完結、終止",
+        "question":  "「事」之以禮的字義",
+        "answer":  "侍奉",
         "options":  [
-                        "完結、終止",
-                        "全部取出",
-                        "全部、都",
-                        "隱沒"
+                        "侍奉",
+                        "人類所作所為",
+                        "變故",
+                        "從事"
                     ],
-        "note":  "「取之不「盡」的字義」的正確字義是「完結、終止」。"
+        "note":  "「「事」之以禮的字義」的正確字義是「侍奉」。"
     },
     {
         "round":  5,
         "type":  "meaning",
-        "question":  "孤帆遠影碧山「盡」的字義",
-        "answer":  "隱沒",
+        "question":  "人「事」全非的字義",
+        "answer":  "人類所作所為",
         "options":  [
-                        "隱沒",
-                        "全部取出",
-                        "全部、都",
-                        "完結、終止"
+                        "人類所作所為",
+                        "侍奉",
+                        "變故",
+                        "從事"
                     ],
-        "note":  "「孤帆遠影碧山「盡」的字義」的正確字義是「隱沒」。"
+        "note":  "「人「事」全非的字義」的正確字義是「人類所作所為」。"
     },
     {
         "round":  5,
@@ -1126,6 +1113,97 @@ const RAW_SHEET_DATA = [
     {
         "round":  5,
         "type":  "meaning",
+        "question":  "不「盡」相同的字義",
+        "answer":  "全部、都",
+        "options":  [
+                        "全部、都",
+                        "全部取出",
+                        "完結、終止",
+                        "隱沒"
+                    ],
+        "note":  "「不「盡」相同的字義」的正確字義是「全部、都」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "取之不「盡」的字義",
+        "answer":  "完結、終止",
+        "options":  [
+                        "完結、終止",
+                        "全部取出",
+                        "全部、都",
+                        "隱沒"
+                    ],
+        "note":  "「取之不「盡」的字義」的正確字義是「完結、終止」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "孤帆遠影碧山「盡」的字義",
+        "answer":  "隱沒",
+        "options":  [
+                        "隱沒",
+                        "全部取出",
+                        "全部、都",
+                        "完結、終止"
+                    ],
+        "note":  "「孤帆遠影碧山「盡」的字義」的正確字義是「隱沒」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「鼓」著腮幫子的字義",
+        "answer":  "漲起",
+        "options":  [
+                        "漲起",
+                        "振動",
+                        "振作、激勵",
+                        "樂器名"
+                    ],
+        "note":  "「「鼓」著腮幫子的字義」的正確字義是「漲起」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "長「使」英雄淚滿襟的字義",
+        "answer":  "讓、以致於",
+        "options":  [
+                        "讓、以致於",
+                        "出使",
+                        "派用、任用",
+                        "放縱、放任"
+                    ],
+        "note":  "「長「使」英雄淚滿襟的字義」的正確字義是「讓、以致於」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "晏子「使」楚的字義",
+        "answer":  "出使",
+        "options":  [
+                        "出使",
+                        "放縱、放任",
+                        "派用、任用",
+                        "讓、以致於"
+                    ],
+        "note":  "「晏子「使」楚的字義」的正確字義是「出使」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「使」功不如使過的字義",
+        "answer":  "派用、任用",
+        "options":  [
+                        "派用、任用",
+                        "放縱、放任",
+                        "讓、以致於",
+                        "出使"
+                    ],
+        "note":  "「「使」功不如使過的字義」的正確字義是「派用、任用」。"
+    },
+    {
+        "round":  5,
+        "type":  "meaning",
         "question":  "道路要「衝」的字義",
         "answer":  "交通要道",
         "options":  [
@@ -1137,160 +1215,95 @@ const RAW_SHEET_DATA = [
         "note":  "「道路要「衝」的字義」的正確字義是「交通要道」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "水池乾「ㄏㄜˊ」",
-        "answer":  "涸",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「使」性子的字義",
+        "answer":  "放縱、放任",
         "options":  [
-                        "固",
-                        "沽",
-                        "涸",
-                        "錮"
+                        "放縱、放任",
+                        "派用、任用",
+                        "讓、以致於",
+                        "出使"
                     ],
-        "note":  "「水池乾「ㄏㄜˊ」」的正確答案是「涸」。"
+        "note":  "「「使」性子的字義」的正確字義是「放縱、放任」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "「ㄔˋ」吒風雲",
-        "answer":  "叱",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "綠衣「使」者的字義",
+        "answer":  "奉命到外國執行任務或留駐的人員",
         "options":  [
-                        "吒",
-                        "叱",
-                        "吃",
-                        "斥"
+                        "奉命到外國執行任務或留駐的人員",
+                        "放縱、放任",
+                        "派用、任用",
+                        "讓、以致於"
                     ],
-        "note":  "「「ㄔˋ」吒風雲」的正確答案是「叱」。"
+        "note":  "「綠衣「使」者的字義」的正確字義是「奉命到外國執行任務或留駐的人員」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "「ㄏㄤˋ」瀣一氣",
-        "answer":  "沆",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "待人接「物」的字義",
+        "answer":  "人、事、境界",
         "options":  [
-                        "沆",
-                        "航",
-                        "杭",
-                        "抗"
+                        "人、事、境界",
+                        "內容",
+                        "物體",
+                        "尋找"
                     ],
-        "note":  "「「ㄏㄤˋ」瀣一氣」的正確答案是「沆」。"
+        "note":  "「待人接「物」的字義」的正確字義是「人、事、境界」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "「ㄐㄧㄥ」渭分明",
-        "answer":  "涇",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「鼓」動翅膀的字義",
+        "answer":  "振動",
         "options":  [
-                        "徑",
-                        "經",
-                        "莖",
-                        "涇"
+                        "振動",
+                        "漲起",
+                        "振作、激勵",
+                        "樂器名"
                     ],
-        "note":  "「「ㄐㄧㄥ」渭分明」的正確答案是「涇」。"
+        "note":  "「「鼓」動翅膀的字義」的正確字義是「振動」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "正值「ㄕㄤˇ」午",
-        "answer":  "晌",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「物」外之趣的字義",
+        "answer":  "物體",
         "options":  [
-                        "響",
-                        "晃",
-                        "晌",
-                        "餉"
+                        "物體",
+                        "內容",
+                        "尋找",
+                        "人、事、境界"
                     ],
-        "note":  "「正值「ㄕㄤˇ」午」的正確答案是「晌」。"
+        "note":  "「「物」外之趣的字義」的正確字義是「物體」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "寒「ㄒㄩㄢ」問候",
-        "answer":  "暄",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "「物」色人選的字義",
+        "answer":  "尋找",
         "options":  [
-                        "煊",
-                        "暄",
-                        "喧",
-                        "宣"
+                        "尋找",
+                        "內容",
+                        "物體",
+                        "人、事、境界"
                     ],
-        "note":  "「寒「ㄒㄩㄢ」問候」的正確答案是「暄」。"
+        "note":  "「「物」色人選的字義」的正確字義是「尋找」。"
     },
     {
-        "round":  6,
-        "type":  "shape",
-        "question":  "落日餘「ㄒㄧ」",
-        "answer":  "晞",
+        "round":  5,
+        "type":  "meaning",
+        "question":  "言之有「物」的字義",
+        "answer":  "內容",
         "options":  [
-                        "晞",
-                        "希",
-                        "稀",
-                        "烯"
+                        "內容",
+                        "尋找",
+                        "物體",
+                        "人、事、境界"
                     ],
-        "note":  "「落日餘「ㄒㄧ」」的正確答案是「晞」。"
-    },
-    {
-        "round":  6,
-        "type":  "shape",
-        "question":  "颯「ㄙㄚˋ」風響",
-        "answer":  "颯",
-        "options":  [
-                        "薩",
-                        "灑",
-                        "煞",
-                        "颯"
-                    ],
-        "note":  "「颯「ㄙㄚˋ」風響」的正確答案是「颯」。"
-    },
-    {
-        "round":  6,
-        "type":  "shape",
-        "question":  "廣闊蒼「ㄑㄩㄥ」",
-        "answer":  "穹",
-        "options":  [
-                        "芎",
-                        "弓",
-                        "穹",
-                        "窮"
-                    ],
-        "note":  "「廣闊蒼「ㄑㄩㄥ」」的正確答案是「穹」。"
-    },
-    {
-        "round":  6,
-        "type":  "shape",
-        "question":  "「ㄕㄨˋ」光乍現",
-        "answer":  "曙",
-        "options":  [
-                        "薯",
-                        "曙",
-                        "暑",
-                        "署"
-                    ],
-        "note":  "「「ㄕㄨˋ」光乍現」的正確答案是「曙」。"
-    },
-    {
-        "round":  6,
-        "type":  "shape",
-        "question":  "冬溫夏「ㄐㄧㄥˋ」",
-        "answer":  "凊",
-        "options":  [
-                        "凊",
-                        "清",
-                        "晴",
-                        "情"
-                    ],
-        "note":  "「冬溫夏「ㄐㄧㄥˋ」」的正確答案是「凊」。"
-    },
-    {
-        "round":  6,
-        "type":  "shape",
-        "question":  "夜觀星「ㄒㄧㄡˋ」",
-        "answer":  "宿",
-        "options":  [
-                        "秀",
-                        "袖",
-                        "繡",
-                        "宿"
-                    ],
-        "note":  "「夜觀星「ㄒㄧㄡˋ」」的正確答案是「宿」。"
+        "note":  "「言之有「物」的字義」的正確字義是「內容」。"
     },
     {
         "round":  6,
@@ -1308,6 +1321,45 @@ const RAW_SHEET_DATA = [
     {
         "round":  6,
         "type":  "shape",
+        "question":  "冬溫夏「ㄐㄧㄥˋ」",
+        "answer":  "凊",
+        "options":  [
+                        "凊",
+                        "清",
+                        "晴",
+                        "情"
+                    ],
+        "note":  "「冬溫夏「ㄐㄧㄥˋ」」的正確答案是「凊」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "「ㄕㄨˋ」光乍現",
+        "answer":  "曙",
+        "options":  [
+                        "薯",
+                        "曙",
+                        "暑",
+                        "署"
+                    ],
+        "note":  "「「ㄕㄨˋ」光乍現」的正確答案是「曙」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "廣闊蒼「ㄑㄩㄥ」",
+        "answer":  "穹",
+        "options":  [
+                        "芎",
+                        "弓",
+                        "穹",
+                        "窮"
+                    ],
+        "note":  "「廣闊蒼「ㄑㄩㄥ」」的正確答案是「穹」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
         "question":  "「ㄙㄨˋ」夜匪懈",
         "answer":  "夙",
         "options":  [
@@ -1321,106 +1373,106 @@ const RAW_SHEET_DATA = [
     {
         "round":  6,
         "type":  "shape",
-        "question":  "花東「ㄗㄨㄥ」谷",
-        "answer":  "縱",
+        "question":  "水池乾「ㄏㄜˊ」",
+        "answer":  "涸",
         "options":  [
-                        "縱",
-                        "總",
-                        "綜",
-                        "宗"
+                        "固",
+                        "沽",
+                        "涸",
+                        "錮"
                     ],
-        "note":  "「花東「ㄗㄨㄥ」谷」的正確答案是「縱」。"
+        "note":  "「水池乾「ㄏㄜˊ」」的正確答案是「涸」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "餐松飲「ㄐㄧㄢˋ」",
-        "answer":  "澗",
+        "question":  "夜觀星「ㄒㄧㄡˋ」",
+        "answer":  "宿",
         "options":  [
-                        "簡",
-                        "間",
-                        "漸",
-                        "澗"
+                        "秀",
+                        "袖",
+                        "繡",
+                        "宿"
                     ],
-        "note":  "「餐松飲「ㄐㄧㄢˋ」」的正確答案是「澗」。"
+        "note":  "「夜觀星「ㄒㄧㄡˋ」」的正確答案是「宿」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "陷入泥「ㄋㄠˋ」",
-        "answer":  "淖",
+        "question":  "正值「ㄕㄤˇ」午",
+        "answer":  "晌",
         "options":  [
-                        "綽",
-                        "罩",
-                        "淖",
-                        "悼"
+                        "響",
+                        "晃",
+                        "晌",
+                        "餉"
                     ],
-        "note":  "「陷入泥「ㄋㄠˋ」」的正確答案是「淖」。"
+        "note":  "「正值「ㄕㄤˇ」午」的正確答案是「晌」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "險要「ㄞˋ」口",
-        "answer":  "隘",
+        "question":  "「ㄐㄧㄥ」渭分明",
+        "answer":  "涇",
         "options":  [
-                        "嗌",
-                        "隘",
-                        "溢",
-                        "縊"
+                        "徑",
+                        "經",
+                        "莖",
+                        "涇"
                     ],
-        "note":  "「險要「ㄞˋ」口」的正確答案是「隘」。"
+        "note":  "「「ㄐㄧㄥ」渭分明」的正確答案是「涇」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "驚「ㄊㄠˊ」駭浪",
-        "answer":  "濤",
+        "question":  "「ㄏㄤˋ」瀣一氣",
+        "answer":  "沆",
         "options":  [
-                        "濤",
-                        "滔",
-                        "淘",
-                        "掏"
+                        "沆",
+                        "航",
+                        "杭",
+                        "抗"
                     ],
-        "note":  "「驚「ㄊㄠˊ」駭浪」的正確答案是「濤」。"
+        "note":  "「「ㄏㄤˋ」瀣一氣」的正確答案是「沆」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "萬「ㄌㄞˋ」俱寂",
-        "answer":  "籟",
+        "question":  "颯「ㄙㄚˋ」風響",
+        "answer":  "颯",
         "options":  [
-                        "賴",
-                        "瀨",
-                        "獺",
-                        "籟"
+                        "薩",
+                        "灑",
+                        "煞",
+                        "颯"
                     ],
-        "note":  "「萬「ㄌㄞˋ」俱寂」的正確答案是「籟」。"
+        "note":  "「颯「ㄙㄚˋ」風響」的正確答案是「颯」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "天氣「ㄩˋ」熱",
-        "answer":  "燠",
+        "question":  "落日餘「ㄒㄧ」",
+        "answer":  "晞",
         "options":  [
-                        "懊",
-                        "澳",
-                        "燠",
-                        "奧"
+                        "晞",
+                        "希",
+                        "稀",
+                        "烯"
                     ],
-        "note":  "「天氣「ㄩˋ」熱」的正確答案是「燠」。"
+        "note":  "「落日餘「ㄒㄧ」」的正確答案是「晞」。"
     },
     {
         "round":  6,
         "type":  "shape",
-        "question":  "未雨綢「ㄇㄡˊ」",
-        "answer":  "繆",
+        "question":  "寒「ㄒㄩㄢ」問候",
+        "answer":  "暄",
         "options":  [
-                        "謀",
-                        "繆",
-                        "牟",
-                        "眸"
+                        "煊",
+                        "暄",
+                        "喧",
+                        "宣"
                     ],
-        "note":  "「未雨綢「ㄇㄡˊ」」的正確答案是「繆」。"
+        "note":  "「寒「ㄒㄩㄢ」問候」的正確答案是「暄」。"
     },
     {
         "round":  6,
@@ -1438,15 +1490,41 @@ const RAW_SHEET_DATA = [
     {
         "round":  6,
         "type":  "shape",
-        "question":  "下起冰「ㄅㄠˊ」",
-        "answer":  "雹",
+        "question":  "未雨綢「ㄇㄡˊ」",
+        "answer":  "繆",
         "options":  [
-                        "飽",
-                        "孢",
-                        "苞",
-                        "雹"
+                        "謀",
+                        "繆",
+                        "牟",
+                        "眸"
                     ],
-        "note":  "「下起冰「ㄅㄠˊ」」的正確答案是「雹」。"
+        "note":  "「未雨綢「ㄇㄡˊ」」的正確答案是「繆」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "天氣「ㄩˋ」熱",
+        "answer":  "燠",
+        "options":  [
+                        "懊",
+                        "澳",
+                        "燠",
+                        "奧"
+                    ],
+        "note":  "「天氣「ㄩˋ」熱」的正確答案是「燠」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "「ㄔˋ」吒風雲",
+        "answer":  "叱",
+        "options":  [
+                        "吒",
+                        "叱",
+                        "吃",
+                        "斥"
+                    ],
+        "note":  "「「ㄔˋ」吒風雲」的正確答案是「叱」。"
     },
     {
         "round":  6,
@@ -1460,6 +1538,97 @@ const RAW_SHEET_DATA = [
                         "埋"
                     ],
         "note":  "「掃除陰「ㄇㄞˊ」」的正確答案是「霾」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "下起冰「ㄅㄠˊ」",
+        "answer":  "雹",
+        "options":  [
+                        "飽",
+                        "孢",
+                        "苞",
+                        "雹"
+                    ],
+        "note":  "「下起冰「ㄅㄠˊ」」的正確答案是「雹」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "陷入泥「ㄋㄠˋ」",
+        "answer":  "淖",
+        "options":  [
+                        "綽",
+                        "罩",
+                        "淖",
+                        "悼"
+                    ],
+        "note":  "「陷入泥「ㄋㄠˋ」」的正確答案是「淖」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "餐松飲「ㄐㄧㄢˋ」",
+        "answer":  "澗",
+        "options":  [
+                        "簡",
+                        "間",
+                        "漸",
+                        "澗"
+                    ],
+        "note":  "「餐松飲「ㄐㄧㄢˋ」」的正確答案是「澗」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "花東「ㄗㄨㄥ」谷",
+        "answer":  "縱",
+        "options":  [
+                        "縱",
+                        "總",
+                        "綜",
+                        "宗"
+                    ],
+        "note":  "「花東「ㄗㄨㄥ」谷」的正確答案是「縱」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "萬「ㄌㄞˋ」俱寂",
+        "answer":  "籟",
+        "options":  [
+                        "賴",
+                        "瀨",
+                        "獺",
+                        "籟"
+                    ],
+        "note":  "「萬「ㄌㄞˋ」俱寂」的正確答案是「籟」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "驚「ㄊㄠˊ」駭浪",
+        "answer":  "濤",
+        "options":  [
+                        "濤",
+                        "滔",
+                        "淘",
+                        "掏"
+                    ],
+        "note":  "「驚「ㄊㄠˊ」駭浪」的正確答案是「濤」。"
+    },
+    {
+        "round":  6,
+        "type":  "shape",
+        "question":  "險要「ㄞˋ」口",
+        "answer":  "隘",
+        "options":  [
+                        "嗌",
+                        "隘",
+                        "溢",
+                        "縊"
+                    ],
+        "note":  "「險要「ㄞˋ」口」的正確答案是「隘」。"
     }
 ];
 
