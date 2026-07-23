@@ -317,6 +317,78 @@ const app = {
     }
   },
   
+  exportSaveFile() {
+    saveToLocalStorage();
+    const saveData = {
+      app: "日日讀形音義練習",
+      version: 1,
+      savedAt: new Date().toISOString(),
+      notebook: state.notebook,
+      progress: state.progress,
+      scores: state.scores,
+      theme: localStorage.getItem("yy_theme") || "dark"
+    };
+    const blob = new Blob([JSON.stringify(saveData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const stamp = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+    link.href = url;
+    link.download = `日日讀形音義存檔-${stamp}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  },
+
+  triggerImportSave() {
+    const input = document.getElementById("save-file-input");
+    if (!input) return;
+    input.value = "";
+    input.click();
+  },
+
+  importSaveFile(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const saveData = JSON.parse(reader.result);
+        if (!saveData || saveData.app !== "日日讀形音義練習") {
+          alert("這不是本遊戲的存檔檔案。");
+          return;
+        }
+        if (!confirm("讀取存檔會覆蓋目前這台瀏覽器中的進度，確定要讀取嗎？")) {
+          return;
+        }
+
+        state.notebook = saveData.notebook || { starred: [], wrong: [] };
+        state.progress = { ...state.progress, ...(saveData.progress || {}) };
+        state.scores = { ...state.scores, ...(saveData.scores || {}) };
+        ensureRoundState();
+        saveToLocalStorage();
+
+        if (saveData.theme) {
+          localStorage.setItem("yy_theme", saveData.theme);
+          initTheme();
+        }
+        updateDashboardStats();
+        updateNotebookBadge();
+        if (document.getElementById("page-notebook")?.classList.contains("active")) {
+          this.renderNotebook();
+        }
+        if (document.getElementById("page-game")?.classList.contains("active")) {
+          game.showMenu();
+        }
+        alert("讀檔完成！");
+      } catch (error) {
+        console.error("讀取存檔失敗", error);
+        alert("讀檔失敗，請確認檔案沒有損壞。");
+      }
+    };
+    reader.readAsText(file, "utf-8");
+  },
   // ==========================================================================
   // 字卡複習邏輯 (Review Mode)
   // ==========================================================================
@@ -1245,6 +1317,7 @@ const game = {
     }
   }
 };
+
 
 
 

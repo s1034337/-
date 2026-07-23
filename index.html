@@ -31,6 +31,14 @@
       </div>
       
       <div class="header-actions">
+        <!-- 存檔與讀檔 -->
+        <button class="nav-btn" onclick="app.exportSaveFile()" title="下載存檔">
+          <i class="fa-solid fa-floppy-disk"></i>
+        </button>
+        <button class="nav-btn" onclick="app.triggerImportSave()" title="讀取存檔">
+          <i class="fa-solid fa-file-arrow-up"></i>
+        </button>
+        <input type="file" id="save-file-input" accept="application/json,.json" hidden onchange="app.importSaveFile(event)">
         <!-- 錯題本捷徑 -->
         <button class="nav-btn" onclick="app.showPage('notebook')" title="我的錯題本">
           <i class="fa-solid fa-bookmark"></i>
@@ -514,10 +522,11 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-open3"></script>
-  <script src="script.js?v=20260723-open3"></script>
+  <script src="data.js?v=20260723-savefile"></script>
+  <script src="script.js?v=20260723-savefile"></script>
 </body>
 </html>
+
 
 
 
