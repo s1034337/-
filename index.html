@@ -71,79 +71,66 @@
         </div>
 
         <div class="section-title">
-          <h2><i class="fa-solid fa-graduation-cap"></i> 個人三回合複習闖關</h2>
-          <p>每回 25 題，必須全對才算破關；個人回合每題 5 秒會自動跳題，答錯或時間到都要重新作答，錯 3 次即重新開始本回合。</p>
+          <h2><i class="fa-solid fa-graduation-cap"></i> 個人六回合複習闖關</h2>
+          <p>六回合依序闖關，必須全對才算破關；個人回合每題 5 秒會自動跳題，答錯或時間到都要重新作答，錯 3 次即重新開始本回合。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
         <div class="rounds-grid">
-          <!-- 第一回 -->
           <div class="round-card" id="card-round-1">
             <div class="round-badge">第一回</div>
-            <div class="round-icon"><i class="fa-solid fa-bowl-food"></i></div>
-            <h3>草木字形——字形篇</h3>
+            <div class="round-icon"><i class="fa-solid fa-seedling"></i></div>
+            <h3>草木字形上——字形篇</h3>
             <p>先完成第一回字形複習與測驗。測驗全對後，第二回才會解鎖。</p>
-            <div class="progress-container">
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-r1" style="width: 0%"></div>
-              </div>
-              <span class="progress-text" id="progress-text-r1">已複習 0/25 · 尚未破關</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn-primary" onclick="app.startReview(1)">
-                <i class="fa-solid fa-book"></i> 開始複習
-              </button>
-              <button class="btn btn-secondary" onclick="app.startQuiz(1)">
-                <i class="fa-solid fa-pen-clip"></i> 模擬測驗
-              </button>
-            </div>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r1" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r1">已複習 0/13 · 尚未破關</span></div>
+            <div class="card-actions"><button class="btn btn-primary" onclick="app.startReview(1)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" onclick="app.startQuiz(1)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
-          <!-- 第二回 -->
           <div class="round-card" id="card-round-2">
             <div class="round-badge">第二回</div>
-            <div class="round-icon"><i class="fa-solid fa-utensils"></i></div>
-            <h3>饕客必讀——讀音篇</h3>
-            <p>第一回全對破關後解鎖。完成第二回全對測驗後，才能挑戰第三回。</p>
-            <div class="progress-container">
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-r2" style="width: 0%"></div>
-              </div>
-              <span class="progress-text" id="progress-text-r2">已複習 0/25 · 尚未破關</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn-primary" id="btn-review-r2" onclick="app.startReview(2)">
-                <i class="fa-solid fa-book"></i> 開始複習
-              </button>
-              <button class="btn btn-secondary" id="btn-quiz-r2" onclick="app.startQuiz(2)">
-                <i class="fa-solid fa-pen-clip"></i> 模擬測驗
-              </button>
-            </div>
+            <div class="round-icon"><i class="fa-solid fa-leaf"></i></div>
+            <h3>草木字形下——字形篇</h3>
+            <p>第一回全對破關後解鎖。完成第二回全對測驗後，第三回才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r2" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r2">第一回全對後解鎖</span></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r2" onclick="app.startReview(2)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r2" onclick="app.startQuiz(2)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
-          <!-- 第三回 -->
           <div class="round-card" id="card-round-3">
             <div class="round-badge">第三回</div>
+            <div class="round-icon"><i class="fa-solid fa-utensils"></i></div>
+            <h3>饕客讀音上——字音篇</h3>
+            <p>第二回全對破關後解鎖。完成第三回全對測驗後，第四回才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r3" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r3">第二回全對後解鎖</span></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r3" onclick="app.startReview(3)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r3" onclick="app.startQuiz(3)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-4">
+            <div class="round-badge">第四回</div>
+            <div class="round-icon"><i class="fa-solid fa-bowl-food"></i></div>
+            <h3>饕客讀音下——字音篇</h3>
+            <p>第三回全對破關後解鎖。完成第四回全對測驗後，第五回才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r4" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r4">第三回全對後解鎖</span></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r4" onclick="app.startReview(4)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r4" onclick="app.startQuiz(4)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-5">
+            <div class="round-badge">第五回</div>
+            <div class="round-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+            <h3>萬物字形上——字形篇</h3>
+            <p>第四回全對破關後解鎖。完成第五回全對測驗後，第六回才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r5" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r5">第四回全對後解鎖</span></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r5" onclick="app.startReview(5)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r5" onclick="app.startQuiz(5)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-6">
+            <div class="round-badge">第六回</div>
             <div class="round-icon"><i class="fa-solid fa-mountain-sun"></i></div>
-            <h3>萬物氣象——字形篇</h3>
-            <p>第二回全對破關後解鎖。完成第三回全對測驗後，個人三回合闖關完成。</p>
-            <div class="progress-container">
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-r3" style="width: 0%"></div>
-              </div>
-              <span class="progress-text" id="progress-text-r3">已複習 0/25 · 尚未破關</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn-primary" id="btn-review-r3" onclick="app.startReview(3)">
-                <i class="fa-solid fa-book"></i> 開始複習
-              </button>
-              <button class="btn btn-secondary" id="btn-quiz-r3" onclick="app.startQuiz(3)">
-                <i class="fa-solid fa-pen-clip"></i> 模擬測驗
-              </button>
-            </div>
+            <h3>萬物字形下——字形篇</h3>
+            <p>第五回全對破關後解鎖。完成第六回全對測驗後，個人六回合闖關完成。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r6" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r6">第五回全對後解鎖</span></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r6" onclick="app.startReview(6)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r6" onclick="app.startQuiz(6)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
         </div>
-
         <div class="section-title">
           <h2><i class="fa-solid fa-people-group"></i> 六組分組測驗</h2>
           <p>六組輪流挑戰同一份 75 題總複習，合力作答；每組總共只有 6 次錯誤機會，PK 哪一組最快完成。</p>
@@ -185,7 +172,7 @@
           </button>
           <div class="page-title-info">
             <span class="subtitle-label" id="review-round-subtitle">第一回</span>
-            <h2 id="review-round-title">草木字形——字形篇</h2>
+            <h2 id="review-round-title">草木字形上——字形篇</h2>
           </div>
         </div>
 
@@ -527,10 +514,12 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-questions"></script>
-  <script src="script.js?v=20260723-questions"></script>
+  <script src="data.js?v=20260723-sixrounds"></script>
+  <script src="script.js?v=20260723-sixrounds"></script>
 </body>
 </html>
+
+
 
 
 

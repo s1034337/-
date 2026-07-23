@@ -14,12 +14,18 @@ const state = {
   progress: {
     round1: [], // 已複習的索引列表
     round2: [],
-    round3: []
+    round3: [],
+    round4: [],
+    round5: [],
+    round6: []
   },
   scores: {
     quiz1: 0,
     quiz2: 0,
     quiz3: 0,
+    quiz4: 0,
+    quiz5: 0,
+    quiz6: 0,
     gameHigh: 0,
     gameClearedGroups: [],
     gameGroupBest: {},
@@ -52,6 +58,20 @@ const state = {
 
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
+const ROUND_COUNT = REVIEW_DATA.length;
+
+function getRoundTotal(roundNum) {
+  return RAW_SHEET_DATA.filter(item => item.round === roundNum).length;
+}
+
+function ensureRoundState() {
+  for (let roundNum = 1; roundNum <= ROUND_COUNT; roundNum++) {
+    const progressKey = `round${roundNum}`;
+    const scoreKey = `quiz${roundNum}`;
+    state.progress[progressKey] = state.progress[progressKey] || [];
+    state.scores[scoreKey] = state.scores[scoreKey] || 0;
+  }
+}
 
 function getQuestionTypeLabel(type, short = false) {
   if (type === "shape") return short ? "字形題" : "字形選擇題";
@@ -99,12 +119,13 @@ function isPreviewMode() {
 function applyPreviewMode() {
   if (!isPreviewMode()) return;
 
-  state.progress.round1 = Array.from({ length: 25 }, (_, i) => i);
-  state.progress.round2 = Array.from({ length: 18 }, (_, i) => i);
-  state.progress.round3 = Array.from({ length: 7 }, (_, i) => i);
-  state.scores.quiz1 = 100;
-  state.scores.quiz2 = 84;
-  state.scores.quiz3 = 0;
+  ensureRoundState();
+  for (let roundNum = 1; roundNum <= ROUND_COUNT; roundNum++) {
+    const total = getRoundTotal(roundNum);
+    const previewCount = roundNum === 1 ? total : Math.max(0, Math.floor(total * 0.45));
+    state.progress[`round${roundNum}`] = Array.from({ length: previewCount }, (_, i) => i);
+    state.scores[`quiz${roundNum}`] = roundNum === 1 ? 100 : 0;
+  }
   state.scores.gameHigh = 7500;
   state.scores.gameClearedGroups = [2, 5, 1];
   state.scores.gameGroupBest = {
@@ -137,9 +158,7 @@ function loadFromLocalStorage() {
   if (savedProgress) {
     try {
       state.progress = { ...state.progress, ...JSON.parse(savedProgress) };
-      state.progress.round1 = state.progress.round1 || [];
-      state.progress.round2 = state.progress.round2 || [];
-      state.progress.round3 = state.progress.round3 || [];
+      ensureRoundState();
     } catch (e) {
       console.error("解析進度數據失敗", e);
     }
@@ -153,6 +172,7 @@ function loadFromLocalStorage() {
       state.scores.gameGroupBest = state.scores.gameGroupBest || {};
       state.scores.gameGroupBestTime = state.scores.gameGroupBestTime || {};
       state.scores.gameGroupFinishOrder = state.scores.gameGroupFinishOrder || [];
+      ensureRoundState();
     } catch (e) {
       console.error("解析分數數據失敗", e);
     }
@@ -208,50 +228,43 @@ function toggleTheme() {
 // 儀表板數據統計
 // ==========================================================================
 function updateDashboardStats() {
-  // 1. 進度計算
-  const r1Total = 25;
-  const r2Total = 25;
-  const r3Total = 25;
-  const totalCards = r1Total + r2Total + r3Total;
-  
-  const r1Reviewed = state.progress.round1.length;
-  const r2Reviewed = state.progress.round2.length;
-  const r3Reviewed = state.progress.round3.length;
-  const totalReviewed = r1Reviewed + r2Reviewed + r3Reviewed;
-  
-  const r1Pct = Math.round((r1Reviewed / r1Total) * 100);
-  const r2Pct = Math.round((r2Reviewed / r2Total) * 100);
-  const r3Pct = Math.round((r3Reviewed / r3Total) * 100);
-  const totalPct = Math.round((totalReviewed / totalCards) * 100);
-  const r1ClearText = state.scores.quiz1 === 100 ? "已破關" : "尚未破關";
-  const r2ClearText = state.scores.quiz2 === 100 ? "已破關" : "尚未破關";
-  const r3ClearText = state.scores.quiz3 === 100 ? "已破關" : "尚未破關";
-  const round2Locked = state.scores.quiz1 !== 100;
-  const round3Locked = state.scores.quiz2 !== 100;
-  
-  // 更新儀表板進度條
-  document.getElementById("progress-r1").style.width = `${r1Pct}%`;
-  document.getElementById("progress-text-r1").textContent = `已複習 ${r1Reviewed}/${r1Total} · ${r1ClearText}`;
-  
-  document.getElementById("progress-r2").style.width = `${r2Pct}%`;
-  document.getElementById("progress-text-r2").textContent = round2Locked ? "第一回全對後解鎖" : `已複習 ${r2Reviewed}/${r2Total} · ${r2ClearText}`;
-  
-  document.getElementById("progress-r3").style.width = `${r3Pct}%`;
-  document.getElementById("progress-text-r3").textContent = round3Locked ? "第二回全對後解鎖" : `已複習 ${r3Reviewed}/${r3Total} · ${r3ClearText}`;
+  ensureRoundState();
 
-  setRoundLockState(2, round2Locked);
-  setRoundLockState(3, round3Locked);
-  
-  // 更新頂部三個大數據卡
+  let totalCards = 0;
+  let totalReviewed = 0;
+  const scores = [];
+
+  for (let roundNum = 1; roundNum <= ROUND_COUNT; roundNum++) {
+    const total = getRoundTotal(roundNum);
+    const progressKey = `round${roundNum}`;
+    const scoreKey = `quiz${roundNum}`;
+    const reviewed = state.progress[progressKey].length;
+    const pct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
+    const isLocked = roundNum > 1 && state.scores[`quiz${roundNum - 1}`] !== 100;
+    const clearText = state.scores[scoreKey] === 100 ? "已破關" : "尚未破關";
+
+    totalCards += total;
+    totalReviewed += reviewed;
+    scores.push(state.scores[scoreKey] || 0);
+
+    const fill = document.getElementById(`progress-r${roundNum}`);
+    const text = document.getElementById(`progress-text-r${roundNum}`);
+    if (fill) fill.style.width = `${pct}%`;
+    if (text) {
+      text.textContent = isLocked ? `第 ${roundNum - 1} 回全對後解鎖` : `已複習 ${reviewed}/${total} · ${clearText}`;
+    }
+    setRoundLockState(roundNum, isLocked);
+  }
+
+  const totalPct = totalCards > 0 ? Math.round((totalReviewed / totalCards) * 100) : 0;
   document.getElementById("stat-reviewed-pct").textContent = `${totalPct}%`;
-  
-  const bestScore = Math.max(state.scores.quiz1, state.scores.quiz2, state.scores.quiz3);
+
+  const bestScore = Math.max(...scores, 0);
   document.getElementById("stat-best-score").textContent = bestScore > 0 ? `${bestScore}分` : "無";
-  
+
   const gameHigh = state.scores.gameHigh;
   document.getElementById("stat-game-score").textContent = gameHigh > 0 ? `${gameHigh}分` : "無";
 }
-
 function setRoundLockState(roundNum, isLocked) {
   const card = document.getElementById(`card-round-${roundNum}`);
   const reviewBtn = document.getElementById(`btn-review-r${roundNum}`);
@@ -419,6 +432,7 @@ const app = {
   // 記錄複習卡片進度
   markCardAsRead(index) {
     const key = `round${state.currentRound}`;
+    state.progress[key] = state.progress[key] || [];
     if (!state.progress[key].includes(index)) {
       state.progress[key].push(index);
       saveToLocalStorage();
@@ -467,7 +481,7 @@ const app = {
     // 獲取該回所有考題
     const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
     
-    // 每回合完整 25 題，必須全對才破關
+    // 每回合完整作答，必須全對才破關
     state.quiz.questions = this.getRandomSubarray(allQuestions, allQuestions.length);
     state.quiz.currentIndex = 0;
     state.quiz.score = 0;
@@ -1230,4 +1244,5 @@ const game = {
     }
   }
 };
+
 

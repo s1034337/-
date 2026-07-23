@@ -1,7 +1,7 @@
 ﻿/**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
- * 資料來源：教師提供之 Google Sheet TSV。
- * 共 75 題，分為三回，每回 25 題。
+ * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
+ * 共 75 題，分為六回，題數依序為 13、12、13、12、13、12 題。
  */
 
 const RAW_SHEET_DATA = [
@@ -175,7 +175,7 @@ const RAW_SHEET_DATA = [
         "note":  "「青蕪」的正確寫法是「蕪」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "青「ㄎㄜ」",
         "answer":  "稞",
@@ -188,7 +188,7 @@ const RAW_SHEET_DATA = [
         "note":  "「青稞」的正確寫法是「稞」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄓ」子花開",
         "answer":  "梔",
@@ -201,7 +201,7 @@ const RAW_SHEET_DATA = [
         "note":  "「梔子花」的正確寫法是「梔」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "桑「ㄩˊ」晚景",
         "answer":  "榆",
@@ -214,7 +214,7 @@ const RAW_SHEET_DATA = [
         "note":  "「桑榆晚景」的正確寫法是「榆」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄡˇ」斷絲連",
         "answer":  "藕",
@@ -227,7 +227,7 @@ const RAW_SHEET_DATA = [
         "note":  "「藕斷絲連」的正確寫法是「藕」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "一「ㄒㄩㄣ」一蕕",
         "answer":  "薰",
@@ -240,7 +240,7 @@ const RAW_SHEET_DATA = [
         "note":  "「一薰一蕕」的正確寫法是「薰」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄘㄨˋ」漿草",
         "answer":  "酢",
@@ -253,7 +253,7 @@ const RAW_SHEET_DATA = [
         "note":  "「酢漿草」的正確寫法是「酢」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄏㄨˋ」瓜",
         "answer":  "瓠",
@@ -266,7 +266,7 @@ const RAW_SHEET_DATA = [
         "note":  "「瓠瓜」的正確寫法是「瓠」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄊㄢˊ」花一現",
         "answer":  "曇",
@@ -279,7 +279,7 @@ const RAW_SHEET_DATA = [
         "note":  "「曇花一現」的正確寫法是「曇」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "棕「ㄌㄩˊ」",
         "answer":  "櫚",
@@ -292,7 +292,7 @@ const RAW_SHEET_DATA = [
         "note":  "「棕櫚」的正確寫法是「櫚」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "臺灣「ㄌㄨㄢˊ」樹",
         "answer":  "欒",
@@ -305,7 +305,7 @@ const RAW_SHEET_DATA = [
         "note":  "「臺灣欒樹」的正確寫法是「欒」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "朝鮮「ㄐㄧˋ」",
         "answer":  "薊",
@@ -318,7 +318,7 @@ const RAW_SHEET_DATA = [
         "note":  "「朝鮮薊」的正確寫法是「薊」。"
     },
     {
-        "round":  1,
+        "round":  2,
         "type":  "shape",
         "question":  "「ㄒㄧㄢ」維植物",
         "answer":  "纖",
@@ -331,7 +331,7 @@ const RAW_SHEET_DATA = [
         "note":  "「纖維植物」的正確寫法是「纖」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "牛肉「燴」飯的讀音",
         "answer":  "ㄏㄨㄟˋ",
@@ -344,7 +344,7 @@ const RAW_SHEET_DATA = [
         "note":  "「牛肉「燴」飯的讀音」的正確答案是「ㄏㄨㄟˋ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「餛」飩湯的讀音",
         "answer":  "ㄏㄨㄣˊ",
@@ -357,7 +357,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「餛」飩湯的讀音」的正確答案是「ㄏㄨㄣˊ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「咖」哩飯的讀音",
         "answer":  "ㄎㄚ",
@@ -370,7 +370,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「咖」哩飯的讀音」的正確答案是「ㄎㄚ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「蚵」仔煎的讀音",
         "answer":  "ㄜˊ",
@@ -383,7 +383,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「蚵」仔煎的讀音」的正確答案是「ㄜˊ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "綜「合」果汁的讀音",
         "answer":  "ㄏㄜˊ",
@@ -396,7 +396,7 @@ const RAW_SHEET_DATA = [
         "note":  "「綜「合」果汁的讀音」的正確答案是「ㄏㄜˊ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「涮」羊肉的讀音",
         "answer":  "ㄕㄨㄚ",
@@ -409,7 +409,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「涮」羊肉的讀音」的正確答案是「ㄕㄨㄚ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「炸」醬麵的讀音",
         "answer":  "ㄓㄚˋ",
@@ -422,7 +422,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˋ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "肉「燉」飯的讀音",
         "answer":  "ㄉㄨㄣˋ",
@@ -435,7 +435,7 @@ const RAW_SHEET_DATA = [
         "note":  "「肉「燉」飯的讀音」的正確答案是「ㄉㄨㄣˋ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「什」錦炒麵的讀音",
         "answer":  "ㄕˊ",
@@ -448,7 +448,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「什」錦炒麵的讀音」的正確答案是「ㄕˊ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「蛤」蜊濃湯的讀音",
         "answer":  "ㄍㄚ",
@@ -461,7 +461,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「蛤」蜊濃湯的讀音」的正確答案是「ㄍㄚ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "勾「芡」料理的讀音",
         "answer":  "ㄑㄧㄢˋ",
@@ -474,7 +474,7 @@ const RAW_SHEET_DATA = [
         "note":  "「勾「芡」料理的讀音」的正確答案是「ㄑㄧㄢˋ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "「汆」燙肉片的讀音",
         "answer":  "ㄘㄨㄢ",
@@ -487,7 +487,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「汆」燙肉片的讀音」的正確答案是「ㄘㄨㄢ」。"
     },
     {
-        "round":  2,
+        "round":  3,
         "type":  "pronunciation",
         "question":  "味「噌」湯的讀音",
         "answer":  "ㄇㄧˋ",
@@ -500,7 +500,7 @@ const RAW_SHEET_DATA = [
         "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "牛肉「煲」湯的讀音",
         "answer":  "ㄅㄠ",
@@ -513,7 +513,7 @@ const RAW_SHEET_DATA = [
         "note":  "「牛肉「煲」湯的讀音」的正確答案是「ㄅㄠ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "元「盅」雞湯的讀音",
         "answer":  "ㄓㄨㄥ",
@@ -526,7 +526,7 @@ const RAW_SHEET_DATA = [
         "note":  "「元「盅」雞湯的讀音」的正確答案是「ㄓㄨㄥ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "菜「脯」蛋的讀音",
         "answer":  "ㄆㄨˇ",
@@ -539,7 +539,7 @@ const RAW_SHEET_DATA = [
         "note":  "「菜「脯」蛋的讀音」的正確答案是「ㄆㄨˇ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "莧「菜」小魚的讀音",
         "answer":  "ㄒㄧㄢˋ",
@@ -552,7 +552,7 @@ const RAW_SHEET_DATA = [
         "note":  "「莧「菜」小魚的讀音」的正確答案是「ㄒㄧㄢˋ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "金「桔」檸檬的讀音",
         "answer":  "ㄐㄧˊ",
@@ -565,7 +565,7 @@ const RAW_SHEET_DATA = [
         "note":  "「金「桔」檸檬的讀音」的正確答案是「ㄐㄧˊ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "豬「肚」湯的讀音",
         "answer":  "ㄉㄨˇ",
@@ -578,7 +578,7 @@ const RAW_SHEET_DATA = [
         "note":  "「豬「肚」湯的讀音」的正確答案是「ㄉㄨˇ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "新港「飴」的讀音",
         "answer":  "ㄧˊ",
@@ -591,7 +591,7 @@ const RAW_SHEET_DATA = [
         "note":  "「新港「飴」的讀音」的正確答案是「ㄧˊ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "草「仔」粿的讀音",
         "answer":  "ㄗˇ",
@@ -604,7 +604,7 @@ const RAW_SHEET_DATA = [
         "note":  "「草「仔」粿的讀音」的正確答案是「ㄗˇ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "紅燒蹄「膀」的讀音",
         "answer":  "ㄅㄤˇ",
@@ -617,7 +617,7 @@ const RAW_SHEET_DATA = [
         "note":  "「紅燒蹄「膀」的讀音」的正確答案是「ㄅㄤˇ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "鼎邊「趖」的讀音",
         "answer":  "ㄙㄨㄛ",
@@ -630,7 +630,7 @@ const RAW_SHEET_DATA = [
         "note":  "「鼎邊「趖」的讀音」的正確答案是「ㄙㄨㄛ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "「腓」力牛排的讀音",
         "answer":  "ㄈㄟˊ",
@@ -643,7 +643,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「腓」力牛排的讀音」的正確答案是「ㄈㄟˊ」。"
     },
     {
-        "round":  2,
+        "round":  4,
         "type":  "pronunciation",
         "question":  "「煨」牛肉的讀音",
         "answer":  "ㄨㄟ",
@@ -656,7 +656,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「煨」牛肉的讀音」的正確答案是「ㄨㄟ」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "水池乾「ㄏㄜˊ」",
         "answer":  "涸",
@@ -669,7 +669,7 @@ const RAW_SHEET_DATA = [
         "note":  "「水池乾「ㄏㄜˊ」」的正確答案是「涸」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "「ㄔˋ」吒風雲",
         "answer":  "叱",
@@ -682,7 +682,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄔˋ」吒風雲」的正確答案是「叱」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "「ㄏㄤˋ」瀣一氣",
         "answer":  "沆",
@@ -695,7 +695,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄏㄤˋ」瀣一氣」的正確答案是「沆」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "「ㄐㄧㄥ」渭分明",
         "answer":  "涇",
@@ -708,7 +708,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄐㄧㄥ」渭分明」的正確答案是「涇」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "正值「ㄕㄤˇ」午",
         "answer":  "晌",
@@ -721,7 +721,7 @@ const RAW_SHEET_DATA = [
         "note":  "「正值「ㄕㄤˇ」午」的正確答案是「晌」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "寒「ㄒㄩㄢ」問候",
         "answer":  "暄",
@@ -734,7 +734,7 @@ const RAW_SHEET_DATA = [
         "note":  "「寒「ㄒㄩㄢ」問候」的正確答案是「暄」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "落日餘「ㄒㄧ」",
         "answer":  "晞",
@@ -747,7 +747,7 @@ const RAW_SHEET_DATA = [
         "note":  "「落日餘「ㄒㄧ」」的正確答案是「晞」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "颯「ㄙㄚˋ」風響",
         "answer":  "颯",
@@ -760,7 +760,7 @@ const RAW_SHEET_DATA = [
         "note":  "「颯「ㄙㄚˋ」風響」的正確答案是「颯」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "廣闊蒼「ㄑㄩㄥ」",
         "answer":  "穹",
@@ -773,7 +773,7 @@ const RAW_SHEET_DATA = [
         "note":  "「廣闊蒼「ㄑㄩㄥ」」的正確答案是「穹」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "「ㄕㄨˇ」光乍現",
         "answer":  "曙",
@@ -786,7 +786,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄕㄨˇ」光乍現」的正確答案是「曙」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "冬溫夏「ㄑㄧㄥˋ」",
         "answer":  "凊",
@@ -799,7 +799,7 @@ const RAW_SHEET_DATA = [
         "note":  "「冬溫夏「ㄑㄧㄥˋ」」的正確答案是「凊」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "夜觀星「ㄒㄧㄡˋ」",
         "answer":  "宿",
@@ -812,7 +812,7 @@ const RAW_SHEET_DATA = [
         "note":  "「夜觀星「ㄒㄧㄡˋ」」的正確答案是「宿」。"
     },
     {
-        "round":  3,
+        "round":  5,
         "type":  "shape",
         "question":  "「ㄙㄨㄥ」山少林",
         "answer":  "嵩",
@@ -825,7 +825,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄙㄨㄥ」山少林」的正確答案是「嵩」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "「ㄙㄨˋ」夜匪懈",
         "answer":  "夙",
@@ -838,7 +838,7 @@ const RAW_SHEET_DATA = [
         "note":  "「「ㄙㄨˋ」夜匪懈」的正確答案是「夙」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "花東「ㄗㄨㄥ」谷",
         "answer":  "縱",
@@ -851,7 +851,7 @@ const RAW_SHEET_DATA = [
         "note":  "「花東「ㄗㄨㄥ」谷」的正確答案是「縱」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "餐松飲「ㄐㄧㄢˋ」",
         "answer":  "澗",
@@ -864,7 +864,7 @@ const RAW_SHEET_DATA = [
         "note":  "「餐松飲「ㄐㄧㄢˋ」」的正確答案是「澗」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "陷入泥「ㄋㄠˋ」",
         "answer":  "淖",
@@ -877,7 +877,7 @@ const RAW_SHEET_DATA = [
         "note":  "「陷入泥「ㄋㄠˋ」」的正確答案是「淖」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "險要「ㄞˋ」口",
         "answer":  "隘",
@@ -890,7 +890,7 @@ const RAW_SHEET_DATA = [
         "note":  "「險要「ㄞˋ」口」的正確答案是「隘」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "驚「ㄊㄠˊ」駭浪",
         "answer":  "濤",
@@ -903,7 +903,7 @@ const RAW_SHEET_DATA = [
         "note":  "「驚「ㄊㄠˊ」駭浪」的正確答案是「濤」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "萬「ㄌㄞˋ」俱寂",
         "answer":  "籟",
@@ -916,7 +916,7 @@ const RAW_SHEET_DATA = [
         "note":  "「萬「ㄌㄞˋ」俱寂」的正確答案是「籟」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "天氣「ㄩˋ」熱",
         "answer":  "燠",
@@ -929,7 +929,7 @@ const RAW_SHEET_DATA = [
         "note":  "「天氣「ㄩˋ」熱」的正確答案是「燠」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "未雨綢「ㄇㄧㄡˋ」",
         "answer":  "繆",
@@ -942,7 +942,7 @@ const RAW_SHEET_DATA = [
         "note":  "「未雨綢「ㄇㄧㄡˋ」」的正確答案是「繆」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "光風「ㄐㄧˋ」月",
         "answer":  "霽",
@@ -955,7 +955,7 @@ const RAW_SHEET_DATA = [
         "note":  "「光風「ㄐㄧˋ」月」的正確答案是「霽」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "下起冰「ㄅㄠˊ」",
         "answer":  "雹",
@@ -968,7 +968,7 @@ const RAW_SHEET_DATA = [
         "note":  "「下起冰「ㄅㄠˊ」」的正確答案是「雹」。"
     },
     {
-        "round":  3,
+        "round":  6,
         "type":  "shape",
         "question":  "掃除陰「ㄇㄞˊ」",
         "answer":  "霾",
@@ -985,23 +985,39 @@ const RAW_SHEET_DATA = [
 const REVIEW_DATA = [
     {
         "round":  1,
-        "title":  "第一回：草木字形——字形篇",
+        "title":  "第一回：草木字形上——字形篇",
         "subtitle":  "第 1 回複習"
     },
     {
         "round":  2,
-        "title":  "第二回：饕客必讀——讀音篇",
+        "title":  "第二回：草木字形下——字形篇",
         "subtitle":  "第 2 回複習"
     },
     {
         "round":  3,
-        "title":  "第三回：萬物氣象——字形篇",
+        "title":  "第三回：饕客讀音上——字音篇",
         "subtitle":  "第 3 回複習"
+    },
+    {
+        "round":  4,
+        "title":  "第四回：饕客讀音下——字音篇",
+        "subtitle":  "第 4 回複習"
+    },
+    {
+        "round":  5,
+        "title":  "第五回：萬物字形上——字形篇",
+        "subtitle":  "第 5 回複習"
+    },
+    {
+        "round":  6,
+        "title":  "第六回：萬物字形下——字形篇",
+        "subtitle":  "第 6 回複習"
     }
 ];
 
 // 舊版除錯大作戰保留名稱；目前六組打怪模式直接使用 RAW_SHEET_DATA。
 const GAME_WORDS_DATABASE = [];
+
 
 
 
