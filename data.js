@@ -620,14 +620,14 @@ const RAW_SHEET_DATA = [
         "round":  2,
         "type":  "pronunciation",
         "question":  "「炸」醬麵的讀音",
-        "answer":  "ㄓㄚˋ",
+        "answer":  "ㄓㄚˊ",
         "options":  [
-                        "ㄗㄚˋ",
-                        "ㄓㄚˋ",
                         "ㄓㄚˊ",
-                        "ㄓㄚ"
+                        "ㄓㄚˋ",
+                        "ㄓㄚ",
+                        "ㄗㄚˋ"
                     ],
-        "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˋ」。"
+        "note":  "「「炸」醬麵的讀音」的正確答案是「ㄓㄚˊ」。"
     },
     {
         "round":  2,
@@ -735,16 +735,16 @@ const RAW_SHEET_DATA = [
     },
     {
         "round":  3,
-        "type":  "shape",
-        "question":  "落日餘「ㄒㄧ」",
-        "answer":  "晞",
+        "type":  "pronunciation",
+        "question":  "落日餘「暉」的讀音",
+        "answer":  "ㄏㄨㄟ",
         "options":  [
-                        "晞",
-                        "希",
-                        "稀",
-                        "烯"
+                        "ㄏㄨㄟ",
+                        "ㄏㄨㄟˊ",
+                        "ㄏㄨㄟˇ",
+                        "ㄏㄨㄟˋ"
                     ],
-        "note":  "「落日餘「ㄒㄧ」」的正確答案是「晞」。"
+        "note":  "「落日餘「暉」的讀音」的正確答案是「ㄏㄨㄟ」。"
     },
     {
         "round":  3,
@@ -774,29 +774,29 @@ const RAW_SHEET_DATA = [
     },
     {
         "round":  3,
-        "type":  "shape",
-        "question":  "「ㄕㄨˇ」光乍現",
-        "answer":  "曙",
+        "type":  "pronunciation",
+        "question":  "「曙」光乍現的讀音",
+        "answer":  "ㄕㄨˋ",
         "options":  [
-                        "薯",
-                        "曙",
-                        "暑",
-                        "署"
+                        "ㄕㄨˋ",
+                        "ㄕㄨˇ",
+                        "ㄕㄨ",
+                        "ㄙㄨˋ"
                     ],
-        "note":  "「「ㄕㄨˇ」光乍現」的正確答案是「曙」。"
+        "note":  "「「曙」光乍現的讀音」的正確答案是「ㄕㄨˋ」。"
     },
     {
         "round":  3,
-        "type":  "shape",
-        "question":  "冬溫夏「ㄑㄧㄥˋ」",
-        "answer":  "凊",
+        "type":  "pronunciation",
+        "question":  "冬溫夏「凊」的讀音",
+        "answer":  "ㄐㄧㄥˋ",
         "options":  [
-                        "凊",
-                        "清",
-                        "晴",
-                        "情"
+                        "ㄐㄧㄥˋ",
+                        "ㄑㄧㄥˋ",
+                        "ㄐㄧㄥ",
+                        "ㄑㄧㄥ"
                     ],
-        "note":  "「冬溫夏「ㄑㄧㄥˋ」」的正確答案是「凊」。"
+        "note":  "「冬溫夏「凊」的讀音」的正確答案是「ㄐㄧㄥˋ」。"
     },
     {
         "round":  3,
@@ -930,16 +930,16 @@ const RAW_SHEET_DATA = [
     },
     {
         "round":  3,
-        "type":  "shape",
-        "question":  "未雨綢「ㄇㄧㄡˋ」",
-        "answer":  "繆",
+        "type":  "pronunciation",
+        "question":  "未雨綢「繆」的讀音",
+        "answer":  "ㄇㄡˊ",
         "options":  [
-                        "膠",
-                        "繆",
-                        "謬",
-                        "廖"
+                        "ㄇㄡˊ",
+                        "ㄇㄧㄡˋ",
+                        "ㄌㄧㄠˊ",
+                        "ㄇㄧㄠˋ"
                     ],
-        "note":  "「未雨綢「ㄇㄧㄡˋ」」的正確答案是「繆」。"
+        "note":  "「未雨綢「繆」的讀音」的正確答案是「ㄇㄡˊ」。"
     },
     {
         "round":  3,
