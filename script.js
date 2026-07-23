@@ -1206,7 +1206,7 @@ const game = {
       .filter(entry => entry.stats.attempts > 0)
       .sort((a, b) => {
         if (b.stats.correct !== a.stats.correct) return b.stats.correct - a.stats.correct;
-        if (b.stats.totalTime !== a.stats.totalTime) return b.stats.totalTime - a.stats.totalTime;
+        if (a.stats.totalTime !== b.stats.totalTime) return a.stats.totalTime - b.stats.totalTime;
         return a.group.id - b.group.id;
       });
   },
