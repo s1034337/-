@@ -80,7 +80,7 @@
 
         <div class="section-title">
           <h2><i class="fa-solid fa-graduation-cap"></i> 個人六回合複習闖關</h2>
-          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回全對才解鎖。個人回合每題 5 秒倒數，自動跳題，錯 3 次即重新開始本回合。</p>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回全對才解鎖。個人戰每回 25 題，每題 5 秒倒數，自動跳題，錯 3 次即重新開始本回合。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -147,7 +147,7 @@
         </div>
         <div class="section-title">
           <h2><i class="fa-solid fa-people-group"></i> 六組分組測驗</h2>
-          <p>六組分別進入同一份 75 題總複習，人數不限；系統累積各組答對題數與總秒數，先比正確度，答對越多排名越高；正確度相同時，比累積秒數，秒數越少排名越高。</p>
+          <p>六組分別進入分組挑戰，每次隨機 10 題，人數不限；系統累積各組答對題數與總秒數，先比正確度，再比累積秒數。</p>
         </div>
 
         <!-- 輔助區網格 -->
@@ -266,7 +266,7 @@
             </button>
             <div class="quiz-info">
               <span class="quiz-timer" id="quiz-timer"><i class="fa-regular fa-clock"></i> 倒數 5 秒</span>
-              <span class="quiz-progress-num" id="quiz-progress-text">題號: 1 / 10</span>
+              <span class="quiz-progress-num" id="quiz-progress-text">題號: 1 / 25</span>
             </div>
           </div>
 
@@ -375,9 +375,9 @@
               <i class="fa-solid fa-dragon"></i>
             </div>
             <h2>六組總複習PK</h2>
-            <p>六組分別進入挑戰同一份 75 題總複習，一組人數不限。系統會累積各組答對題數與總秒數，最後先比正確度，再比累積秒數。</p>
+            <p>六組分別進入分組挑戰，一組人數不限。每次隨機 10 題，系統會累積各組答對題數與總秒數，最後先比正確度，再比累積秒數。</p>
             <div class="game-rules">
-              <div><i class="fa-solid fa-people-group"></i> 每組人數不限，進入後挑戰完整 75 題，不切題庫。</div>
+              <div><i class="fa-solid fa-people-group"></i> 每組人數不限，每次進入隨機挑戰 10 題。</div>
               <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時，累積總時長與秒數；正確越多越高，正確相同則秒數越少越高。</div>
               <div><i class="fa-solid fa-heart red-heart"></i> 總共 6 次錯誤機會，超過 6 次會結束本次挑戰，但答對題數與時間仍會累積。</div>
             </div>
@@ -548,7 +548,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-roundnames"></script>
-  <script src="script.js?v=20260723-roundnames"></script>
+  <script src="data.js?v=20260723-counts"></script>
+  <script src="script.js?v=20260723-counts"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@ const state = {
   
   // 測驗進行中狀態
   quiz: {
-    questions: [], // 隨機抽選的 10 題
+    questions: [], // 個人測驗題目
     currentIndex: 0,
     score: 0,
     selectedOption: null,
@@ -62,6 +62,7 @@ const state = {
 
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
+const PERSONAL_QUIZ_QUESTION_COUNT = 25;
 const ROUND_COUNT = REVIEW_DATA.length;
 const OPEN_ROUNDS_COUNT = 4;
 
@@ -649,7 +650,7 @@ const app = {
     const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
     
     // 每回合完整作答，必須全對才破關
-    state.quiz.questions = this.getRandomSubarray(allQuestions, allQuestions.length);
+    state.quiz.questions = this.getQuestionSet(allQuestions, PERSONAL_QUIZ_QUESTION_COUNT);
     state.quiz.currentIndex = 0;
     state.quiz.score = 0;
     state.quiz.correctCount = 0;
@@ -687,6 +688,15 @@ const app = {
       shuffled[i] = temp;
     }
     return shuffled.slice(0, size);
+  },
+
+  getQuestionSet(arr, size) {
+    if (!arr.length) return [];
+    const selected = [];
+    while (selected.length < size) {
+      selected.push(...this.getRandomSubarray(arr, arr.length).map(item => ({ ...item })));
+    }
+    return selected.slice(0, size);
   },
   
   renderQuizQuestion() {
@@ -1164,6 +1174,7 @@ const GAME_GROUPS = [
 ];
 
 const GROUP_TEST_WRONG_CHANCES = 6;
+const GROUP_TEST_QUESTION_COUNT = 10;
 
 const game = {
   active: false,
@@ -1244,7 +1255,7 @@ const game = {
     });
   },
   getGroupQuestions(groupId) {
-    return RAW_SHEET_DATA.slice();
+    return this.shuffle(RAW_SHEET_DATA).slice(0, GROUP_TEST_QUESTION_COUNT).map(item => ({ ...item }));
   },
 
   formatTime(seconds) {
