@@ -1199,6 +1199,8 @@ const GAME_GROUPS = [
 
 const GROUP_TEST_WRONG_CHANCES = 6;
 const GROUP_TEST_QUESTION_COUNT = 10;
+const FIRST_GROUP_BATTLE_ROUNDS = [1, 2, 3, 4, 5, 6];
+const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * FIRST_GROUP_BATTLE_ROUNDS.length;
 
 const GROUP_BATTLE_SETS = [
   { id: 1, label: "第一次團體戰", shortLabel: "第一次", desc: "六回總複習後的第一次分組PK" },
@@ -1217,7 +1219,7 @@ function createGroupBattleRecord() {
 }
 
 function normalizeGroupBattleRecord(record = {}) {
-  return {
+  const normalized = {
     ...createGroupBattleRecord(),
     ...record,
     gameClearedGroups: record.gameClearedGroups || [],
@@ -1226,6 +1228,40 @@ function normalizeGroupBattleRecord(record = {}) {
     gameGroupFinishOrder: record.gameGroupFinishOrder || [],
     gameGroupStats: record.gameGroupStats || {}
   };
+
+  Object.keys(normalized.gameGroupStats).forEach(groupId => {
+    normalized.gameGroupStats[groupId] = normalizeGroupStats(normalized.gameGroupStats[groupId]);
+  });
+
+  return normalized;
+}
+
+function normalizeGroupStats(stats = {}) {
+  const attempts = Number(stats.attempts) || 0;
+  const total = Number(stats.total) || attempts * GROUP_TEST_TOTAL_QUESTIONS;
+  return {
+    correct: Number(stats.correct) || 0,
+    totalTime: Number(stats.totalTime) || 0,
+    attempts,
+    total,
+    lastCorrect: Number(stats.lastCorrect) || 0,
+    lastTime: Number(stats.lastTime) || 0,
+    playerRecords: stats.playerRecords || {},
+    players: stats.players || []
+  };
+}
+
+function getGroupAccuracy(stats = {}) {
+  const total = Number(stats.total) || 0;
+  return total > 0 ? (Number(stats.correct) || 0) / total : 0;
+}
+
+function formatGroupAccuracy(stats = {}) {
+  return `${Math.round(getGroupAccuracy(stats) * 100)}%`;
+}
+
+function normalizeGroupPlayerKey(name) {
+  return String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
 function ensureGroupBattleState() {
@@ -1260,6 +1296,8 @@ const game = {
   timer: null,
   combo: 0,
   currentGroup: GAME_GROUPS[0],
+  currentPlayerName: "",
+  currentPlayerKey: "",
   currentQuestion: null,
   groupQuestions: [],
   questionIndex: 0,
@@ -1298,19 +1336,17 @@ const game = {
   getGroupStats(groupId) {
     const battle = this.getActiveBattle();
     const key = String(groupId);
-    battle.gameGroupStats[key] = battle.gameGroupStats[key] || {
-      correct: 0,
-      totalTime: 0,
-      attempts: 0
-    };
+    battle.gameGroupStats[key] = normalizeGroupStats(battle.gameGroupStats[key]);
     return battle.gameGroupStats[key];
   },
+
   getGroupRankings() {
     return GAME_GROUPS
       .map(group => ({ group, stats: this.getGroupStats(group.id) }))
       .filter(entry => entry.stats.attempts > 0)
       .sort((a, b) => {
-        if (b.stats.correct !== a.stats.correct) return b.stats.correct - a.stats.correct;
+        const accuracyDiff = getGroupAccuracy(b.stats) - getGroupAccuracy(a.stats);
+        if (Math.abs(accuracyDiff) > 0.0001) return accuracyDiff;
         if (a.stats.totalTime !== b.stats.totalTime) return a.stats.totalTime - b.stats.totalTime;
         return a.group.id - b.group.id;
       });
@@ -1331,8 +1367,8 @@ const game = {
     const desc = document.getElementById("game-battle-desc");
     const summary = document.getElementById("battle-set-summary");
     if (title) title.textContent = config.label;
-    if (desc) desc.textContent = `${config.desc}，每組可多次挑戰並累積同一場排名。`;
-    if (summary) summary.textContent = `目前顯示：${config.label}，排名只計算這一場團體戰。`;
+    if (desc) desc.textContent = `${config.desc}，每位同學輸入姓名後只能作答一次，人數不限；排名先比正確率，同分再比累積秒數。`;
+    if (summary) summary.textContent = `目前顯示：${config.label}，排名以正確率優先，同分比較少秒數。`;
     GROUP_BATTLE_SETS.forEach(set => {
       const btn = document.getElementById(`battle-set-${set.id}`);
       if (btn) btn.classList.toggle("active", set.id === this.activeBattleId);
@@ -1354,15 +1390,18 @@ const game = {
         <span class="boss-group-title">${group.title}</span>
         <strong>${group.name}</strong>
         <span class="boss-name"><i class="fa-solid fa-dragon"></i> ${group.boss}</span>
-        <span class="boss-best">人數不限 · 每次挑戰 ${count} 題</span>
-        <span class="boss-best">累積答對 ${stats.correct} 題 · ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒）</span>
-        <span class="boss-best">已挑戰 ${stats.attempts} 次</span>
+        <span class="boss-best">人數不限 · 一人限答一次 · 每人 ${count} 題</span>
+        <span class="boss-best">正確率 ${formatGroupAccuracy(stats)} · ${stats.correct}/${stats.total || 0} 題</span>
+        <span class="boss-best">累積秒數 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒） · ${stats.attempts} 人</span>
       `;
       grid.appendChild(card);
     });
   },
   getGroupQuestions(groupId) {
-    return this.shuffle(RAW_SHEET_DATA).slice(0, GROUP_TEST_QUESTION_COUNT).map(item => ({ ...item }));
+    return FIRST_GROUP_BATTLE_ROUNDS.flatMap(roundNum => {
+      const roundQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
+      return this.shuffle(roundQuestions).slice(0, GROUP_TEST_QUESTION_COUNT).map(item => ({ ...item }));
+    });
   },
 
   formatTime(seconds) {
@@ -1390,6 +1429,21 @@ const game = {
   },
   start(groupId = 1) {
     this.currentGroup = GAME_GROUPS.find(group => group.id === groupId) || GAME_GROUPS[0];
+    const playerName = prompt(`${this.getBattleConfig().shortLabel} · ${this.currentGroup.title}\n請輸入作答者姓名（一人只能作答一次）：`, "");
+    const playerKey = normalizeGroupPlayerKey(playerName);
+    if (!playerKey) {
+      alert("請先輸入姓名，才能進入團體戰。");
+      return;
+    }
+
+    const stats = this.getGroupStats(this.currentGroup.id);
+    if (stats.playerRecords[playerKey]) {
+      alert(`${playerName.trim()} 已經為 ${this.currentGroup.title} 作答過，團體戰一人只能作答一次。`);
+      return;
+    }
+
+    this.currentPlayerName = playerName.trim();
+    this.currentPlayerKey = playerKey;
     this.groupQuestions = this.shuffle(this.getGroupQuestions(this.currentGroup.id));
     this.active = true;
     this.score = 0;
@@ -1401,6 +1455,22 @@ const game = {
     this.wrongCount = 0;
     this.monsterMaxHp = this.groupQuestions.length * 100;
     this.monsterHp = this.monsterMaxHp;
+
+    const attemptStats = this.getGroupStats(this.currentGroup.id);
+    attemptStats.attempts += 1;
+    attemptStats.total += this.groupQuestions.length;
+    attemptStats.playerRecords[this.currentPlayerKey] = {
+      name: this.currentPlayerName,
+      correct: 0,
+      total: this.groupQuestions.length,
+      time: 0,
+      wrong: 0,
+      completed: false,
+      startedAt: new Date().toISOString()
+    };
+    attemptStats.players = Object.values(attemptStats.playerRecords).map(record => record.name);
+    saveToLocalStorage();
+
     
     document.getElementById("game-menu").style.display = "none";
     document.getElementById("game-over").style.display = "none";
@@ -1583,17 +1653,26 @@ const game = {
 
     const battle = this.getActiveBattle();
     const stats = this.getGroupStats(this.currentGroup.id);
-    stats.correct += this.correctCount;
-    stats.totalTime += this.timeLeft;
-    stats.attempts += 1;
+    const playerRecord = stats.playerRecords[this.currentPlayerKey];
+    if (playerRecord && !playerRecord.completed) {
+      stats.correct += this.correctCount;
+      stats.totalTime += this.timeLeft;
+      playerRecord.correct = this.correctCount;
+      playerRecord.time = this.timeLeft;
+      playerRecord.wrong = this.wrongCount;
+      playerRecord.completed = true;
+      playerRecord.finishedAt = new Date().toISOString();
+    }
     stats.lastCorrect = this.correctCount;
     stats.lastTime = this.timeLeft;
+    stats.players = Object.values(stats.playerRecords).map(record => record.name);
 
-    if (stats.correct > battle.gameHigh) {
-      battle.gameHigh = stats.correct;
+    const accuracyScore = Math.round(getGroupAccuracy(stats) * 100);
+    if (accuracyScore > battle.gameHigh) {
+      battle.gameHigh = accuracyScore;
     }
-    if (stats.correct > (battle.gameGroupBest[this.currentGroup.id] || 0)) {
-      battle.gameGroupBest[this.currentGroup.id] = stats.correct;
+    if (accuracyScore > (battle.gameGroupBest[this.currentGroup.id] || 0)) {
+      battle.gameGroupBest[this.currentGroup.id] = accuracyScore;
     }
     battle.gameGroupBestTime[this.currentGroup.id] = stats.totalTime;
 
@@ -1617,11 +1696,9 @@ const game = {
 
     const summaryEl = document.getElementById("game-summary-text");
     const rank = this.getGroupRank(this.currentGroup.id);
-    const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `本次錯 ${this.wrongCount} 次`;
-    if (cleared) {
-      summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} 本次完成 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
-    } else {
-      summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} 本次答對 ${this.correctCount} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。已累積答對 ${stats.correct} 題、累積時間 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），目前排名第 ${rank} 名。`;
-    }
+        const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `本次錯 ${this.wrongCount} 次`;
+    const accuracyText = formatGroupAccuracy(stats);
+    const playerText = this.currentPlayerName ? `${this.currentPlayerName} ` : "";
+    summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} ${playerText}本次答對 ${this.correctCount}/${this.groupQuestions.length} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前本組正確率 ${accuracyText}（${stats.correct}/${stats.total || 0} 題）、累積秒數 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
   }
 };

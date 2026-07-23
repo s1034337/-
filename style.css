@@ -2423,3 +2423,77 @@ body.light-theme .game-feedback-overlay {
     right: 1.2rem;
   }
 }
+
+/* Day mode override for the adventure theme */
+body.light-theme {
+  --bg-primary: #f8efe0;
+  --bg-secondary: #fff7e9;
+  --bg-card: rgba(255, 247, 230, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.62);
+  --border-color: rgba(139, 92, 43, 0.24);
+  --border-glow: rgba(232, 109, 63, 0.18);
+
+  --text-primary: #2c2118;
+  --text-secondary: #6f4f32;
+  --text-muted: #9a7048;
+
+  --accent-primary: #c8552d;
+  --accent-secondary: #0f8f82;
+  --accent-danger: #c7352d;
+  --accent-gold: #b86f13;
+}
+
+body.light-theme {
+  background:
+    linear-gradient(180deg, rgba(255, 221, 157, 0.38), rgba(255, 248, 228, 0.86)),
+    #f8efe0;
+}
+
+body.light-theme .aurora-bg {
+  background:
+    linear-gradient(180deg, rgba(126, 211, 215, 0.5) 0%, rgba(255, 219, 145, 0.5) 46%, rgba(255, 245, 218, 0.82) 100%),
+    url("adventure-battle-bg.png") center / cover no-repeat;
+  filter: saturate(0.95) brightness(1.16);
+}
+
+body.light-theme .app-header,
+body.light-theme .welcome-banner,
+body.light-theme .round-card,
+body.light-theme .tool-card,
+body.light-theme .review-box,
+body.light-theme .quiz-card,
+body.light-theme .result-card,
+body.light-theme .game-intro-card,
+body.light-theme .game-question-area,
+body.light-theme .notebook-wrapper,
+body.light-theme .boss-hp-wrapper,
+body.light-theme .wrong-questions-section,
+body.light-theme .starred-item-card,
+body.light-theme .wrong-quiz-item {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 235, 0.94), rgba(244, 224, 190, 0.9));
+  box-shadow: 0 5px 0 rgba(155, 104, 53, 0.35), 0 14px 30px rgba(129, 84, 37, 0.16);
+}
+
+body.light-theme .stat-card,
+body.light-theme .progress-bar-bg,
+body.light-theme .game-rules,
+body.light-theme .boss-group-card,
+body.light-theme .game-question-count,
+body.light-theme .option-btn,
+body.light-theme .nav-btn,
+body.light-theme .theme-toggle-btn,
+body.light-theme .tool-btn,
+body.light-theme .delete-wrong-btn,
+body.light-theme .tab-btn {
+  background-color: rgba(255, 250, 235, 0.82);
+}
+
+body.light-theme .game-instruction strong,
+body.light-theme .card-main-word,
+body.light-theme .card-main-answer,
+body.light-theme .starred-item-word,
+body.light-theme .wrong-quiz-q {
+  color: #2c2118;
+  text-shadow: none;
+}
