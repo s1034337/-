@@ -528,15 +528,15 @@ const RAW_SHEET_DATA = [
     {
         "round":  2,
         "type":  "pronunciation",
-        "question":  "「涮」羊肉的讀音",
-        "answer":  "ㄕㄨㄚ",
+        "question":  "「涮」牛肉的讀音",
+        "answer":  "ㄕㄨㄢˋ",
         "options":  [
+                        "ㄕㄨㄢˋ",
                         "ㄕㄨㄚˋ",
-                        "ㄙㄨㄚ",
                         "ㄕㄨㄚ",
-                        "ㄕㄨㄢˋ"
+                        "ㄙㄨㄢˋ"
                     ],
-        "note":  "「「涮」羊肉的讀音」的正確答案是「ㄕㄨㄚ」。"
+        "note":  "「「涮」牛肉的讀音」的正確答案是「ㄕㄨㄢˋ」。"
     },
     {
         "round":  2,
