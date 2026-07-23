@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 國中九年級形音義練習系統 - 核心控制邏輯 (script.js)
  */
 
@@ -53,14 +53,16 @@ const state = {
     answeredCorrect: new Set(),
     retryQuestion: false,
     failedByMistakes: false,
-    wrongAnswersCollected: [] // 本次測驗錯題
+    wrongAnswersCollected: [], // 本次測驗錯題
+    playerName: '',
+    startedAt: 0
   }
 };
 
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
 const ROUND_COUNT = REVIEW_DATA.length;
-const OPEN_ROUNDS_COUNT = 3;
+const OPEN_ROUNDS_COUNT = 4;
 
 function getRoundTotal(roundNum) {
   return RAW_SHEET_DATA.filter(item => item.round === roundNum).length;
@@ -72,6 +74,8 @@ function ensureRoundState() {
     const scoreKey = `quiz${roundNum}`;
     state.progress[progressKey] = state.progress[progressKey] || [];
     state.scores[scoreKey] = state.scores[scoreKey] || 0;
+    state.scores.roundLeaderboards = state.scores.roundLeaderboards || {};
+    state.scores.roundLeaderboards[roundNum] = state.scores.roundLeaderboards[roundNum] || [];
   }
 }
 
@@ -248,7 +252,7 @@ function updateDashboardStats() {
     const scoreKey = `quiz${roundNum}`;
     const reviewed = state.progress[progressKey].length;
     const pct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
-    const isLocked = roundNum > OPEN_ROUNDS_COUNT && state.scores[`quiz${roundNum - 1}`] !== 100;
+    const isLocked = !isPersonalRoundUnlocked(roundNum);
     const clearText = state.scores[scoreKey] === 100 ? "已破關" : "尚未破關";
 
     totalCards += total;
@@ -275,6 +279,82 @@ function updateDashboardStats() {
   const legacyHigh = state.scores.gameHigh <= RAW_SHEET_DATA.length ? state.scores.gameHigh : 0;
   const gameHigh = Math.max(statsHigh, legacyHigh);
   document.getElementById("stat-game-score").textContent = gameHigh > 0 ? `${gameHigh}題` : "無";
+  renderRoundLeaderboards();
+}
+function isPersonalRoundUnlocked(roundNum) {
+  if (roundNum <= OPEN_ROUNDS_COUNT) return true;
+  return state.scores[`quiz${roundNum - 1}`] === 100;
+}
+
+function getRoundLeaderboard(roundNum) {
+  state.scores.roundLeaderboards = state.scores.roundLeaderboards || {};
+  state.scores.roundLeaderboards[roundNum] = state.scores.roundLeaderboards[roundNum] || [];
+  return state.scores.roundLeaderboards[roundNum];
+}
+
+function normalizePlayerName(name) {
+  const cleaned = String(name || "").trim().replace(/\s+/g, " ");
+  return cleaned || "挑戰者";
+}
+
+function getSavedPlayerName() {
+  return normalizePlayerName(localStorage.getItem("yy_player_name") || "");
+}
+
+function formatQuizDuration(seconds) {
+  const total = Math.max(0, Math.round(seconds || 0));
+  const minutes = Math.floor(total / 60);
+  const rest = total % 60;
+  return minutes > 0 ? `${minutes}分${String(rest).padStart(2, "0")}秒` : `${rest}秒`;
+}
+
+function recordRoundLeaderboardAttempt({ completed }) {
+  const roundNum = state.currentRound;
+  const elapsedSeconds = state.quiz.startedAt ? Math.max(1, Math.round((Date.now() - state.quiz.startedAt) / 1000)) : 0;
+  const entry = {
+    name: normalizePlayerName(state.quiz.playerName),
+    score: state.quiz.score,
+    correct: state.quiz.correctCount,
+    total: state.quiz.questions.length,
+    wrong: state.quiz.wrongCount,
+    time: elapsedSeconds,
+    completed: Boolean(completed),
+    cleared: state.quiz.score === 100,
+    at: new Date().toISOString()
+  };
+
+  const leaderboard = getRoundLeaderboard(roundNum);
+  leaderboard.push(entry);
+  leaderboard.sort((a, b) => {
+    if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+    if (Boolean(b.cleared) !== Boolean(a.cleared)) return Boolean(b.cleared) - Boolean(a.cleared);
+    if ((a.wrong || 0) !== (b.wrong || 0)) return (a.wrong || 0) - (b.wrong || 0);
+    if ((a.time || 0) !== (b.time || 0)) return (a.time || 0) - (b.time || 0);
+    return String(a.at || "").localeCompare(String(b.at || ""));
+  });
+  state.scores.roundLeaderboards[roundNum] = leaderboard.slice(0, 10);
+  saveToLocalStorage();
+  updateDashboardStats();
+}
+
+function renderRoundLeaderboards() {
+  for (let roundNum = 1; roundNum <= ROUND_COUNT; roundNum++) {
+    const list = document.getElementById(`round-leaderboard-r${roundNum}`);
+    if (!list) continue;
+    const rows = getRoundLeaderboard(roundNum).slice(0, 5);
+    if (rows.length === 0) {
+      list.innerHTML = `<li class="empty-rank">尚無挑戰紀錄</li>`;
+      continue;
+    }
+    list.innerHTML = rows.map((entry, index) => `
+      <li>
+        <span class="rank-place">${index + 1}</span>
+        <span class="rank-name">${entry.name}</span>
+        <span class="rank-score">${entry.score}分</span>
+        <span class="rank-meta">${entry.correct}/${entry.total} · 錯${entry.wrong} · ${formatQuizDuration(entry.time)}</span>
+      </li>
+    `).join("");
+  }
 }
 function setRoundLockState(roundNum, isLocked) {
   const card = document.getElementById(`card-round-${roundNum}`);
@@ -560,6 +640,11 @@ const app = {
     }
 
     state.currentRound = roundNum;
+    const savedName = getSavedPlayerName();
+    const typedName = prompt("請輸入姓名或座號，將用於本回合排行榜：", savedName);
+    if (typedName === null) return;
+    state.quiz.playerName = normalizePlayerName(typedName);
+    localStorage.setItem("yy_player_name", state.quiz.playerName);
     
     // 獲取該回所有考題
     const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
@@ -574,6 +659,7 @@ const app = {
     state.quiz.retryQuestion = false;
     state.quiz.failedByMistakes = false;
     state.quiz.wrongAnswersCollected = [];
+    state.quiz.startedAt = Date.now();
     
     // 顯示測驗容器
     document.getElementById("quiz-active-container").style.display = "block";
@@ -819,6 +905,7 @@ const app = {
     document.getElementById("result-title").textContent = "本回合需要重新開始";
     document.getElementById("result-summary-text").textContent =
       `第 ${state.currentRound} 回只能錯 ${PERSONAL_QUIZ_WRONG_CHANCES} 次。本次已超過錯誤次數，請重新開始本回合。`;
+    recordRoundLeaderboardAttempt({ completed: false });
 
     const wrongBox = document.getElementById("wrong-questions-box");
     const wrongList = document.getElementById("wrong-questions-list");
@@ -850,8 +937,8 @@ const app = {
     const scoreKey = `quiz${state.currentRound}`;
     if (state.quiz.score > (state.scores[scoreKey] || 0)) {
       state.scores[scoreKey] = state.quiz.score;
-      saveToLocalStorage();
     }
+    recordRoundLeaderboardAttempt({ completed: true });
     
     document.getElementById("quiz-active-container").style.display = "none";
     document.getElementById("quiz-result-container").style.display = "block";
@@ -1357,6 +1444,9 @@ const game = {
     }
   }
 };
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -80,7 +80,7 @@
 
         <div class="section-title">
           <h2><i class="fa-solid fa-graduation-cap"></i> 個人六回合複習闖關</h2>
-          <p>前三回合全班皆可挑戰；第四回起需前一回全對才解鎖。個人回合每題 5 秒倒數，自動跳題，錯 3 次即重新開始本回合。</p>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回全對才解鎖。個人回合每題 5 秒倒數，自動跳題，錯 3 次即重新開始本回合。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -91,7 +91,8 @@
             <h3>草木字形上——字形篇</h3>
             <p>全班可直接挑戰。完成第一回全對測驗後，可作為進入後段關卡的基礎。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r1" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r1">已複習 0/13 · 尚未破關</span></div>
-            <div class="card-actions"><button class="btn btn-primary" onclick="app.startReview(1)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" onclick="app.startQuiz(1)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r1"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r1" onclick="app.startReview(1)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r1" onclick="app.startQuiz(1)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
           <div class="round-card" id="card-round-2">
@@ -100,6 +101,7 @@
             <h3>草木字形下——字形篇</h3>
             <p>全班可直接挑戰。完成第二回全對測驗後，可作為進入後段關卡的準備。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r2" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r2">全班可挑戰</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r2"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r2" onclick="app.startReview(2)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r2" onclick="app.startQuiz(2)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
@@ -107,8 +109,9 @@
             <div class="round-badge">第三回</div>
             <div class="round-icon"><i class="fa-solid fa-utensils"></i></div>
             <h3>饕客讀音上——字音篇</h3>
-            <p>全班可直接挑戰。第三回全對後，第四回才會解鎖。</p>
+            <p>全班可直接挑戰，可重複作答累積排行榜紀錄。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r3" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r3">全班可挑戰</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r3"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r3" onclick="app.startReview(3)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r3" onclick="app.startQuiz(3)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
@@ -116,8 +119,9 @@
             <div class="round-badge">第四回</div>
             <div class="round-icon"><i class="fa-solid fa-bowl-food"></i></div>
             <h3>饕客讀音下——字音篇</h3>
-            <p>第三回全對破關後解鎖。完成第四回全對測驗後，第五回才會解鎖。</p>
-            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r4" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r4">第三回全對後解鎖</span></div>
+            <p>個人挑戰起點，可直接挑戰。完成第四回全對測驗後，第五回才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r4" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r4">可直接挑戰</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r4"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r4" onclick="app.startReview(4)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r4" onclick="app.startQuiz(4)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
@@ -127,6 +131,7 @@
             <h3>萬物字形上——字形篇</h3>
             <p>第四回全對破關後解鎖。完成第五回全對測驗後，第六回才會解鎖。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r5" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r5">第四回全對後解鎖</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r5"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r5" onclick="app.startReview(5)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r5" onclick="app.startQuiz(5)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
 
@@ -136,6 +141,7 @@
             <h3>萬物字形下——字形篇</h3>
             <p>第五回全對破關後解鎖。完成第六回全對測驗後，個人六回合闖關完成。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r6" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r6">第五回全對後解鎖</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r6"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r6" onclick="app.startReview(6)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r6" onclick="app.startQuiz(6)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
         </div>
@@ -522,10 +528,11 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260723-personalfix"></script>
-  <script src="script.js?v=20260723-personalfix"></script>
+  <script src="data.js?v=20260723-roundrank"></script>
+  <script src="script.js?v=20260723-roundrank"></script>
 </body>
 </html>
+
 
 
 
