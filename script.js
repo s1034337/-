@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 國中九年級形音義練習系統 - 核心控制邏輯 (script.js)
  */
 
@@ -64,6 +64,7 @@ const state = {
 
 const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
+const PERSONAL_QUIZ_CLEAR_WRONG_LIMIT = 3;
 const PERSONAL_QUIZ_QUESTION_COUNT = 25;
 const ROUND_COUNT = REVIEW_DATA.length;
 const OPEN_ROUNDS_COUNT = 6;
@@ -277,7 +278,8 @@ function updateDashboardStats() {
     const reviewed = state.progress[progressKey].length;
     const pct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
     const isLocked = !isPersonalRoundUnlocked(roundNum);
-    const clearText = state.scores[scoreKey] === 100 ? "已破關" : "尚未破關";
+    const clearScore = Math.round(((PERSONAL_QUIZ_QUESTION_COUNT - PERSONAL_QUIZ_CLEAR_WRONG_LIMIT) / PERSONAL_QUIZ_QUESTION_COUNT) * 100);
+    const clearText = state.scores[scoreKey] >= clearScore ? "已通關" : "尚未通關";
 
     totalCards += total;
     totalReviewed += reviewed;
@@ -307,8 +309,10 @@ function updateDashboardStats() {
   renderRoundLeaderboards();
 }
 function isPersonalRoundUnlocked(roundNum) {
-  if (roundNum <= OPEN_ROUNDS_COUNT) return true;
-  return state.scores[`quiz${roundNum - 1}`] === 100;
+  if (roundNum <= 3) return true;
+  const previousScore = state.scores[`quiz${roundNum - 1}`] || 0;
+  const clearScore = Math.round(((PERSONAL_QUIZ_QUESTION_COUNT - PERSONAL_QUIZ_CLEAR_WRONG_LIMIT) / PERSONAL_QUIZ_QUESTION_COUNT) * 100);
+  return previousScore >= clearScore;
 }
 
 function getRoundLeaderboard(roundNum) {
@@ -662,7 +666,7 @@ const app = {
   // 模擬測驗邏輯 (Quiz Mode)
   // ==========================================================================
   startQuiz(roundNum) {
-    if (!this.isRoundUnlocked(roundNum)) {
+    if (!isPersonalRoundUnlocked(roundNum)) {
       this.showLockedRoundMessage(roundNum);
       return;
     }
@@ -673,7 +677,7 @@ const app = {
     // 獲取該回所有考題
     const allQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
     
-    // 每回合完整作答，必須全對才破關
+    // 每回合完整作答，錯 3 題以內即可解鎖下一回
     state.quiz.questions = this.getQuestionSet(allQuestions, PERSONAL_QUIZ_QUESTION_COUNT);
     state.quiz.currentIndex = 0;
     state.quiz.score = 0;
@@ -800,17 +804,8 @@ const app = {
   },
   
   handleQuizTimeout() {
-    // 時間到，自動視為答錯
     state.quiz.selectedOption = -1;
     this.revealAnswer(-1);
-    state.quiz.autoNextTimer = setTimeout(() => {
-      state.quiz.autoNextTimer = null;
-      if (state.quiz.failedByMistakes) {
-        this.failQuizRound();
-      } else {
-        this.retryCurrentQuestion();
-      }
-    }, 1500);
   },
   
   selectOption(optionIndex) {
@@ -860,18 +855,14 @@ const app = {
       if (nextBtn) nextBtn.innerHTML = '下一題 <i class="fa-solid fa-arrow-right"></i>';
     } else {
       state.quiz.wrongCount++;
-      state.quiz.retryQuestion = true;
-      state.quiz.failedByMistakes = state.quiz.wrongCount > PERSONAL_QUIZ_WRONG_CHANCES;
+      state.quiz.retryQuestion = false;
+      state.quiz.failedByMistakes = false;
       statusEl.className = "explanation-status wrong-status";
-      statusEl.innerHTML = state.quiz.failedByMistakes
-        ? '<i class="fa-solid fa-circle-xmark"></i> 錯誤超過 3 次'
-        : selectedIndex === -1 
-          ? '<i class="fa-solid fa-circle-xmark"></i> 時間到！答錯了' 
-          : '<i class="fa-solid fa-circle-xmark"></i> 答錯了！';
+      statusEl.innerHTML = selectedIndex === -1
+        ? '<i class="fa-solid fa-circle-xmark"></i> 時間到！答錯了'
+        : '<i class="fa-solid fa-circle-xmark"></i> 答錯了！';
       if (nextBtn) {
-        nextBtn.innerHTML = state.quiz.failedByMistakes
-          ? '<i class="fa-solid fa-arrow-rotate-left"></i> 重新開始本回合'
-          : '<i class="fa-solid fa-arrow-rotate-left"></i> 重新作答';
+        nextBtn.innerHTML = '下一題 <i class="fa-solid fa-arrow-right"></i>';
       }
       
       // 搜集錯題，等會兒加到錯題本或在結算頁面展示
@@ -893,20 +884,16 @@ const app = {
     
     textEl.innerHTML = `正確答案為：<strong>${questionData.answer}</strong><br><br>${questionData.note}`;
     explanationBox.style.display = "block";
+    state.quiz.autoNextTimer = setTimeout(() => {
+      state.quiz.autoNextTimer = null;
+      this.nextQuestion();
+    }, 700);
   },
   
   nextQuestion() {
     if (state.quiz.autoNextTimer) {
       clearTimeout(state.quiz.autoNextTimer);
       state.quiz.autoNextTimer = null;
-    }
-    if (state.quiz.retryQuestion) {
-      if (state.quiz.failedByMistakes) {
-        this.failQuizRound();
-        return;
-      }
-      this.retryCurrentQuestion();
-      return;
     }
     state.quiz.currentIndex++;
     if (state.quiz.currentIndex < state.quiz.questions.length) {
@@ -985,22 +972,19 @@ const app = {
     const titleEl = document.getElementById("result-title");
     const summaryEl = document.getElementById("result-summary-text");
     
-    if (state.quiz.score === 100) {
-      medalEl.textContent = "👑";
+    const cleared = state.quiz.wrongCount <= PERSONAL_QUIZ_CLEAR_WRONG_LIMIT;
+    if (cleared && state.quiz.score === 100) {
+      medalEl.textContent = "完美";
       titleEl.textContent = "完美通關！A++ 級達人";
-      summaryEl.textContent = `太強了！本關 ${state.quiz.questions.length} 題全部答對，正式破關！`;
-    } else if (state.quiz.score >= 80) {
-      medalEl.textContent = "🔥";
-      titleEl.textContent = "差一點破關！再挑戰一次";
-      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。必須全對才算破關，複習錯題後再來拿下滿分！`;
-    } else if (state.quiz.score >= 60) {
-      medalEl.textContent = "🎖️";
-      titleEl.textContent = "尚未破關！繼續加油";
-      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。破關條件是本關全對，先把錯題補強，再回來挑戰滿分！`;
+      summaryEl.textContent = `太強了！本關 ${state.quiz.questions.length} 題全部答對，正式解鎖下一回！`;
+    } else if (cleared) {
+      medalEl.textContent = "通關";
+      titleEl.textContent = "通關成功！已解鎖下一回";
+      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題，在 3 題以內，可以進入下一回。`;
     } else {
-      medalEl.textContent = "💪";
-      titleEl.textContent = "尚未破關！加油衝刺";
-      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題。每一關要全對才能破關，利用下方錯題列表重新溫書吧！`;
+      medalEl.textContent = "再戰";
+      titleEl.textContent = "尚未解鎖下一回";
+      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題。錯 3 題以內才能解鎖下一回，複習錯題後再挑戰一次。`;
     }
     
     // 顯示錯題清單
