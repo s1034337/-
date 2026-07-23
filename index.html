@@ -147,7 +147,7 @@
         </div>
         <div class="section-title">
           <h2><i class="fa-solid fa-people-group"></i> 六組分組測驗</h2>
-          <p>六組分別進入分組挑戰，每次隨機 10 題，人數不限；系統累積各組答對題數與總秒數，先比正確度，再比累積秒數。</p>
+          <p>六組分別進入第一次團體戰；每位同學只能作答一次，人數不限。每次會從第 1-6 回各抽 10 題，共 60 題；排名先比正確率，同分比累積秒數。</p>
         </div>
 
         <!-- 輔助區網格 -->
@@ -381,15 +381,7 @@
               <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時；排名先比正確率，正確率相同時，比累積秒數，秒數越少越前面。</div>
               <div><i class="fa-solid fa-heart red-heart"></i> 分組回合保留 6 次錯誤機會；超過錯誤次數會結束該位同學本次作答。</div>
             </div>
-            <div class="battle-set-tabs" role="group" aria-label="團體戰場次">
-              <button class="battle-set-tab active" id="battle-set-1" type="button" onclick="game.setBattle(1)">
-                <i class="fa-solid fa-flag"></i> 第一次團體戰
-              </button>
-              <button class="battle-set-tab" id="battle-set-2" type="button" onclick="game.setBattle(2)">
-                <i class="fa-solid fa-flag-checkered"></i> 第二次團體戰
-              </button>
-            </div>
-            <div class="battle-set-summary" id="battle-set-summary">目前顯示：第一次團體戰，排名只計算這一場團體戰。</div>
+            <div class="battle-set-summary" id="battle-set-summary">第一次團體戰：第 1-6 回各抽 10 題，共 60 題；正確率優先，同分比較少秒數。</div>
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="game.resetRace()">
                 <i class="fa-solid fa-flag-checkered"></i> 重置PK紀錄
@@ -557,7 +549,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260724-guo-fix"></script>
-  <script src="script.js?v=20260724-guo-fix"></script>
+  <script src="data.js?v=20260724-xian-single-battle"></script>
+  <script src="script.js?v=20260724-xian-single-battle"></script>
 </body>
 </html>

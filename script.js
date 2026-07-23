@@ -299,7 +299,7 @@ function updateDashboardStats() {
   document.getElementById("stat-best-score").textContent = bestScore > 0 ? `${bestScore}分` : "無";
 
   ensureGroupBattleState();
-  const groupStats = Object.values(state.scores.groupBattles || {}).flatMap(battle => Object.values(battle.gameGroupStats || {}));
+  const groupStats = GROUP_BATTLE_SETS.flatMap(set => Object.values(state.scores.groupBattles?.[set.id]?.gameGroupStats || {}));
   const statsHigh = groupStats.reduce((max, stats) => Math.max(max, stats.correct || 0), 0);
   const legacyHigh = state.scores.gameHigh <= RAW_SHEET_DATA.length ? state.scores.gameHigh : 0;
   const gameHigh = Math.max(statsHigh, legacyHigh);
@@ -1203,8 +1203,7 @@ const FIRST_GROUP_BATTLE_ROUNDS = [1, 2, 3, 4, 5, 6];
 const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * FIRST_GROUP_BATTLE_ROUNDS.length;
 
 const GROUP_BATTLE_SETS = [
-  { id: 1, label: "第一次團體戰", shortLabel: "第一次", desc: "六回總複習後的第一次分組PK" },
-  { id: 2, label: "第二次團體戰", shortLabel: "第二次", desc: "之後每六回再進行的第二次分組PK" }
+  { id: 1, label: "第一次團體戰", shortLabel: "第一次", desc: "六回總複習後的分組PK" }
 ];
 
 function createGroupBattleRecord() {
@@ -1284,6 +1283,11 @@ function ensureGroupBattleState() {
 
   GROUP_BATTLE_SETS.forEach(set => {
     state.scores.groupBattles[set.id] = normalizeGroupBattleRecord(state.scores.groupBattles[set.id]);
+  });
+  Object.keys(state.scores.groupBattles).forEach(id => {
+    if (!GROUP_BATTLE_SETS.some(set => String(set.id) === String(id))) {
+      delete state.scores.groupBattles[id];
+    }
   });
 }
 

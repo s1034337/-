@@ -333,7 +333,7 @@ const RAW_SHEET_DATA = [
     {
         "round":  2,
         "type":  "pronunciation",
-        "question":  "莧「菜」小魚的讀音",
+        "question":  "「莧」菜小魚的讀音",
         "answer":  "ㄒㄧㄢˋ",
         "options":  [
                         "ㄒㄧㄢ",
@@ -341,7 +341,7 @@ const RAW_SHEET_DATA = [
                         "ㄒㄧㄢˊ",
                         "ㄒㄧㄢˋ"
                     ],
-        "note":  "「莧「菜」小魚的讀音」的正確答案是「ㄒㄧㄢˋ」。"
+        "note":  "「「莧」菜小魚的讀音」的正確答案是「ㄒㄧㄢˋ」。"
     },
     {
         "round":  2,
