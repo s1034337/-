@@ -309,7 +309,7 @@ function updateDashboardStats() {
   renderRoundLeaderboards();
 }
 function isPersonalRoundUnlocked(roundNum) {
-  if (roundNum <= 3) return true;
+  if (roundNum <= 4) return true;
   const previousScore = state.scores[`quiz${roundNum - 1}`] || 0;
   const clearScore = Math.round(((PERSONAL_QUIZ_QUESTION_COUNT - PERSONAL_QUIZ_CLEAR_WRONG_LIMIT) / PERSONAL_QUIZ_QUESTION_COUNT) * 100);
   return previousScore >= clearScore;
@@ -350,7 +350,7 @@ function recordRoundLeaderboardAttempt({ completed, name, score }) {
     wrong: state.quiz.wrongCount,
     time: elapsedSeconds,
     completed: Boolean(completed),
-    cleared: Boolean(completed) && manualScore === 100,
+    cleared: Boolean(completed) && state.quiz.wrongCount <= PERSONAL_QUIZ_CLEAR_WRONG_LIMIT,
     at: new Date().toISOString()
   };
 
@@ -393,11 +393,12 @@ function setRoundLockState(roundNum, isLocked) {
   const quizBtn = document.getElementById(`btn-quiz-r${roundNum}`);
   if (!card || !reviewBtn || !quizBtn) return;
 
-  card.classList.toggle("locked", isLocked);
-  reviewBtn.disabled = isLocked;
+  const reviewLocked = roundNum > OPEN_ROUNDS_COUNT;
+  card.classList.toggle("locked", isLocked && reviewLocked);
+  reviewBtn.disabled = reviewLocked;
   quizBtn.disabled = isLocked;
-  reviewBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回全對破關` : "";
-  quizBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回全對破關` : "";
+  reviewBtn.title = reviewLocked ? `請先完成第 ${roundNum - 1} 回後解鎖複習` : "";
+  quizBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回錯 3 題以內通關` : "";
 }
 
 // ==========================================================================
