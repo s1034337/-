@@ -289,7 +289,7 @@ function updateDashboardStats() {
     const text = document.getElementById(`progress-text-r${roundNum}`);
     if (fill) fill.style.width = `${pct}%`;
     if (text) {
-      text.textContent = isLocked ? `第 ${roundNum - 1} 回錯 3 題以內後解鎖測驗` : `已複習 ${reviewed}/${total} · ${clearText}`;
+      text.textContent = isLocked ? `第 ${roundNum - 1} 回錯 3 題以內（含 3 題）後解鎖測驗` : `已複習 ${reviewed}/${total} · ${clearText}`;
     }
     setRoundLockState(roundNum, isLocked);
   }
@@ -398,7 +398,7 @@ function setRoundLockState(roundNum, isLocked) {
   reviewBtn.disabled = reviewLocked;
   quizBtn.disabled = isLocked;
   reviewBtn.title = reviewLocked ? `請先完成第 ${roundNum - 1} 回後解鎖複習` : "";
-  quizBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回錯 3 題以內通關` : "";
+  quizBtn.title = isLocked ? `請先完成第 ${roundNum - 1} 回錯 3 題以內（含 3 題）通關` : "";
 }
 
 // ==========================================================================
@@ -521,7 +521,7 @@ const app = {
   },
 
   showLockedRoundMessage(roundNum) {
-    alert(`請先完成第 ${roundNum - 1} 回，錯 3 題以內通關後，再挑戰第 ${roundNum} 回測驗。`);
+    alert(`請先完成第 ${roundNum - 1} 回，錯 3 題以內（含 3 題）通關後，再挑戰第 ${roundNum} 回測驗。`);
   },
 
   startReview(roundNum) {
@@ -981,11 +981,11 @@ const app = {
     } else if (cleared) {
       medalEl.textContent = "通關";
       titleEl.textContent = "通關成功！已解鎖下一回";
-      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題，在 3 題以內，可以進入下一回。`;
+      summaryEl.textContent = `你答對了 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題，在 3 題以內（含 3 題），可以進入下一回。`;
     } else {
       medalEl.textContent = "再戰";
       titleEl.textContent = "尚未解鎖下一回";
-      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題。錯 3 題以內才能解鎖下一回，複習錯題後再挑戰一次。`;
+      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題。錯 3 題以內（含 3 題）才能解鎖下一回，複習錯題後再挑戰一次。`;
     }
     
     // 顯示錯題清單
