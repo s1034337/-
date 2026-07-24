@@ -491,14 +491,14 @@ const RAW_SHEET_DATA =
         "round":  2,
         "type":  "pronunciation",
         "question":  "味「噌」湯的讀音",
-        "answer":  "ㄇㄧˋ",
+        "answer":  "ㄘㄥ",
         "options":  [
-                        "ㄅㄚ",
-                        "ㄆㄧㄥˊ",
-                        "ㄉㄨˋ",
-                        "ㄇㄧˋ"
+                        "ㄘㄥ",
+                        "ㄔㄥˊ",
+                        "ㄗㄥ",
+                        "ㄙㄥ"
                     ],
-        "note":  "「味「噌」湯的讀音」的正確答案是「ㄇㄧˋ」。"
+        "note":  "「味噌湯」的「噌」讀作「ㄘㄥ」。"
     },
     {
         "round":  2,
