@@ -80,7 +80,7 @@
 
         <div class="section-title">
           <h2><i class="fa-solid fa-graduation-cap"></i> 個人六回合複習闖關</h2>
-          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回全對才解鎖。個人戰每回 25 題，每題 5 秒倒數，自動跳題，錯 3 次即重新開始本回合。</p>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內才解鎖。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -119,7 +119,7 @@
             <div class="round-badge">第四回</div>
             <div class="round-icon"><i class="fa-solid fa-bug"></i></div>
             <h3>蟲蟲危機</h3>
-            <p>個人挑戰起點，可直接挑戰。完成第四回全對測驗後，第五回才會解鎖。</p>
+            <p>第四回可直接挑戰。完成第四回測驗且錯 3 題以內，第五回測驗才會解鎖。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r4" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r4">可直接挑戰</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r4"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r4" onclick="app.startReview(4)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r4" onclick="app.startQuiz(4)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
@@ -129,8 +129,8 @@
             <div class="round-badge">第五回</div>
             <div class="round-icon"><i class="fa-solid fa-book-open"></i></div>
             <h3>使物鼓事盡衝</h3>
-            <p>第四回全對破關後解鎖。完成第五回全對測驗後，第六回才會解鎖。</p>
-            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r5" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r5">第四回全對後解鎖</span></div>
+            <p>開始複習已開放；第五回測驗需第四回錯 3 題以內才解鎖。完成第五回測驗且錯 3 題以內，第六回測驗才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r5" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r5">複習已開放，測驗需第四回通關</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r5"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r5" onclick="app.startReview(5)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r5" onclick="app.startQuiz(5)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
@@ -139,8 +139,8 @@
             <div class="round-badge">第六回</div>
             <div class="round-icon"><i class="fa-solid fa-seedling"></i></div>
             <h3>種花植草</h3>
-            <p>第五回全對破關後解鎖。完成第六回全對測驗後，個人六回合闖關完成。</p>
-            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r6" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r6">第五回全對後解鎖</span></div>
+            <p>開始複習已開放；第六回測驗需第五回錯 3 題以內才解鎖。完成第六回測驗且錯 3 題以內，個人六回合闖關完成。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r6" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r6">複習已開放，測驗需第五回通關</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r6"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r6" onclick="app.startReview(6)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r6" onclick="app.startQuiz(6)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
@@ -323,7 +323,7 @@
               <div class="score-label">測驗得分</div>
             </div>
             <p class="result-summary" id="result-summary-text">
-              每一關必須全對才算破關，錯一題就再挑戰一次！
+              每回 25 題，錯 3 題以內即可通關並解鎖下一回。
             </p>
 
             <div class="leaderboard-submit-panel" id="leaderboard-submit-panel">
@@ -549,7 +549,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260724-sao-unlock4"></script>
-  <script src="script.js?v=20260724-sao-unlock4"></script>
+  <script src="data.js?v=20260724-ceng-text"></script>
+  <script src="script.js?v=20260724-ceng-text"></script>
 </body>
 </html>

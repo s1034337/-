@@ -289,7 +289,7 @@ function updateDashboardStats() {
     const text = document.getElementById(`progress-text-r${roundNum}`);
     if (fill) fill.style.width = `${pct}%`;
     if (text) {
-      text.textContent = isLocked ? `第 ${roundNum - 1} 回全對後解鎖` : `已複習 ${reviewed}/${total} · ${clearText}`;
+      text.textContent = isLocked ? `第 ${roundNum - 1} 回錯 3 題以內後解鎖測驗` : `已複習 ${reviewed}/${total} · ${clearText}`;
     }
     setRoundLockState(roundNum, isLocked);
   }
@@ -521,7 +521,7 @@ const app = {
   },
 
   showLockedRoundMessage(roundNum) {
-    alert(`請先完成第 ${roundNum - 1} 回全對破關，再挑戰第 ${roundNum} 回。`);
+    alert(`請先完成第 ${roundNum - 1} 回，錯 3 題以內通關後，再挑戰第 ${roundNum} 回測驗。`);
   },
 
   startReview(roundNum) {
