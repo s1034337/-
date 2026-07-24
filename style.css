@@ -2525,3 +2525,61 @@ body.light-theme .card-main-answer,
 body.light-theme .game-question-text strong {
   color: #24170f !important;
 }
+
+/* Strong day-mode clarity: avoid backdrop blur and clipped gradient text. */
+body.light-theme {
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smooth: always;
+}
+
+body.light-theme .app-header,
+body.light-theme .welcome-banner,
+body.light-theme .round-card,
+body.light-theme .tool-card,
+body.light-theme .review-box,
+body.light-theme .quiz-card,
+body.light-theme .result-card,
+body.light-theme .game-intro-card,
+body.light-theme .game-question-area,
+body.light-theme .notebook-wrapper,
+body.light-theme .boss-hp-wrapper,
+body.light-theme .wrong-questions-section,
+body.light-theme .starred-item-card,
+body.light-theme .wrong-quiz-item,
+body.light-theme .flashcard-inner,
+body.light-theme .card-face,
+body.light-theme .modal-content,
+body.light-theme .game-feedback-box {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.light-theme .header-logo i,
+body.light-theme .highlight,
+body.light-theme .round-icon i,
+body.light-theme .section-title h2 i {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--accent-primary) !important;
+  filter: none !important;
+}
+
+body.light-theme .header-logo .highlight,
+body.light-theme .stat-num,
+body.light-theme .result-score,
+body.light-theme .result-score-display,
+body.light-theme .quiz-question-text,
+body.light-theme .quiz-question-text strong,
+body.light-theme .card-main-word,
+body.light-theme .card-main-answer,
+body.light-theme .game-question-text,
+body.light-theme .game-question-text strong,
+body.light-theme .option-text {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none;
+  text-shadow: none !important;
+  color: #24170f !important;
+}
