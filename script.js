@@ -695,8 +695,10 @@ const app = {
     document.getElementById("quiz-active-container").style.display = "block";
     document.getElementById("quiz-result-container").style.display = "none";
     
-    this.renderQuizQuestion();
     this.showPage("quiz");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => this.renderQuizQuestion());
+    });
   },
   
   startQuizFromReview() {
