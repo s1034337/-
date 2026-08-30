@@ -2271,15 +2271,15 @@ const RAW_SHEET_DATA =
   {
     "round": 7,
     "type": "pronunciation",
-    "question": "芳「芷」的讀音",
-    "answer": "ㄓˇ",
+    "question": "芳「蕤」的讀音",
+    "answer": "ㄖㄨㄟˊ",
     "options": [
-      "ㄓˇ",
+      "ㄖㄨㄟˊ",
       "ㄩˋ",
       "ㄌㄧˋ",
       "ㄌㄧㄡˊ"
     ],
-    "note": "「芳「芷」的讀音」的正確答案是「ㄓˇ」。"
+    "note": "「芳「蕤」的讀音」的正確答案是「ㄖㄨㄟˊ」。"
   }
 ]
 ;
