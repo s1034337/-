@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 國中九年級形音義複習系統 - 核心資料庫 (data.js)
  * 資料來源：教師提供之 Google Sheet TSV，並經人工校正選項。
  * 共 150 題，分為六回，每回 25 題。
@@ -1955,7 +1955,111 @@ const RAW_SHEET_DATA =
                         "先"
                     ],
         "note":  "「「ㄒㄧㄢ」維植物」的正確答案是「纖」。"
-    }
+    },
+{
+    "round": 7,
+    "type": "pronunciation",
+    "question": "「芋」頭的讀音",
+    "answer": "ㄩˋ",
+    "options": [
+      "ㄩˋ",
+      "ㄌㄧˋ",
+      "ㄌㄧㄡˊ",
+      "ㄐㄧㄠ"
+    ],
+    "note": "「「芋」頭的讀音」的正確答案是「ㄩˋ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "馬拉巴「栗」的讀音",
+    "answer": "ㄌㄧˋ",
+    "options": [
+      "ㄌㄧˋ",
+      "ㄌㄧㄡˊ",
+      "ㄐㄧㄠ",
+      "ㄜˋ"
+    ],
+    "note": "「馬拉巴「栗」的讀音」的正確答案是「ㄌㄧˋ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "番石「榴」的讀音",
+    "answer": "ㄌㄧㄡˊ",
+    "options": [
+      "ㄌㄧㄡˊ",
+      "ㄐㄧㄠ",
+      "ㄜˋ",
+      "ㄙㄨˋ"
+    ],
+    "note": "「番石「榴」的讀音」的正確答案是「ㄌㄧㄡˊ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "「筊」白筍的讀音",
+    "answer": "ㄐㄧㄠ",
+    "options": [
+      "ㄐㄧㄠ",
+      "ㄜˋ",
+      "ㄙㄨˋ",
+      "ㄌㄢˇ"
+    ],
+    "note": "「「筊」白筍的讀音」的正確答案是「ㄐㄧㄠ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "花「萼」的讀音",
+    "answer": "ㄜˋ",
+    "options": [
+      "ㄜˋ",
+      "ㄙㄨˋ",
+      "ㄌㄢˇ",
+      "ㄏㄠ"
+    ],
+    "note": "「花「萼」的讀音」的正確答案是「ㄜˋ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "滄海一「粟」的讀音",
+    "answer": "ㄙㄨˋ",
+    "options": [
+      "ㄙㄨˋ",
+      "ㄌㄢˇ",
+      "ㄏㄠ",
+      "ㄩˋ"
+    ],
+    "note": "「滄海一「粟」的讀音」的正確答案是「ㄙㄨˋ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "橄「欖」的讀音",
+    "answer": "ㄌㄢˇ",
+    "options": [
+      "ㄌㄢˇ",
+      "ㄏㄠ",
+      "ㄩˋ",
+      "ㄌㄧˋ"
+    ],
+    "note": "「橄「欖」的讀音」的正確答案是「ㄌㄢˇ」。"
+  },
+  {
+    "round": 7,
+    "type": "pronunciation",
+    "question": "茼「蒿」的讀音",
+    "answer": "ㄏㄠ",
+    "options": [
+      "ㄏㄠ",
+      "ㄩˋ",
+      "ㄌㄧˋ",
+      "ㄌㄧㄡˊ"
+    ],
+    "note": "「茼「蒿」的讀音」的正確答案是「ㄏㄠ」。"
+  }
 ]
 ;
 
@@ -1990,9 +2094,13 @@ const REVIEW_DATA =
         "round":  6,
         "title":  "第六回：種花植草",
         "subtitle":  "第 6 回複習"
+    },
+    {
+        "round":  7,
+        "title":  "第七回：拈花惹草",
+        "subtitle":  "第 7 回複習"
     }
-]
-;
+];
 
 // 舊版除錯大作戰保留名稱；目前六組打怪模式直接使用 RAW_SHEET_DATA。
 const GAME_WORDS_DATABASE = [];

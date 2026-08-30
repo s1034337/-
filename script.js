@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 國中九年級形音義練習系統 - 核心控制邏輯 (script.js)
  */
 
@@ -67,7 +67,7 @@ const PERSONAL_QUIZ_WRONG_CHANCES = 3;
 const PERSONAL_QUIZ_CLEAR_WRONG_LIMIT = 3;
 const PERSONAL_QUIZ_QUESTION_COUNT = 25;
 const ROUND_COUNT = REVIEW_DATA.length;
-const OPEN_ROUNDS_COUNT = 6;
+const OPEN_ROUNDS_COUNT = 7;
 
 function getRoundTotal(roundNum) {
   return RAW_SHEET_DATA.filter(item => item.round === roundNum).length;
