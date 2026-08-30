@@ -79,8 +79,8 @@
         </div>
 
         <div class="section-title">
-          <h2><i class="fa-solid fa-graduation-cap"></i> 個人七回合複習闖關</h2>
-          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；第七回已加入「拈花惹草」。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
+          <h2><i class="fa-solid fa-graduation-cap"></i> 個人十三回合複習闖關</h2>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；第七回「拈花惹草」、第八回「百鳥朝鳳」、第九回「水中世界」、第十到第十三回已加入。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -149,10 +149,68 @@
             <div class="round-badge">第七回</div>
             <div class="round-icon"><i class="fa-solid fa-leaf"></i></div>
             <h3>拈花惹草</h3>
-            <p>開始複習已開放；第七回測驗需第六回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <p>開始複習已開放；第七回測驗需第六回錯 3 題以內（含 3 題）才解鎖。完成第七回測驗且錯 3 題以內（含 3 題），第八回測驗才會解鎖。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r7" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r7">複習已開放，測驗需第六回錯 3 題以內</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r7"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r7" onclick="app.startReview(7)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r7" onclick="app.startQuiz(7)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-8">
+            <div class="round-badge">第八回</div>
+            <div class="round-icon"><i class="fa-solid fa-dove"></i></div>
+            <h3>百鳥朝鳳</h3>
+            <p>開始複習已開放；第八回測驗需第七回錯 3 題以內（含 3 題）才解鎖。完成第八回測驗且錯 3 題以內（含 3 題），第九回測驗才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r8" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r8">複習已開放，測驗需第七回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r8"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r8" onclick="app.startReview(8)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r8" onclick="app.startQuiz(8)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+          <div class="round-card" id="card-round-9">
+            <div class="round-badge">第九回</div>
+            <div class="round-icon"><i class="fa-solid fa-water"></i></div>
+            <h3>水中世界</h3>
+            <p>開始複習已開放；第九回測驗需第八回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r9" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r9">複習已開放，測驗需第八回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r9"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r9" onclick="app.startReview(9)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r9" onclick="app.startQuiz(9)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+          <div class="round-card" id="card-round-10">
+            <div class="round-badge">第十回</div>
+            <div class="round-icon"><i class="fa-solid fa-scroll"></i></div>
+            <h3>張就道表嘗爾</h3>
+            <p>開始複習已開放；第十回測驗需第九回錯 3 題以內（含 3 題）才解鎖。完成第十回測驗且錯 3 題以內（含 3 題），第十一回測驗才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r10" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r10">複習已開放，測驗需第九回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r10"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r10" onclick="app.startReview(10)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r10" onclick="app.startQuiz(10)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-11">
+            <div class="round-badge">第十一回</div>
+            <div class="round-icon"><i class="fa-solid fa-heart"></i></div>
+            <h3>情感表現</h3>
+            <p>開始複習已開放；第十一回測驗需第十回錯 3 題以內（含 3 題）才解鎖。完成第十一回測驗且錯 3 題以內（含 3 題），第十二回測驗才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r11" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r11">複習已開放，測驗需第十回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r11"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r11" onclick="app.startReview(11)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r11" onclick="app.startQuiz(11)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-12">
+            <div class="round-badge">第十二回</div>
+            <div class="round-icon"><i class="fa-solid fa-spell-check"></i></div>
+            <h3>看形辨音1</h3>
+            <p>開始複習已開放；第十二回測驗需第十一回錯 3 題以內（含 3 題）才解鎖。完成第十二回測驗且錯 3 題以內（含 3 題），第十三回測驗才會解鎖。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r12" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r12">複習已開放，測驗需第十一回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r12"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r12" onclick="app.startReview(12)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r12" onclick="app.startQuiz(12)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-13">
+            <div class="round-badge">第十三回</div>
+            <div class="round-icon"><i class="fa-solid fa-language"></i></div>
+            <h3>看形辨音2</h3>
+            <p>開始複習已開放；第十三回測驗需第十二回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r13" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r13">複習已開放，測驗需第十二回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合排行榜</div><ol id="round-leaderboard-r13"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r13" onclick="app.startReview(13)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r13" onclick="app.startQuiz(13)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
         </div>
         <div class="section-title">
@@ -559,7 +617,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260830-round7-rui"></script>
-  <script src="script.js?v=20260830-round7"></script>
+  <script src="data.js?v=20260830-round13"></script>
+  <script src="script.js?v=20260830-round13"></script>
 </body>
 </html>
