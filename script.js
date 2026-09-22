@@ -371,6 +371,15 @@ function formatQuizDuration(seconds) {
   return minutes > 0 ? `${minutes}分${String(rest).padStart(2, "0")}秒` : `${rest}秒`;
 }
 
+function escapeLeaderboardText(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 function recordRoundLeaderboardAttempt({ completed, name, score }) {
   const roundNum = state.currentRound;
   const elapsedSeconds = state.quiz.startedAt ? Math.max(1, Math.round((Date.now() - state.quiz.startedAt) / 1000)) : 0;
@@ -408,12 +417,41 @@ function renderRoundLeaderboards() {
     list.innerHTML = rows.map((entry, index) => `
       <li>
         <span class="rank-place">${index + 1}</span>
-        <span class="rank-name">${entry.name}</span>
+        <span class="rank-name">${escapeLeaderboardText(entry.name)}</span>
         <span class="rank-score">${entry.score}分</span>
         <span class="rank-meta">${entry.correct}/${entry.total} · 錯${entry.wrong} · ${formatQuizDuration(entry.time)}</span>
       </li>
     `).join("");
   }
+}
+
+function renderLeaderboardAdmin() {
+  const grid = document.getElementById("leaderboard-admin-grid");
+  if (!grid) return;
+
+  grid.innerHTML = Array.from({ length: ROUND_COUNT }, (_, index) => {
+    const roundNum = index + 1;
+    const roundData = REVIEW_DATA.find(item => Number(item.round) === roundNum);
+    const title = roundData?.title || `第 ${roundNum} 回`;
+    const rows = getRoundLeaderboard(roundNum).slice(0, ROUND_LEADERBOARD_LIMIT);
+    const rankingRows = rows.length > 0
+      ? rows.map((entry, rankIndex) => `
+          <li>
+            <span class="admin-rank-place">${rankIndex + 1}</span>
+            <span class="admin-rank-name">${escapeLeaderboardText(entry.name)}</span>
+            <strong>${entry.score}分</strong>
+            <small>${entry.correct}/${entry.total} 題 · 錯 ${entry.wrong} 題 · ${formatQuizDuration(entry.time)}</small>
+          </li>
+        `).join("")
+      : '<li class="admin-rank-empty">尚無挑戰紀錄</li>';
+
+    return `
+      <article class="leaderboard-admin-card">
+        <h3>${escapeLeaderboardText(title)}</h3>
+        <ol class="admin-rank-list">${rankingRows}</ol>
+      </article>
+    `;
+  }).join("");
 }
 function setRoundLockState(roundNum, isLocked) {
   const card = document.getElementById(`card-round-${roundNum}`);
@@ -460,6 +498,8 @@ const app = {
     // 載入特定頁面的渲染數據
     if (pageId === "dashboard") {
       updateDashboardStats();
+    } else if (pageId === "leaderboard-admin") {
+      renderLeaderboardAdmin();
     } else if (pageId === "notebook") {
       this.renderNotebook();
     } else if (pageId === "game") {
