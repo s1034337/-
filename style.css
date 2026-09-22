@@ -713,7 +713,7 @@ body.light-theme .admin-rank-list li {
 
   .leaderboard-admin-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 

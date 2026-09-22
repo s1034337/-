@@ -31,14 +31,10 @@
       </div>
       
       <div class="header-actions">
-        <!-- 排行榜後台與讀檔 -->
+        <!-- 排行榜後台 -->
         <button class="nav-btn" onclick="app.showPage('leaderboard-admin')" title="查看排行榜後台" aria-label="查看排行榜後台">
           <i class="fa-solid fa-ranking-star"></i>
         </button>
-        <button class="nav-btn" onclick="app.triggerImportSave()" title="讀取存檔">
-          <i class="fa-solid fa-file-arrow-up"></i>
-        </button>
-        <input type="file" id="save-file-input" accept="application/json,.json" hidden onchange="app.importSaveFile(event)">
         <!-- 錯題本捷徑 -->
         <button class="nav-btn" onclick="app.showPage('notebook')" title="我的錯題本">
           <i class="fa-solid fa-bookmark"></i>
@@ -617,9 +613,6 @@
               <p>集中查看這台裝置已儲存的第 1～13 回前三名佳績。</p>
             </div>
             <div class="leaderboard-admin-actions">
-              <button class="btn btn-secondary" onclick="app.exportSaveFile()">
-                <i class="fa-solid fa-download"></i> 下載存檔
-              </button>
               <button class="btn btn-primary" onclick="app.showPage('dashboard')">
                 <i class="fa-solid fa-house"></i> 返回首頁
               </button>
@@ -638,7 +631,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260923-leaderboard-admin"></script>
-  <script src="script.js?v=20260923-leaderboard-admin"></script>
+  <script src="data.js?v=20260923-clean-header"></script>
+  <script src="script.js?v=20260923-clean-header"></script>
 </body>
 </html>
