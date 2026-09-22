@@ -119,9 +119,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // 綁定通用事件
   document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
   
+  const initialQuizRound = getRequestedQuizRound();
+  if (initialQuizRound) {
+    app.startQuiz(initialQuizRound);
+    return;
+  }
+
   // 顯示儀表板或預覽指定頁面
   app.showPage(isPreviewMode() ? "game" : "dashboard");
 });
+
+function getRequestedQuizRound() {
+  const round = Number(new URLSearchParams(window.location.search).get("quiz"));
+  return Number.isInteger(round) && round >= 1 && round <= ROUND_COUNT ? round : null;
+}
 
 function isPreviewMode() {
   return new URLSearchParams(window.location.search).get("preview") === "challenge";
