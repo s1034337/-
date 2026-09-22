@@ -66,6 +66,7 @@ const QUIZ_AUTO_ADVANCE_SECONDS = 5;
 const PERSONAL_QUIZ_WRONG_CHANCES = 3;
 const PERSONAL_QUIZ_CLEAR_WRONG_LIMIT = 3;
 const PERSONAL_QUIZ_QUESTION_COUNT = 25;
+const ROUND_LEADERBOARD_LIMIT = 3;
 const ROUND_COUNT = REVIEW_DATA.length;
 const OPEN_ROUNDS_COUNT = 13;
 
@@ -221,6 +222,8 @@ function loadFromLocalStorage() {
       state.scores.groupBattles = state.scores.groupBattles || {};
       ensureGroupBattleState();
       ensureRoundState();
+      trimRoundLeaderboards();
+      localStorage.setItem("yy_scores", JSON.stringify(state.scores));
     } catch (e) {
       console.error("解析分數數據失敗", e);
     }
@@ -332,6 +335,26 @@ function getRoundLeaderboard(roundNum) {
   return state.scores.roundLeaderboards[roundNum];
 }
 
+function compareLeaderboardEntries(a, b) {
+  if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+  if (Boolean(b.cleared) !== Boolean(a.cleared)) return Boolean(b.cleared) - Boolean(a.cleared);
+  if ((a.wrong || 0) !== (b.wrong || 0)) return (a.wrong || 0) - (b.wrong || 0);
+  if ((a.time || 0) !== (b.time || 0)) return (a.time || 0) - (b.time || 0);
+  return String(a.at || "").localeCompare(String(b.at || ""));
+}
+
+function trimRoundLeaderboards() {
+  state.scores.roundLeaderboards = state.scores.roundLeaderboards || {};
+  Object.keys(state.scores.roundLeaderboards).forEach(roundNum => {
+    const entries = Array.isArray(state.scores.roundLeaderboards[roundNum])
+      ? state.scores.roundLeaderboards[roundNum]
+      : [];
+    state.scores.roundLeaderboards[roundNum] = entries
+      .sort(compareLeaderboardEntries)
+      .slice(0, ROUND_LEADERBOARD_LIMIT);
+  });
+}
+
 function normalizePlayerName(name) {
   const cleaned = String(name || "").trim().replace(/\s+/g, " ");
   return cleaned || "挑戰者";
@@ -367,14 +390,8 @@ function recordRoundLeaderboardAttempt({ completed, name, score }) {
 
   const leaderboard = getRoundLeaderboard(roundNum);
   leaderboard.push(entry);
-  leaderboard.sort((a, b) => {
-    if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
-    if (Boolean(b.cleared) !== Boolean(a.cleared)) return Boolean(b.cleared) - Boolean(a.cleared);
-    if ((a.wrong || 0) !== (b.wrong || 0)) return (a.wrong || 0) - (b.wrong || 0);
-    if ((a.time || 0) !== (b.time || 0)) return (a.time || 0) - (b.time || 0);
-    return String(a.at || "").localeCompare(String(b.at || ""));
-  });
-  state.scores.roundLeaderboards[roundNum] = leaderboard.slice(0, 10);
+  leaderboard.sort(compareLeaderboardEntries);
+  state.scores.roundLeaderboards[roundNum] = leaderboard.slice(0, ROUND_LEADERBOARD_LIMIT);
   saveToLocalStorage();
   updateDashboardStats();
 }
@@ -383,7 +400,7 @@ function renderRoundLeaderboards() {
   for (let roundNum = 1; roundNum <= ROUND_COUNT; roundNum++) {
     const list = document.getElementById(`round-leaderboard-r${roundNum}`);
     if (!list) continue;
-    const rows = getRoundLeaderboard(roundNum).slice(0, 5);
+    const rows = getRoundLeaderboard(roundNum).slice(0, ROUND_LEADERBOARD_LIMIT);
     if (rows.length === 0) {
       list.innerHTML = `<li class="empty-rank">尚無挑戰紀錄</li>`;
       continue;
