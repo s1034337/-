@@ -1036,8 +1036,8 @@ const app = {
     nameInput.value = getSavedPlayerName();
     scoreInput.value = state.quiz.score;
     submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> 加入排行榜';
-    status.textContent = "不加入也可以直接回首頁或再測一次。";
+    submitBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 儲存並加入排行榜';
+    status.textContent = "送出後會自動存檔於這台裝置；不加入也可以直接回首頁或再測一次。";
   },
 
   submitRoundLeaderboard() {
@@ -1067,8 +1067,8 @@ const app = {
     });
     state.quiz.leaderboardSubmitted = true;
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已加入排行榜';
-    status.textContent = `已加入第 ${state.currentRound} 回排行榜。`;
+    submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已儲存排行榜';
+    status.textContent = `第 ${state.currentRound} 回成績已加入排行榜，並自動存檔於這台裝置。`;
   },
   confirmExitQuiz() {
     if (confirm("測驗尚未結束，確定要離開嗎？（離開將不記錄本次成績）")) {
