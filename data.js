@@ -4296,8 +4296,8 @@ const RAW_SHEET_DATA =
     "options": ["ㄇㄛˋ", "ㄇㄛˊ", "ㄇㄨˋ", "ㄇㄠˋ"], "note": "「馬來「貘」的讀音」的正確答案是「ㄇㄛˋ」。"
   },
   {
-    "round": 14, "type": "sound", "question": "「鼴」鼠的讀音", "answer": "ㄧㄢˇ",
-    "options": ["ㄧㄢˇ", "ㄧㄢˋ", "ㄧㄣˇ", "ㄩㄢˊ"], "note": "「「鼴」鼠的讀音」的正確答案是「ㄧㄢˇ」。"
+    "round": 14, "type": "sound", "question": "白面「鼯」鼠的讀音", "answer": "ㄨˊ",
+    "options": ["ㄨˊ", "ㄨˇ", "ㄨˋ", "ㄏㄨˊ"], "note": "「白面「鼯」鼠的讀音」的正確答案是「ㄨˊ」。"
   },
   {
     "round": 14, "type": "sound", "question": "「麋」鹿之性的讀音", "answer": "ㄇㄧˊ",
