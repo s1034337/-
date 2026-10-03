@@ -4630,6 +4630,106 @@ const RAW_SHEET_DATA =
   {
     "round": 17, "type": "pronunciation", "question": "「鐫」心銘骨 的讀音", "answer": "ㄐㄩㄢ",
     "options": ["ㄐㄩㄢ", "ㄐㄩㄣˋ", "ㄒㄧㄝˊ", "ㄐㄧㄢ"], "note": "「鐫心銘骨」的「鐫」讀作ㄐㄩㄢ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "草「屯」的讀音", "answer": "ㄊㄨㄣˊ",
+    "options": ["ㄊㄨㄣˊ", "ㄓㄨㄣ", "ㄔㄨㄣˊ", "ㄉㄨㄣˋ"], "note": "「草屯」的「屯」讀作ㄊㄨㄣˊ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「梓」官的讀音", "answer": "ㄗˇ",
+    "options": ["ㄗˇ", "ㄒㄧㄣ", "ㄗˋ", "ㄘˇ"], "note": "「梓官」的「梓」讀作ㄗˇ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「枋」寮的讀音", "answer": "ㄈㄤ",
+    "options": ["ㄈㄤ", "ㄅㄧㄥˋ", "ㄈㄤˇ", "ㄆㄤ"], "note": "「枋寮」的「枋」讀作ㄈㄤ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「艋」舺的讀音", "answer": "ㄇㄥˇ",
+    "options": ["ㄇㄥˇ", "ㄇㄥˊ", "ㄇㄤˇ", "ㄇㄧㄣˇ"], "note": "「艋舺」的「艋」讀作ㄇㄥˇ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「埔」里的讀音", "answer": "ㄆㄨˇ",
+    "options": ["ㄆㄨˇ", "ㄅㄨˋ", "ㄆㄨˊ", "ㄆㄨˋ"], "note": "「埔里」的「埔」讀作ㄆㄨˇ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "西「嶼」的讀音", "answer": "ㄩˇ",
+    "options": ["ㄩˇ", "ㄒㄩˋ", "ㄩˊ", "ㄩˋ"], "note": "「西嶼」的「嶼」讀作ㄩˇ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "赤「崁」樓的讀音", "answer": "ㄎㄢˇ",
+    "options": ["ㄎㄢˇ", "ㄎㄢˋ", "ㄎㄞˇ", "ㄑㄧㄢˋ"], "note": "「赤崁樓」的「崁」讀作ㄎㄢˇ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「茄」萣的讀音", "answer": "ㄑㄧㄝˊ",
+    "options": ["ㄑㄧㄝˊ", "ㄐㄧㄚ", "ㄑㄧㄝˋ", "ㄐㄧㄚˊ"], "note": "「茄萣」的「茄」讀作ㄑㄧㄝˊ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "三「貂」嶺的讀音", "answer": "ㄉㄧㄠ",
+    "options": ["ㄉㄧㄠ", "ㄓㄠ", "ㄉㄧㄠˋ", "ㄊㄧㄠ"], "note": "「三貂嶺」的「貂」讀作ㄉㄧㄠ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「芎」林的讀音", "answer": "ㄑㄩㄥ",
+    "options": ["ㄑㄩㄥ", "ㄍㄨㄥ", "ㄒㄩㄥ", "ㄑㄩㄥˊ"], "note": "「芎林」的「芎」讀作ㄑㄩㄥ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "媽「厝」里的讀音", "answer": "ㄘㄨㄛˋ",
+    "options": ["ㄘㄨㄛˋ", "ㄒㄧˊ", "ㄘㄨㄛ", "ㄔㄨˋ"], "note": "「媽厝里」的「厝」讀作ㄘㄨㄛˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「礁」溪的讀音", "answer": "ㄐㄧㄠ",
+    "options": ["ㄐㄧㄠ", "ㄑㄧㄠˊ", "ㄐㄧㄠˋ", "ㄐㄧㄠˇ"], "note": "「礁溪」的「礁」讀作ㄐㄧㄠ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「莿」桐的讀音", "answer": "ㄘˋ",
+    "options": ["ㄘˋ", "ㄐㄧˊ", "ㄘㄜˋ", "ㄔˋ"], "note": "「莿桐」的「莿」讀作ㄘˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「朴」子的讀音", "answer": "ㄆㄨˊ",
+    "options": ["ㄆㄨˊ", "ㄆㄨˇ", "ㄆㄛˋ", "ㄆㄧㄠˊ"], "note": "「朴子」的「朴」讀作ㄆㄨˊ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "石「碇」的讀音", "answer": "ㄉㄧㄥˋ",
+    "options": ["ㄉㄧㄥˋ", "ㄉㄧㄥ", "ㄉㄧㄥˇ", "ㄓㄢˋ"], "note": "「石碇」的「碇」讀作ㄉㄧㄥˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "西門「町」的讀音", "answer": "ㄉㄧㄥ",
+    "options": ["ㄉㄧㄥ", "ㄊㄧㄥˇ", "ㄓㄥˋ", "ㄉㄧㄥˋ"], "note": "「西門町」的「町」讀作ㄉㄧㄥ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「汶」水的讀音", "answer": "ㄨㄣˋ",
+    "options": ["ㄨㄣˋ", "ㄨㄣˊ", "ㄇㄣˋ", "ㄇㄧㄣˇ"], "note": "「汶水」的「汶」讀作ㄨㄣˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "南「鯤」鯓的讀音", "answer": "ㄎㄨㄣ",
+    "options": ["ㄎㄨㄣ", "ㄎㄨㄣˊ", "ㄍㄨㄣˇ", "ㄏㄨㄣ"], "note": "「南鯤鯓」的「鯤」讀作ㄎㄨㄣ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「噶」瑪蘭的讀音", "answer": "ㄍㄜˊ",
+    "options": ["ㄍㄜˊ", "ㄍㄚˊ", "ㄎㄜˋ", "ㄍㄜ"], "note": "「噶瑪蘭」的「噶」讀作ㄍㄜˊ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "竹「塹」的讀音", "answer": "ㄑㄧㄢˋ",
+    "options": ["ㄑㄧㄢˋ", "ㄓㄢˋ", "ㄑㄧㄢ", "ㄐㄧㄢˋ"], "note": "「竹塹」的「塹」讀作ㄑㄧㄢˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "虎頭「埤」的讀音", "answer": "ㄆㄧˊ",
+    "options": ["ㄆㄧˊ", "ㄅㄟ", "ㄆㄧˋ", "ㄅㄧˋ"], "note": "「虎頭埤」的「埤」讀作ㄆㄧˊ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「坔」埔的讀音", "answer": "ㄌㄢˋ",
+    "options": ["ㄌㄢˋ", "ㄉㄧˋ", "ㄊㄢˊ", "ㄎㄢˇ"], "note": "臺灣地名「坔埔」的「坔」讀作ㄌㄢˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "「苑」里的讀音", "answer": "ㄩㄢˋ",
+    "options": ["ㄩㄢˋ", "ㄨㄢˇ", "ㄩㄢˊ", "ㄨㄢˋ"], "note": "「苑里」的「苑」讀作ㄩㄢˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "八里「坌」的讀音", "answer": "ㄅㄣˋ",
+    "options": ["ㄅㄣˋ", "ㄈㄣˋ", "ㄅㄣ", "ㄆㄣˋ"], "note": "「八里坌」的「坌」讀作ㄅㄣˋ。"
+  },
+  {
+    "round": 18, "type": "pronunciation", "question": "車路「墘」的讀音", "answer": "ㄑㄧㄢˊ",
+    "options": ["ㄑㄧㄢˊ", "ㄍㄢ", "ㄑㄧㄢˋ", "ㄎㄢˇ"], "note": "「車路墘」的「墘」讀作ㄑㄧㄢˊ。"
   }
 ]
 ;
@@ -4720,6 +4820,11 @@ const REVIEW_DATA =
     "round": 17,
     "title": "第十七回：動詞出列",
     "subtitle": "第 17 回複習"
+  },
+  {
+    "round": 18,
+    "title": "第十八回：臺灣地名",
+    "subtitle": "第 18 回複習"
   }
 ]
 ;

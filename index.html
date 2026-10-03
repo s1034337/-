@@ -255,7 +255,7 @@
           </section>
 
           <section class="stage-section" id="stage-6">
-            <button class="stage-heading" id="stage-toggle-6" type="button" onclick="app.toggleStage(6)" aria-expanded="false" aria-controls="stage-rounds-6"><span>第六關</span><div><h3>第 16 至 17 回</h3><p class="stage-status">第 15 回錯 3 題以內即可解鎖本關卡。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <button class="stage-heading" id="stage-toggle-6" type="button" onclick="app.toggleStage(6)" aria-expanded="false" aria-controls="stage-rounds-6"><span>第六關</span><div><h3>第 16 至 18 回</h3><p class="stage-status">第 15 回錯 3 題以內即可解鎖本關卡。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
             <div class="rounds-grid" id="stage-rounds-6">
           <div class="round-card" id="card-round-16">
             <div class="round-badge">第十六回</div>
@@ -275,6 +275,16 @@
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r17" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r17">通過第十五回後解鎖</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r17"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r17" onclick="app.startReview(17)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r17" onclick="app.startQuiz(17)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-18">
+            <div class="round-badge">第十八回</div>
+            <div class="round-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+            <h3>臺灣地名</h3>
+            <p>第十八回與第十六、十七回同屬第六關；第十五回達標後即可開始複習與測驗。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r18" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r18">通過第十五回後解鎖</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r18"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r18" onclick="app.startReview(18)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r18" onclick="app.startQuiz(18)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
             </div>
           </section>
@@ -622,7 +632,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20261003-round17"></script>
-  <script src="script.js?v=20261003-stage-entry"></script>
+  <script src="data.js?v=20261003-round18"></script>
+  <script src="script.js?v=20261003-round18"></script>
 </body>
 </html>
