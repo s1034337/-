@@ -292,6 +292,8 @@ function updateDashboardStats() {
     setRoundLockState(roundNum, isLocked);
   }
 
+  updateStageLockStates();
+
   const totalPct = totalCards > 0 ? Math.round((totalReviewed / totalCards) * 100) : 0;
   document.getElementById("stat-reviewed-pct").textContent = `${totalPct}%`;
 
@@ -312,6 +314,34 @@ function isPersonalRoundUnlocked(roundNum) {
   const previousScore = state.scores[`quiz${checkpointRound}`] || 0;
   const clearScore = Math.round(((PERSONAL_QUIZ_QUESTION_COUNT - PERSONAL_QUIZ_CLEAR_WRONG_LIMIT) / PERSONAL_QUIZ_QUESTION_COUNT) * 100);
   return previousScore >= clearScore;
+}
+
+function updateStageLockStates() {
+  const stageCount = Math.ceil(ROUND_COUNT / ROUNDS_PER_STAGE);
+
+  for (let stageNum = 1; stageNum <= stageCount; stageNum++) {
+    const section = document.getElementById(`stage-${stageNum}`);
+    const toggle = document.getElementById(`stage-toggle-${stageNum}`);
+    if (!section || !toggle) continue;
+
+    const firstRound = (stageNum - 1) * ROUNDS_PER_STAGE + 1;
+    const checkpointRound = getPreviousStageFinalRound(firstRound);
+    const locked = !isPersonalRoundUnlocked(firstRound);
+    const status = toggle.querySelector(".stage-status");
+
+    section.classList.toggle("stage-locked", locked);
+    toggle.disabled = locked;
+
+    if (locked) {
+      section.classList.remove("expanded");
+      toggle.setAttribute("aria-expanded", "false");
+      if (status) status.textContent = `完成第 ${checkpointRound} 回且錯 3 題以內即可解鎖。`;
+    } else if (status) {
+      status.textContent = stageNum === 1
+        ? "起始關卡，點選進入第 1 至 3 回。"
+        : "關卡已解鎖，點選進入複習與測驗。";
+    }
+  }
 }
 
 function getRoundLeaderboard(roundNum) {
@@ -469,6 +499,21 @@ function setRoundLockState(roundNum, isLocked) {
 // SPA 路由與頁面切換控制
 // ==========================================================================
 const app = {
+  toggleStage(stageNum) {
+    const section = document.getElementById(`stage-${stageNum}`);
+    const toggle = document.getElementById(`stage-toggle-${stageNum}`);
+    if (!section || !toggle || toggle.disabled) return;
+
+    const shouldExpand = !section.classList.contains("expanded");
+    document.querySelectorAll(".stage-section.expanded").forEach(openSection => {
+      openSection.classList.remove("expanded");
+      openSection.querySelector(".stage-heading")?.setAttribute("aria-expanded", "false");
+    });
+
+    section.classList.toggle("expanded", shouldExpand);
+    toggle.setAttribute("aria-expanded", String(shouldExpand));
+  },
+
   showPage(pageId) {
     // 隱藏所有頁面
     document.querySelectorAll(".page").forEach(page => {

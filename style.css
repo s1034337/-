@@ -380,17 +380,40 @@ button {
 }
 
 .stage-section {
-  padding: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  background: rgba(17, 24, 39, 0.42);
+  padding: 0;
 }
 
 .stage-heading {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  margin: 0;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.72);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition-speed), background var(--transition-speed);
+}
+
+.stage-heading:hover:not(:disabled),
+.stage-heading:focus-visible,
+.stage-section.expanded .stage-heading {
+  border-color: var(--accent-primary);
+  background: rgba(17, 24, 39, 0.88);
+}
+
+.stage-heading:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.stage-heading > div {
+  flex: 1 1 auto;
 }
 
 .stage-heading > span {
@@ -414,9 +437,34 @@ button {
   font-size: 0.92rem;
 }
 
-body.light-theme .stage-section {
+body.light-theme .stage-heading {
   border-color: rgba(15, 23, 42, 0.14);
   background: rgba(255, 255, 255, 0.78);
+}
+
+body.light-theme .stage-heading:hover:not(:disabled),
+body.light-theme .stage-heading:focus-visible,
+body.light-theme .stage-section.expanded .stage-heading {
+  border-color: var(--accent-primary);
+  background: #fff;
+}
+
+.stage-chevron {
+  flex: 0 0 auto;
+  color: var(--accent-primary);
+  transition: transform var(--transition-speed);
+}
+
+.stage-section.expanded .stage-chevron {
+  transform: rotate(180deg);
+}
+
+.stage-section:not(.expanded) .rounds-grid {
+  display: none;
+}
+
+.stage-section.expanded .rounds-grid {
+  margin-top: 1.25rem;
 }
 
 /* 回數複習卡片網格 */
@@ -2532,12 +2580,9 @@ body.light-theme .game-feedback-overlay {
     gap: 1.5rem;
   }
 
-  .stage-section {
-    padding: 1rem;
-  }
-
   .stage-heading {
     align-items: flex-start;
+    padding: 1rem;
   }
   
   .tools-grid {

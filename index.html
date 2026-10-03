@@ -11,7 +11,7 @@
   <!-- 引入 FontAwesome 圖標 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 引入自訂樣式表 -->
-  <link rel="stylesheet" href="style.css?v=20261003-three-round-stages">
+  <link rel="stylesheet" href="style.css?v=20261003-stage-entry">
 </head>
 <body class="dark-theme"> <!-- 預設為暗黑極光主題 -->
 
@@ -77,8 +77,8 @@
         <!-- 複習單元卡片網格 -->
         <div class="stages-list">
           <section class="stage-section" id="stage-1">
-            <div class="stage-heading"><span>第一關</span><div><h3>第 1 至 3 回</h3><p>起始關卡，可直接進入三回複習與測驗。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-1" type="button" onclick="app.toggleStage(1)" aria-expanded="false" aria-controls="stage-rounds-1"><span>第一關</span><div><h3>第 1 至 3 回</h3><p class="stage-status">起始關卡，可直接進入三回複習與測驗。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-1">
           <div class="round-card" id="card-round-1">
             <div class="round-badge">第一回</div>
             <div class="round-icon"><i class="fa-solid fa-burger"></i></div>
@@ -113,8 +113,8 @@
           </section>
 
           <section class="stage-section" id="stage-2">
-            <div class="stage-heading"><span>第二關</span><div><h3>第 4 至 6 回</h3><p>第 3 回錯 3 題以內即可解鎖。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-2" type="button" onclick="app.toggleStage(2)" aria-expanded="false" aria-controls="stage-rounds-2"><span>第二關</span><div><h3>第 4 至 6 回</h3><p class="stage-status">第 3 回錯 3 題以內即可解鎖。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-2">
           <div class="round-card" id="card-round-4">
             <div class="round-badge">第四回</div>
             <div class="round-icon"><i class="fa-solid fa-bug"></i></div>
@@ -149,8 +149,8 @@
           </section>
 
           <section class="stage-section" id="stage-3">
-            <div class="stage-heading"><span>第三關</span><div><h3>第 7 至 9 回</h3><p>第 6 回錯 3 題以內即可解鎖。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-3" type="button" onclick="app.toggleStage(3)" aria-expanded="false" aria-controls="stage-rounds-3"><span>第三關</span><div><h3>第 7 至 9 回</h3><p class="stage-status">第 6 回錯 3 題以內即可解鎖。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-3">
           <div class="round-card" id="card-round-7">
             <div class="round-badge">第七回</div>
             <div class="round-icon"><i class="fa-solid fa-leaf"></i></div>
@@ -183,8 +183,8 @@
           </section>
 
           <section class="stage-section" id="stage-4">
-            <div class="stage-heading"><span>第四關</span><div><h3>第 10 至 12 回</h3><p>第 9 回錯 3 題以內即可解鎖。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-4" type="button" onclick="app.toggleStage(4)" aria-expanded="false" aria-controls="stage-rounds-4"><span>第四關</span><div><h3>第 10 至 12 回</h3><p class="stage-status">第 9 回錯 3 題以內即可解鎖。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-4">
           <div class="round-card" id="card-round-10">
             <div class="round-badge">第十回</div>
             <div class="round-icon"><i class="fa-solid fa-scroll"></i></div>
@@ -219,8 +219,8 @@
           </section>
 
           <section class="stage-section" id="stage-5">
-            <div class="stage-heading"><span>第五關</span><div><h3>第 13 至 15 回</h3><p>第 12 回錯 3 題以內即可解鎖。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-5" type="button" onclick="app.toggleStage(5)" aria-expanded="false" aria-controls="stage-rounds-5"><span>第五關</span><div><h3>第 13 至 15 回</h3><p class="stage-status">第 12 回錯 3 題以內即可解鎖。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-5">
           <div class="round-card" id="card-round-13">
             <div class="round-badge">第十三回</div>
             <div class="round-icon"><i class="fa-solid fa-language"></i></div>
@@ -255,8 +255,8 @@
           </section>
 
           <section class="stage-section" id="stage-6">
-            <div class="stage-heading"><span>第六關</span><div><h3>第 16 至 17 回</h3><p>第 15 回錯 3 題以內即可解鎖本關卡。</p></div></div>
-            <div class="rounds-grid">
+            <button class="stage-heading" id="stage-toggle-6" type="button" onclick="app.toggleStage(6)" aria-expanded="false" aria-controls="stage-rounds-6"><span>第六關</span><div><h3>第 16 至 17 回</h3><p class="stage-status">第 15 回錯 3 題以內即可解鎖本關卡。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-6">
           <div class="round-card" id="card-round-16">
             <div class="round-badge">第十六回</div>
             <div class="round-icon"><i class="fa-solid fa-person-running"></i></div>
@@ -623,6 +623,6 @@
 
   <!-- 引入資料檔案與核心邏輯 -->
   <script src="data.js?v=20261003-round17"></script>
-  <script src="script.js?v=20261003-round17"></script>
+  <script src="script.js?v=20261003-stage-entry"></script>
 </body>
 </html>
