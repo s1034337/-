@@ -63,6 +63,7 @@ const PERSONAL_QUIZ_QUESTION_COUNT = 25;
 const ROUND_LEADERBOARD_LIMIT = 3;
 const ROUND_COUNT = REVIEW_DATA.length;
 const ROUNDS_PER_STAGE = 3;
+const OPEN_STAGE_COUNT = 2;
 
 function getStageNumber(roundNum) {
   return Math.ceil(roundNum / ROUNDS_PER_STAGE);
@@ -309,7 +310,7 @@ function updateDashboardStats() {
   renderRoundLeaderboards();
 }
 function isPersonalRoundUnlocked(roundNum) {
-  if (getStageNumber(roundNum) === 1) return true;
+  if (getStageNumber(roundNum) <= OPEN_STAGE_COUNT) return true;
   const checkpointRound = getPreviousStageFinalRound(roundNum);
   const previousScore = state.scores[`quiz${checkpointRound}`] || 0;
   const clearScore = Math.round(((PERSONAL_QUIZ_QUESTION_COUNT - PERSONAL_QUIZ_CLEAR_WRONG_LIMIT) / PERSONAL_QUIZ_QUESTION_COUNT) * 100);
