@@ -35,11 +35,6 @@
         <button class="nav-btn" onclick="app.showPage('leaderboard-admin')" title="查看排行榜後台" aria-label="查看排行榜後台">
           <i class="fa-solid fa-ranking-star"></i>
         </button>
-        <!-- 錯題本捷徑 -->
-        <button class="nav-btn" onclick="app.showPage('notebook')" title="我的錯題本">
-          <i class="fa-solid fa-bookmark"></i>
-          <span class="badge" id="notebook-count">0</span>
-        </button>
         <!-- 主題切換按鈕 -->
         <button class="theme-toggle-btn" id="theme-toggle" title="切換主題">
           <i class="fa-solid fa-sun"></i>
@@ -230,8 +225,8 @@
           </div>
         </div>
         <div class="section-title">
-          <h2><i class="fa-solid fa-people-group"></i> 六組分組測驗</h2>
-          <p>六組分別進入第一次團體戰；每位同學只能作答一次，人數不限。每次會從第 1-6 回各抽 10 題，共 60 題；排名先比正確率，同分比累積秒數。</p>
+          <h2><i class="fa-solid fa-people-group"></i> 課堂上臺作答 PK 賽</h2>
+          <p>六組輪流派同學上臺作答；每位同學只能參賽一次，一組人數不限。每次從第 1-6 回各抽 10 題，共 60 題；排名先比正確率，同分比累積秒數。</p>
         </div>
 
         <!-- 輔助區網格 -->
@@ -239,26 +234,15 @@
           <!-- 遊戲入口 -->
           <div class="tool-card game-promo" onclick="app.showPage('game')">
             <div class="tool-content">
-              <span class="mini-tag">社團熱門</span>
-              <h3><i class="fa-solid fa-shield-halved"></i> 六組總複習PK</h3>
-              <p>每組可多次進入累積成績；先比答對題數，答對相同時累積秒數越少排名越高。</p>
+              <span class="mini-tag">課堂競賽</span>
+              <h3><i class="fa-solid fa-shield-halved"></i> 六組上臺作答 PK</h3>
+              <p>各組派同學輪流上臺，每人作答一次；先比正確率，同分時累積秒數越少排名越高。</p>
             </div>
             <div class="tool-btn">
               <i class="fa-solid fa-play"></i>
             </div>
           </div>
 
-          <!-- 錯題本入口 -->
-          <div class="tool-card notebook-promo" onclick="app.showPage('notebook')">
-            <div class="tool-content">
-              <span class="mini-tag">弱點攻克</span>
-              <h3><i class="fa-solid fa-book-bookmark"></i> 錯題與收藏本</h3>
-              <p>整理你在複習中收藏的卡片，以及模擬測驗中答錯的題目，進行二次複習。</p>
-            </div>
-            <div class="tool-btn">
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -276,12 +260,9 @@
 
         <!-- 複習字卡容器 -->
         <div class="review-box">
-          <!-- 卡片頂部功能 -->
+          <!-- 卡片頂部標籤 -->
           <div class="card-utility">
             <div class="card-badge" id="card-type-badge">字形篇</div>
-            <button class="star-btn" id="card-star-btn" onclick="app.toggleStarCurrentCard()" title="加入收藏">
-              <i class="fa-regular fa-star"></i>
-            </button>
           </div>
 
           <!-- 3D 翻轉字卡 -->
@@ -430,14 +411,6 @@
               </div>
             </div>
 
-            <!-- 錯題清單快捷操作 -->
-            <div class="wrong-questions-section" id="wrong-questions-box">
-              <h3><i class="fa-solid fa-triangle-exclamation"></i> 本次錯題紀錄</h3>
-              <div class="wrong-list" id="wrong-questions-list">
-                <!-- 動態生成錯題 -->
-              </div>
-            </div>
-
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="app.showPage('dashboard')">
                 <i class="fa-solid fa-house"></i> 回首頁
@@ -458,14 +431,14 @@
             <div class="game-logo-large">
               <i class="fa-solid fa-dragon"></i>
             </div>
-            <h2 id="game-battle-title">第一次團體戰</h2>
-            <p id="game-battle-desc">第一次團體戰包含第 1-6 回，六組分別進入挑戰；每位同學輸入姓名後只能作答一次，一組人數不限。每次進入會從每一回隨機抽 10 題，共 60 題；正確率高者獲勝，同分比總秒數。</p>
+            <h2 id="game-battle-title">課堂上臺作答 PK 賽</h2>
+            <p id="game-battle-desc">PK 賽包含第 1-6 回，六組輪流派同學上臺挑戰；每位同學輸入姓名後只能作答一次，一組人數不限。每次從每一回隨機抽 10 題，共 60 題；正確率高者獲勝，同分比總秒數。</p>
             <div class="game-rules">
               <div><i class="fa-solid fa-people-group"></i> 每組人數不限；每位同學只能作答一次；第 1-6 回各抽 10 題，共 60 題。</div>
               <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時；排名先比正確率，正確率相同時，比累積秒數，秒數越少越前面。</div>
               <div><i class="fa-solid fa-heart red-heart"></i> 分組回合保留 6 次錯誤機會；超過錯誤次數會結束該位同學本次作答。</div>
             </div>
-            <div class="battle-set-summary" id="battle-set-summary">第一次團體戰：第 1-6 回各抽 10 題，共 60 題；正確率優先，同分比較少秒數。</div>
+            <div class="battle-set-summary" id="battle-set-summary">課堂上臺作答 PK 賽：第 1-6 回各抽 10 題，共 60 題；正確率優先，同分比較少秒數。</div>
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="game.resetRace()">
                 <i class="fa-solid fa-flag-checkered"></i> 重置PK紀錄
@@ -570,67 +543,13 @@
         </div>
       </section>
 
-      <!-- ================= 頁面：錯題與收藏本 (Notebook Mode) ================= -->
-      <section id="page-notebook" class="page">
-        <div class="page-header">
-          <button class="back-btn" onclick="app.showPage('dashboard')">
-            <i class="fa-solid fa-arrow-left"></i> 返回主頁
-          </button>
-          <div class="page-title-info">
-            <span class="subtitle-label">個人學習庫</span>
-            <h2>錯題與收藏本</h2>
-          </div>
-        </div>
-
-        <div class="notebook-wrapper">
-          <!-- 分頁切換頁籤 -->
-          <div class="notebook-tabs">
-            <button class="tab-btn active" onclick="app.switchNotebookTab('starred')" id="tab-starred">
-              <i class="fa-solid fa-star"></i> 收藏的字卡 (<span id="starred-count-badge">0</span>)
-            </button>
-            <button class="tab-btn" onclick="app.switchNotebookTab('wrong')" id="tab-wrong">
-              <i class="fa-solid fa-triangle-exclamation"></i> 測驗錯題 (<span id="wrong-count-badge">0</span>)
-            </button>
-          </div>
-
-          <!-- 卡片收藏清單 -->
-          <div class="notebook-list-container active" id="starred-list-section">
-            <div class="empty-state" id="starred-empty">
-              <i class="fa-regular fa-folder-open"></i>
-              <p>目前沒有收藏的字卡。在複習字卡時點擊右上角的星星即可收藏！</p>
-            </div>
-            <div class="starred-grid" id="starred-cards-grid">
-              <!-- 動態渲染收藏卡片 -->
-            </div>
-          </div>
-
-          <!-- 測驗錯題清單 -->
-          <div class="notebook-list-container" id="wrong-list-section">
-            <div class="empty-state" id="wrong-empty">
-              <i class="fa-solid fa-circle-check"></i>
-              <p>恭喜你！目前沒有答錯的題目。繼續保持優良表現！</p>
-            </div>
-            <div class="wrong-quiz-list" id="wrong-quiz-items-list">
-              <!-- 動態渲染錯題項目 -->
-            </div>
-          </div>
-
-          <!-- 底部工具 -->
-          <div class="notebook-footer-actions" id="notebook-actions-bar">
-            <button class="btn btn-danger-outline" onclick="app.clearNotebook()">
-              <i class="fa-solid fa-trash-can"></i> 清除所有紀錄
-            </button>
-          </div>
-        </div>
-      </section>
-
       <!-- 排行榜後台頁面 -->
       <section id="page-leaderboard-admin" class="page">
         <div class="leaderboard-admin-wrapper">
           <div class="leaderboard-admin-header">
             <div>
               <h2><i class="fa-solid fa-ranking-star"></i> 排行榜後台</h2>
-              <p>集中查看這台裝置已儲存的第 1～13 回前三名佳績。</p>
+              <p>集中查看這台裝置已儲存的第 1～15 回前三名佳績。</p>
             </div>
             <div class="leaderboard-admin-actions">
               <button class="btn btn-primary" onclick="app.showPage('dashboard')">
@@ -651,7 +570,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20261003-flying-squirrel"></script>
-  <script src="script.js?v=20261003-flying-squirrel"></script>
+  <script src="data.js?v=20261003-class-pk"></script>
+  <script src="script.js?v=20261003-class-pk"></script>
 </body>
 </html>

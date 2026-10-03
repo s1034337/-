@@ -6,11 +6,6 @@
 // 全域狀態管理
 // ==========================================================================
 const state = {
-  // 用戶學習數據
-  notebook: {
-    starred: [], // 收藏的字卡: { id, round, question, answer, note, type }
-    wrong: []    // 測驗錯題: { id, round, question, options, answer, explanation }
-  },
   progress: {
     round1: [], // 已複習的索引列表
     round2: [],
@@ -55,7 +50,6 @@ const state = {
     answeredCorrect: new Set(),
     retryQuestion: false,
     failedByMistakes: false,
-    wrongAnswersCollected: [], // 本次測驗錯題
     playerName: '',
     startedAt: 0,
     leaderboardSubmitted: false
@@ -95,12 +89,6 @@ function getCardTypeLabel(type) {
   if (type === "shape") return "字形篇";
   if (type === "meaning") return "字義篇";
   return "字音篇";
-}
-
-function getNotebookTypeLabel(type) {
-  if (type === "shape") return "形";
-  if (type === "meaning") return "義";
-  return "音";
 }
 
 // ==========================================================================
@@ -190,14 +178,7 @@ function applyPreviewMode() {
 }
 
 function loadFromLocalStorage() {
-  const savedNotebook = localStorage.getItem("yy_notebook");
-  if (savedNotebook) {
-    try {
-      state.notebook = JSON.parse(savedNotebook);
-    } catch (e) {
-      console.error("解析筆記本數據失敗，重設數據", e);
-    }
-  }
+  localStorage.removeItem("yy_notebook");
   
   const savedProgress = localStorage.getItem("yy_progress");
   if (savedProgress) {
@@ -229,19 +210,11 @@ function loadFromLocalStorage() {
     }
   }
   
-  updateNotebookBadge();
 }
 
 function saveToLocalStorage() {
-  localStorage.setItem("yy_notebook", JSON.stringify(state.notebook));
   localStorage.setItem("yy_progress", JSON.stringify(state.progress));
   localStorage.setItem("yy_scores", JSON.stringify(state.scores));
-  updateNotebookBadge();
-}
-
-function updateNotebookBadge() {
-  const total = state.notebook.starred.length + state.notebook.wrong.length;
-  document.getElementById("notebook-count").textContent = total;
 }
 
 // ==========================================================================
@@ -500,8 +473,6 @@ const app = {
       updateDashboardStats();
     } else if (pageId === "leaderboard-admin") {
       renderLeaderboardAdmin();
-    } else if (pageId === "notebook") {
-      this.renderNotebook();
     } else if (pageId === "game") {
       game.showMenu();
     }
@@ -566,17 +537,6 @@ const app = {
     document.getElementById("card-back-answer").textContent = card.answer;
     document.getElementById("card-back-detail").textContent = card.note;
     
-    // 更新收藏狀態星星圖標
-    const isStarred = state.notebook.starred.some(s => s.question === card.question && s.round === state.currentRound);
-    const starBtn = document.getElementById("card-star-btn");
-    if (isStarred) {
-      starBtn.classList.add("active");
-      starBtn.innerHTML = '<i class="fa-solid fa-star"></i>';
-    } else {
-      starBtn.classList.remove("active");
-      starBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
-    }
-    
     // 更新頁碼索引與進度條
     const total = this.currentCards.length;
     document.getElementById("card-index-text").textContent = `${state.currentCardIndex + 1} / ${total}`;
@@ -630,34 +590,6 @@ const app = {
     }
   },
   
-  toggleStarCurrentCard() {
-    const card = this.currentCards[state.currentCardIndex];
-    if (!card) return;
-    
-    const index = state.notebook.starred.findIndex(s => s.question === card.question && s.round === state.currentRound);
-    const starBtn = document.getElementById("card-star-btn");
-    
-    if (index > -1) {
-      // 取消收藏
-      state.notebook.starred.splice(index, 1);
-      starBtn.classList.remove("active");
-      starBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
-    } else {
-      // 新增收藏
-      state.notebook.starred.push({
-        round: state.currentRound,
-        type: card.type,
-        question: card.question,
-        answer: card.answer,
-        note: card.note
-      });
-      starBtn.classList.add("active");
-      starBtn.innerHTML = '<i class="fa-solid fa-star"></i>';
-    }
-    
-    saveToLocalStorage();
-  },
-  
   // ==========================================================================
   // 模擬測驗邏輯 (Quiz Mode)
   // ==========================================================================
@@ -682,7 +614,6 @@ const app = {
     state.quiz.answeredCorrect = new Set();
     state.quiz.retryQuestion = false;
     state.quiz.failedByMistakes = false;
-    state.quiz.wrongAnswersCollected = [];
     state.quiz.startedAt = Date.now();
     state.quiz.leaderboardSubmitted = false;
     
@@ -863,21 +794,6 @@ const app = {
         nextBtn.innerHTML = '下一題 <i class="fa-solid fa-arrow-right"></i>';
       }
       
-      // 搜集錯題，等會兒加到錯題本或在結算頁面展示
-      state.quiz.wrongAnswersCollected.push(questionData);
-      
-      // 自動將錯題加入錯題本庫中 (不重複)
-      const exists = state.notebook.wrong.some(w => w.question === questionData.question && w.round === state.currentRound);
-      if (!exists) {
-        state.notebook.wrong.push({
-          round: state.currentRound,
-          type: questionData.type,
-          question: questionData.question,
-          answer: questionData.answer,
-          explanation: questionData.note
-        });
-        saveToLocalStorage();
-      }
     }
     
     textEl.innerHTML = `正確答案為：<strong>${questionData.answer}</strong><br><br>${questionData.note}`;
@@ -926,23 +842,6 @@ const app = {
       `第 ${state.currentRound} 回只能錯 ${PERSONAL_QUIZ_WRONG_CHANCES} 次。本次已超過錯誤次數，請重新開始本回合。`;
     this.prepareLeaderboardSubmit(false);
 
-    const wrongBox = document.getElementById("wrong-questions-box");
-    const wrongList = document.getElementById("wrong-questions-list");
-    wrongList.innerHTML = "";
-    if (state.quiz.wrongAnswersCollected.length > 0) {
-      wrongBox.style.display = "block";
-      state.quiz.wrongAnswersCollected.forEach(q => {
-        const item = document.createElement("div");
-        item.className = "wrong-item";
-        item.innerHTML = `
-          <span class="wrong-item-text">${q.question.replace("「", "【").replace("」", "】")}</span>
-          <span class="wrong-item-ans">答案：${q.answer}</span>
-        `;
-        wrongList.appendChild(item);
-      });
-    } else {
-      wrongBox.style.display = "none";
-    }
   },
   
   showQuizResult() {
@@ -982,27 +881,7 @@ const app = {
     } else {
       medalEl.textContent = "再戰";
       titleEl.textContent = "尚未解鎖下一回";
-      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題。錯 3 題以內（含 3 題）才能解鎖下一回，複習錯題後再挑戰一次。`;
-    }
-    
-    // 顯示錯題清單
-    const wrongBox = document.getElementById("wrong-questions-box");
-    const wrongList = document.getElementById("wrong-questions-list");
-    
-    wrongList.innerHTML = "";
-    if (state.quiz.wrongAnswersCollected.length > 0) {
-      wrongBox.style.display = "block";
-      state.quiz.wrongAnswersCollected.forEach(q => {
-        const item = document.createElement("div");
-        item.className = "wrong-item";
-        item.innerHTML = `
-          <span class="wrong-item-text">${q.question.replace("「", "【").replace("」", "】")}</span>
-          <span class="wrong-item-ans">答案：${q.answer}</span>
-        `;
-        wrongList.appendChild(item);
-      });
-    } else {
-      wrongBox.style.display = "none";
+      summaryEl.textContent = `本次答對 ${state.quiz.correctCount} / ${state.quiz.questions.length} 題，錯 ${state.quiz.wrongCount} 題。錯 3 題以內（含 3 題）才能解鎖下一回，重新複習後再挑戰一次。`;
     }
   },
   
@@ -1060,115 +939,10 @@ const app = {
     }
   },
   
-  // ==========================================================================
-  // 錯題與收藏本渲染 (Notebook Mode)
-  // ==========================================================================
-  currentNotebookTab: "starred",
-  
-  switchNotebookTab(tabName) {
-    this.currentNotebookTab = tabName;
-    
-    const tabStarred = document.getElementById("tab-starred");
-    const tabWrong = document.getElementById("tab-wrong");
-    const secStarred = document.getElementById("starred-list-section");
-    const secWrong = document.getElementById("wrong-list-section");
-    
-    if (tabName === "starred") {
-      tabStarred.classList.add("active");
-      tabWrong.classList.remove("active");
-      secStarred.classList.add("active");
-      secWrong.classList.remove("active");
-    } else {
-      tabStarred.classList.remove("active");
-      tabWrong.classList.add("active");
-      secStarred.classList.remove("active");
-      secWrong.classList.add("active");
-    }
-    this.renderNotebook();
-  },
-  
-  renderNotebook() {
-    // 顯示計數
-    document.getElementById("starred-count-badge").textContent = state.notebook.starred.length;
-    document.getElementById("wrong-count-badge").textContent = state.notebook.wrong.length;
-    
-    const starredGrid = document.getElementById("starred-cards-grid");
-    const starredEmpty = document.getElementById("starred-empty");
-    const wrongList = document.getElementById("wrong-quiz-items-list");
-    const wrongEmpty = document.getElementById("wrong-empty");
-    
-    // 1. 渲染收藏字卡
-    starredGrid.innerHTML = "";
-    if (state.notebook.starred.length > 0) {
-      starredEmpty.style.display = "none";
-      state.notebook.starred.forEach((item, idx) => {
-        const card = document.createElement("div");
-        card.className = "starred-item-card";
-        card.innerHTML = `
-          <div class="starred-item-top">
-            <span class="starred-item-badge">回數 ${item.round} · ${getNotebookTypeLabel(item.type)}</span>
-            <button class="unstar-btn" onclick="app.removeStarred(${idx})" title="取消收藏">
-              <i class="fa-solid fa-star"></i>
-            </button>
-          </div>
-          <div class="starred-item-word">${item.question}</div>
-          <div class="starred-item-ans">${item.answer}</div>
-          <div class="starred-item-desc">${item.note}</div>
-        `;
-        starredGrid.appendChild(card);
-      });
-    } else {
-      starredEmpty.style.display = "flex";
-    }
-    
-    // 2. 渲染測驗錯題
-    wrongList.innerHTML = "";
-    if (state.notebook.wrong.length > 0) {
-      wrongEmpty.style.display = "none";
-      state.notebook.wrong.forEach((item, idx) => {
-        const row = document.createElement("div");
-        row.className = "wrong-quiz-item";
-        row.innerHTML = `
-          <div class="wrong-quiz-content">
-            <div class="wrong-quiz-round">第 ${item.round} 回 · 模擬測驗錯題</div>
-            <div class="wrong-quiz-q">${item.question.replace("「", "【").replace("」", "】")}</div>
-            <div class="wrong-quiz-a">正確答案為：<strong>${item.answer}</strong><br>${item.explanation}</div>
-          </div>
-          <button class="delete-wrong-btn" onclick="app.removeWrong(${idx})" title="刪除此紀錄">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        `;
-        wrongList.appendChild(row);
-      });
-    } else {
-      wrongEmpty.style.display = "flex";
-    }
-  },
-  
-  removeStarred(index) {
-    state.notebook.starred.splice(index, 1);
-    saveToLocalStorage();
-    this.renderNotebook();
-  },
-  
-  removeWrong(index) {
-    state.notebook.wrong.splice(index, 1);
-    saveToLocalStorage();
-    this.renderNotebook();
-  },
-  
-  clearNotebook() {
-    if (confirm("確定要清空所有收藏與測驗錯題記錄嗎？此動作不可復原。")) {
-      state.notebook.starred = [];
-      state.notebook.wrong = [];
-      saveToLocalStorage();
-      this.renderNotebook();
-    }
-  }
 };
 
 // ==========================================================================
-// 六組打怪闖關遊戲控制邏輯 (Boss Battle Game)
+// 課堂上臺作答 PK 賽控制邏輯
 // ==========================================================================
 const GAME_GROUPS = [
   { id: 1, title: "第一組", name: "第一組同學", boss: "總複習魔王", icon: "fa-users" },
@@ -1185,7 +959,7 @@ const FIRST_GROUP_BATTLE_ROUNDS = [1, 2, 3, 4, 5, 6];
 const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * FIRST_GROUP_BATTLE_ROUNDS.length;
 
 const GROUP_BATTLE_SETS = [
-  { id: 1, label: "第一次團體戰", shortLabel: "第一次", desc: "六回總複習後的分組PK" }
+  { id: 1, label: "課堂上臺作答 PK 賽", shortLabel: "課堂PK", desc: "第 1-6 回六組上臺作答競賽" }
 ];
 
 function createGroupBattleRecord() {
@@ -1399,7 +1173,7 @@ const game = {
   resetRace() {
     this.getActiveBattle();
     const config = this.getBattleConfig();
-    if (!confirm(`確定要重置${config.label}的六組累積排行嗎？答對題數、總時長與名次會重新開始。`)) return;
+    if (!confirm(`確定要重置${config.label}的六組累積排行嗎？正確率、總秒數與名次會重新開始。`)) return;
     state.scores.groupBattles[this.activeBattleId] = createGroupBattleRecord();
     if (this.activeBattleId === 1) {
       state.scores.gameHigh = 0;
@@ -1418,13 +1192,13 @@ const game = {
     const playerName = prompt(`${this.getBattleConfig().shortLabel} · ${this.currentGroup.title}\n請輸入作答者姓名（一人只能作答一次）：`, "");
     const playerKey = normalizeGroupPlayerKey(playerName);
     if (!playerKey) {
-      alert("請先輸入姓名，才能進入團體戰。");
+      alert("請先輸入姓名，才能上臺參加 PK 賽。");
       return;
     }
 
     const stats = this.getGroupStats(this.currentGroup.id);
     if (stats.playerRecords[playerKey]) {
-      alert(`${playerName.trim()} 已經為 ${this.currentGroup.title} 作答過，團體戰一人只能作答一次。`);
+      alert(`${playerName.trim()} 已經為 ${this.currentGroup.title} 作答過，課堂 PK 賽一人只能作答一次。`);
       return;
     }
 
