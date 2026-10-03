@@ -285,9 +285,8 @@ function updateDashboardStats() {
     const text = document.getElementById(`progress-text-r${roundNum}`);
     if (fill) fill.style.width = `${pct}%`;
     if (text) {
-      const checkpointRound = getPreviousStageFinalRound(roundNum);
       text.textContent = isLocked
-        ? `通過第 ${checkpointRound} 回後解鎖本關卡`
+        ? `已複習 ${reviewed}/${total} · 測驗待解鎖`
         : `已複習 ${reviewed}/${total} · ${clearText}`;
     }
     setRoundLockState(roundNum, isLocked);
@@ -330,17 +329,15 @@ function updateStageLockStates() {
     const locked = !isPersonalRoundUnlocked(firstRound);
     const status = toggle.querySelector(".stage-status");
 
-    section.classList.toggle("stage-locked", locked);
-    toggle.disabled = locked;
+    section.classList.toggle("stage-quiz-locked", locked);
+    toggle.disabled = false;
 
     if (locked) {
-      section.classList.remove("expanded");
-      toggle.setAttribute("aria-expanded", "false");
-      if (status) status.textContent = `完成第 ${checkpointRound} 回且錯 3 題以內即可解鎖。`;
+      if (status) status.textContent = `複習已開放；完成第 ${checkpointRound} 回且錯 3 題以內可解鎖本關測驗。`;
     } else if (status) {
       status.textContent = stageNum === 1
-        ? "起始關卡，點選進入第 1 至 3 回。"
-        : "關卡已解鎖，點選進入複習與測驗。";
+        ? "複習與測驗皆已開放，點選進入第 1 至 3 回。"
+        : "複習與測驗皆已開放，點選進入。";
     }
   }
 }
@@ -469,7 +466,7 @@ function renderLeaderboardAdmin() {
     `;
   }).join("");
 }
-function setRoundLockState(roundNum, isLocked) {
+function setRoundLockState(roundNum, isQuizLocked) {
   const card = document.getElementById(`card-round-${roundNum}`);
   const reviewBtn = document.getElementById(`btn-review-r${roundNum}`);
   const quizBtn = document.getElementById(`btn-quiz-r${roundNum}`);
@@ -479,15 +476,16 @@ function setRoundLockState(roundNum, isLocked) {
   const checkpointRound = getPreviousStageFinalRound(roundNum);
   const stageFinalRound = Math.min(stageNumber * ROUNDS_PER_STAGE, ROUND_COUNT);
   const description = card.querySelector(":scope > p");
-  card.classList.toggle("locked", isLocked);
-  reviewBtn.disabled = isLocked;
-  quizBtn.disabled = isLocked;
-  reviewBtn.title = isLocked ? `請先完成第 ${checkpointRound} 回並錯 3 題以內` : "";
-  quizBtn.title = isLocked ? `請先完成第 ${checkpointRound} 回並錯 3 題以內` : "";
+  card.classList.remove("locked");
+  card.classList.toggle("quiz-locked", isQuizLocked);
+  reviewBtn.disabled = false;
+  quizBtn.disabled = isQuizLocked;
+  reviewBtn.title = "";
+  quizBtn.title = isQuizLocked ? `請先完成第 ${checkpointRound} 回並錯 3 題以內` : "";
 
   if (description) {
-    if (isLocked) {
-      description.textContent = `第 ${stageNumber} 關尚未解鎖；請先通過第 ${checkpointRound} 回。`;
+    if (isQuizLocked) {
+      description.textContent = `本回複習已開放；模擬測驗需先通過第 ${checkpointRound} 回。`;
     } else if (roundNum === stageFinalRound && roundNum < ROUND_COUNT) {
       description.textContent = `本關卡最終回；錯 3 題以內（含 3 題）即可解鎖第 ${stageNumber + 1} 關。`;
     } else {
@@ -553,7 +551,7 @@ const app = {
   // 字卡複習邏輯 (Review Mode)
   // ==========================================================================
   isRoundUnlocked(roundNum) {
-    return isPersonalRoundUnlocked(roundNum);
+    return Boolean(REVIEW_DATA.find(round => round.round === roundNum));
   },
 
   showLockedRoundMessage(roundNum) {
