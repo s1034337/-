@@ -1020,10 +1020,10 @@ const GAME_GROUPS = [
 ];
 
 const GROUP_TEST_WRONG_CHANCES = 6;
-const GROUP_TEST_QUESTION_COUNT = 10;
-const FIRST_GROUP_BATTLE_ROUNDS = [1, 2, 3, 4, 5, 6];
-const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * FIRST_GROUP_BATTLE_ROUNDS.length;
-const CLASSROOM_PK_VERSION = 2;
+const GROUP_TEST_QUESTION_COUNT = 1;
+const PK_QUESTION_ROUNDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * PK_QUESTION_ROUNDS.length;
+const CLASSROOM_PK_VERSION = 3;
 
 const GROUP_BATTLE_SETS = [
   { id: 1, label: "兩人上臺作答 PK 賽", shortLabel: "兩人PK", desc: "玩家 A 與玩家 B 各挑戰一次" }
@@ -1204,8 +1204,8 @@ const game = {
     const desc = document.getElementById("game-battle-desc");
     const summary = document.getElementById("battle-set-summary");
     if (title) title.textContent = config.label;
-    if (desc) desc.textContent = `${config.desc}，每位玩家輸入姓名後作答一次；排名先比正確率，同分再比作答秒數。`;
-    if (summary) summary.textContent = `目前顯示：${config.label}，排名以正確率優先，同分比較少秒數。`;
+    if (desc) desc.textContent = `${config.desc}，從第 1 至 10 回各抽 1 題，共 10 題；排名先比正確率，同分再比作答秒數。`;
+    if (summary) summary.textContent = `每人 10 題：第 1 至 10 回各 1 題。正確率優先，同分比較少秒數。`;
     GROUP_BATTLE_SETS.forEach(set => {
       const btn = document.getElementById(`battle-set-${set.id}`);
       if (btn) btn.classList.toggle("active", set.id === this.activeBattleId);
@@ -1236,7 +1236,7 @@ const game = {
     });
   },
   getGroupQuestions(groupId) {
-    return FIRST_GROUP_BATTLE_ROUNDS.flatMap(roundNum => {
+    return PK_QUESTION_ROUNDS.flatMap(roundNum => {
       const roundQuestions = RAW_SHEET_DATA.filter(item => item.round === roundNum);
       return this.shuffle(roundQuestions).slice(0, GROUP_TEST_QUESTION_COUNT).map(item => ({ ...item }));
     });
