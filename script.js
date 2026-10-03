@@ -1016,18 +1016,18 @@ const app = {
 // 兩人上臺作答 PK 賽控制邏輯
 // ==========================================================================
 const GAME_GROUPS = [
-  { id: 1, title: "玩家 A", name: "第一位挑戰者", boss: "總複習魔王", icon: "fa-user" },
-  { id: 2, title: "玩家 B", name: "第二位挑戰者", boss: "總複習魔王", icon: "fa-user" }
+  { id: 1, title: "第一位同學", name: "第一位挑戰者", boss: "總複習魔王", icon: "fa-user" },
+  { id: 2, title: "第二位同學", name: "第二位挑戰者", boss: "總複習魔王", icon: "fa-user" }
 ];
 
 const GROUP_TEST_WRONG_CHANCES = 6;
 const GROUP_TEST_QUESTION_COUNT = 1;
 const PK_QUESTION_ROUNDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * PK_QUESTION_ROUNDS.length;
-const CLASSROOM_PK_VERSION = 3;
+const CLASSROOM_PK_VERSION = 4;
 
 const GROUP_BATTLE_SETS = [
-  { id: 1, label: "兩人上臺作答 PK 賽", shortLabel: "兩人PK", desc: "玩家 A 與玩家 B 各挑戰一次" }
+  { id: 1, label: "兩人上臺作答 PK 賽", shortLabel: "兩人PK", desc: "兩位同學依序各挑戰一次，完成後換下一組" }
 ];
 
 function createGroupBattleRecord() {
@@ -1249,10 +1249,18 @@ const game = {
     return `${min}:${String(sec).padStart(2, "0")}`;
   },
 
-  resetRace() {
+  isPairComplete() {
+    return GAME_GROUPS.every(group => {
+      const stats = this.getGroupStats(group.id);
+      return Object.values(stats.playerRecords).some(record => record.completed);
+    });
+  },
+
+  nextPair() {
     this.getActiveBattle();
-    const config = this.getBattleConfig();
-    if (!confirm(`確定要重置兩位玩家的 PK 紀錄嗎？正確率、秒數與名次會重新開始。`)) return;
+    const hasStarted = GAME_GROUPS.some(group => this.getGroupStats(group.id).attempts > 0);
+    if (hasStarted && !this.isPairComplete() && !confirm("本組尚未由兩位同學完成作答，確定要直接換下一組嗎？")) return;
+
     state.scores.groupBattles[this.activeBattleId] = createGroupBattleRecord();
     if (this.activeBattleId === 1) {
       state.scores.gameHigh = 0;
@@ -1264,13 +1272,17 @@ const game = {
     }
     saveToLocalStorage();
     updateDashboardStats();
-    this.renderGroupMap();
+    this.showMenu();
+  },
+
+  resetRace() {
+    this.nextPair();
   },
   start(groupId = 1) {
     this.currentGroup = GAME_GROUPS.find(group => group.id === groupId) || GAME_GROUPS[0];
     const stats = this.getGroupStats(this.currentGroup.id);
     if (stats.attempts > 0) {
-      alert(`${this.currentGroup.title} 已完成作答。如需重新比賽，請先按「重置 PK 紀錄」。`);
+      alert(`${this.currentGroup.title} 已完成作答。請由另一位同學作答；兩位都完成後可按「換下一組兩位」。`);
       return;
     }
 
@@ -1544,5 +1556,8 @@ const game = {
     const accuracyText = formatGroupAccuracy(stats);
     const playerText = this.currentPlayerName ? `${this.currentPlayerName} ` : "";
     summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} ${playerText}答對 ${this.correctCount}/${this.groupQuestions.length} 題，${wrongText}，用時 ${this.formatTime(this.timeLeft)}（${stats.totalTime}秒）。正確率 ${accuracyText}，目前排名第 ${rank} 名。`;
+
+    const nextPairBtn = document.getElementById("game-next-pair-btn");
+    if (nextPairBtn) nextPairBtn.style.display = this.isPairComplete() ? "inline-flex" : "none";
   }
 };
