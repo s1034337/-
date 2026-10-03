@@ -372,12 +372,59 @@ button {
   color: var(--text-secondary);
 }
 
+/* 三回合關卡 */
+.stages-list {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stage-section {
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.42);
+}
+
+.stage-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.stage-heading > span {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.8rem;
+  border-radius: 6px;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 800;
+}
+
+.stage-heading h3 {
+  margin: 0 0 0.2rem;
+  color: var(--text-primary);
+  font-size: 1.15rem;
+}
+
+.stage-heading p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+body.light-theme .stage-section {
+  border-color: rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+}
+
 /* 回數複習卡片網格 */
 .rounds-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 }
 
 .round-card {
@@ -2483,6 +2530,14 @@ body.light-theme .game-feedback-overlay {
   .rounds-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .stage-section {
+    padding: 1rem;
+  }
+
+  .stage-heading {
+    align-items: flex-start;
   }
   
   .tools-grid {
