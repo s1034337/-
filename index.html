@@ -288,6 +288,21 @@
           </div>
             </div>
           </section>
+
+          <section class="stage-section" id="stage-7">
+            <button class="stage-heading" id="stage-toggle-7" type="button" onclick="app.toggleStage(7)" aria-expanded="false" aria-controls="stage-rounds-7"><span>第七關</span><div><h3>第 19 至 21 回</h3><p class="stage-status">第 18 回錯 3 題以內即可解鎖本關卡。</p></div><i class="stage-chevron fa-solid fa-chevron-down"></i></button>
+            <div class="rounds-grid" id="stage-rounds-7">
+          <div class="round-card" id="card-round-19">
+            <div class="round-badge">第十九回</div>
+            <div class="round-icon"><i class="fa-solid fa-earth-asia"></i></div>
+            <h3>國名地名</h3>
+            <p>第十九回屬於第七關；第十八回達標後即可開始複習與測驗。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r19" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r19">通過第十八回後解鎖</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r19"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r19" onclick="app.startReview(19)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r19" onclick="app.startQuiz(19)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+            </div>
+          </section>
         </div>
         <div class="section-title">
           <h2><i class="fa-solid fa-user-group"></i> 兩人上臺作答 PK 賽</h2>
@@ -632,7 +647,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20261003-round18"></script>
-  <script src="script.js?v=20261003-pk-1-to-10"></script>
+  <script src="data.js?v=20261003-round19"></script>
+  <script src="script.js?v=20261003-round19"></script>
 </body>
 </html>

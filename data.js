@@ -4730,6 +4730,106 @@ const RAW_SHEET_DATA =
   {
     "round": 18, "type": "pronunciation", "question": "車路「墘」的讀音", "answer": "ㄑㄧㄢˊ",
     "options": ["ㄑㄧㄢˊ", "ㄍㄢ", "ㄑㄧㄢˋ", "ㄎㄢˇ"], "note": "「車路墘」的「墘」讀作ㄑㄧㄢˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「法」國的讀音", "answer": "ㄈㄚˇ",
+    "options": ["ㄈㄚˇ", "ㄈㄚ", "ㄈㄚˊ", "ㄈㄚˋ"], "note": "「法國」的「法」讀作ㄈㄚˇ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「俄」羅斯的讀音", "answer": "ㄜˊ",
+    "options": ["ㄜˊ", "ㄜˋ", "ㄨㄛˇ", "ㄧˊ"], "note": "「俄羅斯」的「俄」讀作ㄜˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「祕」魯的讀音", "answer": "ㄅㄧˋ",
+    "options": ["ㄅㄧˋ", "ㄇㄧˋ", "ㄅㄧ", "ㄆㄧˋ"], "note": "「祕魯」的「祕」讀作ㄅㄧˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "高「句」麗的讀音", "answer": "ㄍㄡ",
+    "options": ["ㄍㄡ", "ㄐㄩˋ", "ㄍㄡˋ", "ㄐㄩ"], "note": "「高句麗」的「句」讀作ㄍㄡ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "大「宛」的讀音", "answer": "ㄩㄢ",
+    "options": ["ㄩㄢ", "ㄨㄢ", "ㄨㄢˇ", "ㄩㄢˋ"], "note": "古國名「大宛」的「宛」讀作ㄩㄢ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「龜」茲的讀音", "answer": "ㄑㄧㄡ",
+    "options": ["ㄑㄧㄡ", "ㄍㄨㄟ", "ㄐㄩㄣ", "ㄍㄨㄟˋ"], "note": "古國名「龜茲」的「龜」讀作ㄑㄧㄡ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "吐「蕃」的讀音", "answer": "ㄈㄢ",
+    "options": ["ㄈㄢ", "ㄅㄛ", "ㄈㄢˊ", "ㄆㄢ"], "note": "「吐蕃」的「蕃」讀作ㄈㄢ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "吐「谷」渾的讀音", "answer": "ㄩˋ",
+    "options": ["ㄩˋ", "ㄍㄨˇ", "ㄍㄨˋ", "ㄩˇ"], "note": "古國名「吐谷渾」的「谷」讀作ㄩˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "葷「粥」的讀音", "answer": "ㄩˋ",
+    "options": ["ㄩˋ", "ㄓㄡ", "ㄓㄨˋ", "ㄩˊ"], "note": "古族名「葷粥」的「粥」讀作ㄩˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "好萊「塢」的讀音", "answer": "ㄨˋ",
+    "options": ["ㄨˋ", "ㄨ", "ㄨˇ", "ㄨˊ"], "note": "「好萊塢」的「塢」讀作ㄨˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「番」禺的讀音", "answer": "ㄆㄢ",
+    "options": ["ㄆㄢ", "ㄈㄢ", "ㄆㄛˊ", "ㄈㄢˊ"], "note": "地名「番禺」的「番」讀作ㄆㄢ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「垓」下的讀音", "answer": "ㄍㄞ",
+    "options": ["ㄍㄞ", "ㄏㄞˊ", "ㄍㄞˋ", "ㄎㄞ"], "note": "地名「垓下」的「垓」讀作ㄍㄞ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "深「圳」的讀音", "answer": "ㄓㄣˋ",
+    "options": ["ㄓㄣˋ", "ㄔㄨㄣˊ", "ㄗㄨㄣˋ", "ㄓㄣ"], "note": "地名「深圳」的「圳」讀作ㄓㄣˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「汴」京的讀音", "answer": "ㄅㄧㄢˋ",
+    "options": ["ㄅㄧㄢˋ", "ㄅㄧㄢ", "ㄅㄢˋ", "ㄆㄧㄢˋ"], "note": "地名「汴京」的「汴」讀作ㄅㄧㄢˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「鎬」京的讀音", "answer": "ㄏㄠˋ",
+    "options": ["ㄏㄠˋ", "ㄍㄠˇ", "ㄏㄠˇ", "ㄍㄠ"], "note": "地名「鎬京」的「鎬」讀作ㄏㄠˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「幷」州的讀音", "answer": "ㄅㄧㄥ",
+    "options": ["ㄅㄧㄥ", "ㄅㄧㄥˋ", "ㄆㄧㄣ", "ㄅㄢˋ"], "note": "古地名「幷州」的「幷」讀作ㄅㄧㄥ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "琅「邪」的讀音", "answer": "ㄧㄝˊ",
+    "options": ["ㄧㄝˊ", "ㄒㄧㄝˊ", "ㄧㄚˊ", "ㄧㄝˋ"], "note": "古地名「琅邪」的「邪」讀作ㄧㄝˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「沂」水縣的讀音", "answer": "ㄧˊ",
+    "options": ["ㄧˊ", "ㄑㄧˊ", "ㄧˇ", "ㄒㄧㄣ"], "note": "地名「沂水縣」的「沂」讀作ㄧˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "姑「射」山的讀音", "answer": "ㄧㄝˋ",
+    "options": ["ㄧㄝˋ", "ㄕㄜˋ", "ㄧˋ", "ㄕˊ"], "note": "「姑射山」的「射」讀作ㄧㄝˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「濟」南的讀音", "answer": "ㄐㄧˇ",
+    "options": ["ㄐㄧˇ", "ㄐㄧˋ", "ㄐㄧ", "ㄑㄧˊ"], "note": "地名「濟南」的「濟」讀作ㄐㄧˇ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「鄜」州的讀音", "answer": "ㄈㄨ",
+    "options": ["ㄈㄨ", "ㄌㄨˋ", "ㄆㄨˊ", "ㄈㄨˊ"], "note": "古地名「鄜州」的「鄜」讀作ㄈㄨ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「瞿」塘峽的讀音", "answer": "ㄑㄩˊ",
+    "options": ["ㄑㄩˊ", "ㄐㄩˋ", "ㄑㄩ", "ㄍㄡˋ"], "note": "地名「瞿塘峽」的「瞿」讀作ㄑㄩˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「鄱」陽湖的讀音", "answer": "ㄆㄛˊ",
+    "options": ["ㄆㄛˊ", "ㄈㄢˊ", "ㄆㄛ", "ㄅㄛˊ"], "note": "地名「鄱陽湖」的「鄱」讀作ㄆㄛˊ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "「會」稽的讀音", "answer": "ㄍㄨㄟˋ",
+    "options": ["ㄍㄨㄟˋ", "ㄏㄨㄟˋ", "ㄎㄨㄞˋ", "ㄍㄨㄟ"], "note": "古地名「會稽」的「會」讀作ㄍㄨㄟˋ。"
+  },
+  {
+    "round": 19, "type": "pronunciation", "question": "諸「暨」縣的讀音", "answer": "ㄐㄧˋ",
+    "options": ["ㄐㄧˋ", "ㄐㄧˊ", "ㄍㄞˋ", "ㄑㄧˋ"], "note": "地名「諸暨縣」的「暨」讀作ㄐㄧˋ。"
   }
 ]
 ;
@@ -4825,6 +4925,11 @@ const REVIEW_DATA =
     "round": 18,
     "title": "第十八回：臺灣地名",
     "subtitle": "第 18 回複習"
+  },
+  {
+    "round": 19,
+    "title": "第十九回：國名地名",
+    "subtitle": "第 19 回複習"
   }
 ]
 ;
