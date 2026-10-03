@@ -76,7 +76,7 @@
 
         <div class="section-title">
           <h2><i class="fa-solid fa-graduation-cap"></i> 個人十三回合複習闖關</h2>
-          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；第七回「拈花惹草」、第八回「百鳥朝鳳」、第九回「水中世界」、第十回「張就道表嘗爾」、第十一回「情感表現」、第十二回「看形辨音1」、第十三回「看形辨音2」已分開加入。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；目前共有十四回，第十四回為「六畜興旺」。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -203,10 +203,20 @@
             <div class="round-badge">第十三回</div>
             <div class="round-icon"><i class="fa-solid fa-language"></i></div>
             <h3>看形辨音2</h3>
-            <p>開始複習已開放；第十三回測驗需第十二回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <p>開始複習已開放；第十三回測驗需第十二回錯 3 題以內（含 3 題）才解鎖。完成第十三回測驗且錯 3 題以內（含 3 題），第十四回測驗才會解鎖。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r13" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r13">複習已開放，測驗需第十二回錯 3 題以內</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r13"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r13" onclick="app.startReview(13)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r13" onclick="app.startQuiz(13)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-14">
+            <div class="round-badge">第十四回</div>
+            <div class="round-icon"><i class="fa-solid fa-cow"></i></div>
+            <h3>六畜興旺</h3>
+            <p>開始複習已開放；第十四回測驗需第十三回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r14" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r14">複習已開放，測驗需第十三回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r14"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r14" onclick="app.startReview(14)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r14" onclick="app.startQuiz(14)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
         </div>
         <div class="section-title">
@@ -631,7 +641,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20260923-clean-header"></script>
-  <script src="script.js?v=20260923-clean-header"></script>
+  <script src="data.js?v=20261003-round14"></script>
+  <script src="script.js?v=20261003-round14"></script>
 </body>
 </html>
