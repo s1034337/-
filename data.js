@@ -4530,6 +4530,106 @@ const RAW_SHEET_DATA =
   {
     "round": 16, "type": "shape", "question": "「ㄔㄢ」扶過街", "answer": "攙",
     "options": ["攙", "讒", "饞", "蟬"], "note": "「攙扶過街」的正確寫法是「攙」。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「教」學相長 的讀音", "answer": "ㄐㄧㄠˋ",
+    "options": ["ㄐㄧㄠˋ", "ㄐㄧㄠ", "ㄒㄧㄠˋ", "ㄒㄧㄠ"], "note": "「教學相長」的「教」讀作ㄐㄧㄠˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「校」正錯誤 的讀音", "answer": "ㄐㄧㄠˋ",
+    "options": ["ㄐㄧㄠˋ", "ㄒㄧㄠˋ", "ㄐㄧㄠ", "ㄒㄧㄠ"], "note": "「校正錯誤」的「校」讀作ㄐㄧㄠˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「玷」汙清白 的讀音", "answer": "ㄉㄧㄢˋ",
+    "options": ["ㄉㄧㄢˋ", "ㄓㄢˋ", "ㄉㄧㄢ", "ㄊㄧㄢˊ"], "note": "「玷汙清白」的「玷」讀作ㄉㄧㄢˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「逮」捕犯人 的讀音", "answer": "ㄉㄞˋ",
+    "options": ["ㄉㄞˋ", "ㄉㄞˇ", "ㄉㄧˋ", "ㄉㄟˇ"], "note": "「逮捕犯人」的「逮」讀作ㄉㄞˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「叨」擾人家 的讀音", "answer": "ㄊㄠ",
+    "options": ["ㄊㄠ", "ㄉㄠ", "ㄊㄠˊ", "ㄉㄠˋ"], "note": "「叨擾人家」的「叨」讀作ㄊㄠ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「烙」印在心 的讀音", "answer": "ㄌㄠˋ",
+    "options": ["ㄌㄠˋ", "ㄌㄨㄛˋ", "ㄌㄠˊ", "ㄍㄜˋ"], "note": "「烙印在心」的「烙」讀作ㄌㄠˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「貯」藏食物 的讀音", "answer": "ㄓㄨˇ",
+    "options": ["ㄓㄨˇ", "ㄔㄨˇ", "ㄓㄨˋ", "ㄔㄨˋ"], "note": "「貯藏食物」的「貯」讀作ㄓㄨˇ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "消「弭」衝突 的讀音", "answer": "ㄇㄧˇ",
+    "options": ["ㄇㄧˇ", "ㄦˇ", "ㄇㄧˊ", "ㄇㄧˋ"], "note": "「消弭衝突」的「弭」讀作ㄇㄧˇ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "沉「溺」賭博 的讀音", "answer": "ㄋㄧˋ",
+    "options": ["ㄋㄧˋ", "ㄖㄨㄛˋ", "ㄋㄧˊ", "ㄋㄧㄠˋ"], "note": "「沉溺賭博」的「溺」讀作ㄋㄧˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "雕「刻」作品 的讀音", "answer": "ㄎㄜˋ",
+    "options": ["ㄎㄜˋ", "ㄎㄜ", "ㄎㄜˇ", "ㄎㄞˋ"], "note": "「雕刻作品」的「刻」讀作ㄎㄜˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "如法「炮」製 的讀音", "answer": "ㄆㄠˊ",
+    "options": ["ㄆㄠˊ", "ㄆㄠˋ", "ㄅㄠ", "ㄆㄠ"], "note": "「如法炮製」的「炮」讀作ㄆㄠˊ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "野外「狩」獵 的讀音", "answer": "ㄕㄡˋ",
+    "options": ["ㄕㄡˋ", "ㄕㄡˇ", "ㄕㄨˋ", "ㄙㄡˋ"], "note": "「野外狩獵」的「狩」讀作ㄕㄡˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「勒」索金錢 的讀音", "answer": "ㄌㄜˋ",
+    "options": ["ㄌㄜˋ", "ㄌㄟ", "ㄌㄟˋ", "ㄌㄜ"], "note": "「勒索金錢」的「勒」讀作ㄌㄜˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「煽」動群眾 的讀音", "answer": "ㄕㄢ",
+    "options": ["ㄕㄢ", "ㄕㄢˋ", "ㄕㄢˇ", "ㄓㄢ"], "note": "「煽動群眾」的「煽」讀作ㄕㄢ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "鑲「嵌」鑽石 的讀音", "answer": "ㄑㄧㄢ",
+    "options": ["ㄑㄧㄢ", "ㄎㄢˇ", "ㄑㄧㄢˋ", "ㄍㄢ"], "note": "「鑲嵌鑽石」的「嵌」讀作ㄑㄧㄢ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "烏雲「籠」罩 的讀音", "answer": "ㄌㄨㄥˊ",
+    "options": ["ㄌㄨㄥˊ", "ㄌㄨㄥˇ", "ㄌㄨㄥˋ", "ㄌㄨㄥ"], "note": "「烏雲籠罩」的「籠」讀作ㄌㄨㄥˊ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "面目可「憎」 的讀音", "answer": "ㄗㄥ",
+    "options": ["ㄗㄥ", "ㄗㄥˋ", "ㄗㄥˇ", "ㄘㄥ"], "note": "「面目可憎」的「憎」讀作ㄗㄥ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "帝王崩「殂」 的讀音", "answer": "ㄘㄨˊ",
+    "options": ["ㄘㄨˊ", "ㄗㄨˇ", "ㄐㄩ", "ㄘㄨ"], "note": "「帝王崩殂」的「殂」讀作ㄘㄨˊ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "面面相「覷」 的讀音", "answer": "ㄑㄩˋ",
+    "options": ["ㄑㄩˋ", "ㄒㄩˋ", "ㄑㄩ", "ㄒㄩ"], "note": "「面面相覷」的「覷」讀作ㄑㄩˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "罪無可「逭」 的讀音", "answer": "ㄏㄨㄢˋ",
+    "options": ["ㄏㄨㄢˋ", "ㄨㄢˇ", "ㄏㄨㄢˊ", "ㄍㄨㄢˇ"], "note": "「罪無可逭」的「逭」讀作ㄏㄨㄢˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「殲」滅敵人 的讀音", "answer": "ㄐㄧㄢ",
+    "options": ["ㄐㄧㄢ", "ㄑㄧㄢ", "ㄔㄢ", "ㄐㄧㄢˋ"], "note": "「殲滅敵人」的「殲」讀作ㄐㄧㄢ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「羼」入雜質 的讀音", "answer": "ㄔㄢˋ",
+    "options": ["ㄔㄢˋ", "ㄕㄢˋ", "ㄔㄢ", "ㄘㄢˋ"], "note": "「羼入雜質」的「羼」讀作ㄔㄢˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「剽」竊機密 的讀音", "answer": "ㄆㄧㄠˋ",
+    "options": ["ㄆㄧㄠˋ", "ㄆㄧㄠ", "ㄅㄧㄠ", "ㄆㄧㄠˇ"], "note": "「剽竊機密」的「剽」讀作ㄆㄧㄠˋ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「鏖」戰數回 的讀音", "answer": "ㄠˊ",
+    "options": ["ㄠˊ", "ㄌㄨˋ", "ㄠˋ", "ㄨˋ"], "note": "「鏖戰數回」的「鏖」讀作ㄠˊ。"
+  },
+  {
+    "round": 17, "type": "pronunciation", "question": "「鐫」心銘骨 的讀音", "answer": "ㄐㄩㄢ",
+    "options": ["ㄐㄩㄢ", "ㄐㄩㄣˋ", "ㄒㄧㄝˊ", "ㄐㄧㄢ"], "note": "「鐫心銘骨」的「鐫」讀作ㄐㄩㄢ。"
   }
 ]
 ;
@@ -4615,6 +4715,11 @@ const REVIEW_DATA =
     "round": 16,
     "title": "第十六回：動詞現形",
     "subtitle": "第 16 回複習"
+  },
+  {
+    "round": 17,
+    "title": "第十七回：動詞出列",
+    "subtitle": "第 17 回複習"
   }
 ]
 ;
