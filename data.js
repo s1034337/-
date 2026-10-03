@@ -4272,8 +4272,8 @@ const RAW_SHEET_DATA =
     "options": ["ㄉㄨˊ", "ㄉㄨˇ", "ㄉㄨˋ", "ㄉㄨ"], "note": "「舐「犢」情深的讀音」的正確答案是「ㄉㄨˊ」。"
   },
   {
-    "round": 14, "type": "sound", "question": "白「駔」的讀音", "answer": "ㄗㄤˇ",
-    "options": ["ㄗㄤˇ", "ㄗㄨˇ", "ㄐㄩˋ", "ㄘㄤˊ"], "note": "「白「駔」的讀音」的正確答案是「ㄗㄤˇ」。"
+    "round": 14, "type": "sound", "question": "白「鼬」的讀音", "answer": "ㄧㄡˋ",
+    "options": ["ㄧㄡˋ", "ㄧㄡˊ", "ㄧㄡˇ", "ㄧㄡ"], "note": "「白「鼬」的讀音」的正確答案是「ㄧㄡˋ」。"
   },
   {
     "round": 14, "type": "sound", "question": "白面「鼯」鼠的讀音", "answer": "ㄨˊ",
