@@ -4430,6 +4430,106 @@ const RAW_SHEET_DATA =
   {
     "round": 15, "type": "meaning", "question": "風勢很「猛」的字義", "answer": "劇烈、強烈",
     "options": ["劇烈、強烈", "突然", "兇猛的", "勇敢、勇武"], "note": "「風勢很「猛」」中的「猛」是「劇烈、強烈」的意思。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "向下「ㄓㄚ」根", "answer": "扎",
+    "options": ["扎", "札", "軋", "折"], "note": "「向下扎根」的正確寫法是「扎」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄓㄨˋ」立街頭", "answer": "佇",
+    "options": ["佇", "住", "駐", "柱"], "note": "「佇立街頭」的正確寫法是「佇」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄊㄧㄠˇ」燈夜戰", "answer": "挑",
+    "options": ["挑", "眺", "窕", "祧"], "note": "「挑燈夜戰」的正確寫法是「挑」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄓㄣˋ」戈待旦", "answer": "枕",
+    "options": ["枕", "診", "疹", "砧"], "note": "「枕戈待旦」的正確寫法是「枕」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "力能「ㄍㄤ」鼎", "answer": "扛",
+    "options": ["扛", "缸", "肛", "槓"], "note": "「力能扛鼎」的正確寫法是「扛」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄏㄢˋ」格不入", "answer": "扞",
+    "options": ["扞", "悍", "汗", "旱"], "note": "「扞格不入」的正確寫法是「扞」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄧㄠˇ」一口湯", "answer": "舀",
+    "options": ["舀", "咬", "搖", "窯"], "note": "「舀一口湯」的正確寫法是「舀」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄅㄢ」回一局", "answer": "扳",
+    "options": ["扳", "搬", "班", "頒"], "note": "「扳回一局」的正確寫法是「扳」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄒㄧㄚˊ」持人質", "answer": "挾",
+    "options": ["挾", "俠", "狹", "峽"], "note": "「挾持人質」的正確寫法是「挾」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "鞭「ㄔ」犯人", "answer": "笞",
+    "options": ["笞", "痴", "嗤", "蚩"], "note": "「鞭笞犯人」的正確寫法是「笞」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "趁機「ㄎㄞ」油", "answer": "揩",
+    "options": ["揩", "楷", "階", "皆"], "note": "「趁機揩油」的正確寫法是「揩」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "花朵枯「ㄨㄟ」", "answer": "萎",
+    "options": ["萎", "委", "諉", "猥"], "note": "「花朵枯萎」的正確寫法是「萎」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄆㄧㄝ」開不談", "answer": "撇",
+    "options": ["撇", "瞥", "蔽", "弊"], "note": "「撇開不談」的正確寫法是「撇」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄇㄧˇ」平亂事", "answer": "弭",
+    "options": ["弭", "敉", "彌", "米"], "note": "「弭平亂事」的正確寫法是「弭」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "遭人「ㄐㄩ」擊", "answer": "狙",
+    "options": ["狙", "沮", "咀", "阻"], "note": "「遭人狙擊」的正確寫法是「狙」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄑㄧ」一壺茶", "answer": "沏",
+    "options": ["沏", "砌", "切", "妻"], "note": "「沏一壺茶」的正確寫法是「沏」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "景氣復「ㄙㄨ」", "answer": "甦",
+    "options": ["甦", "素", "訴", "速"], "note": "「景氣復甦」的正確寫法是「甦」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "風行草「ㄧㄢˇ」", "answer": "偃",
+    "options": ["偃", "掩", "堰", "晏"], "note": "「風行草偃」的正確寫法是「偃」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "隨體詰「ㄑㄩ」", "answer": "屈",
+    "options": ["屈", "曲", "驅", "蛆"], "note": "「隨體詰屈」的正確寫法是「屈」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "以見指「ㄏㄨㄟ」", "answer": "撝",
+    "options": ["撝", "諱", "煒", "暉"], "note": "「以見指撝」的正確寫法是「撝」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄑㄧㄢˊ」口結舌", "answer": "箝",
+    "options": ["箝", "錢", "前", "黔"], "note": "「箝口結舌」的正確寫法是「箝」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "胡「ㄗㄡ」一番", "answer": "謅",
+    "options": ["謅", "鄒", "驟", "皺"], "note": "「胡謅一番」的正確寫法是「謅」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "疏「ㄐㄩㄣˋ」河道", "answer": "濬",
+    "options": ["濬", "峻", "竣", "駿"], "note": "「疏濬河道」的正確寫法是「濬」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄐㄧ」身上流", "answer": "躋",
+    "options": ["躋", "擠", "濟", "齊"], "note": "「躋身上流」的正確寫法是「躋」。"
+  },
+  {
+    "round": 16, "type": "shape", "question": "「ㄔㄢ」扶過街", "answer": "攙",
+    "options": ["攙", "讒", "饞", "蟬"], "note": "「攙扶過街」的正確寫法是「攙」。"
   }
 ]
 ;
@@ -4510,6 +4610,11 @@ const REVIEW_DATA =
     "round": 15,
     "title": "第十五回：止端泰幹猛",
     "subtitle": "第 15 回複習"
+  },
+  {
+    "round": 16,
+    "title": "第十六回：動詞現形",
+    "subtitle": "第 16 回複習"
   }
 ]
 ;

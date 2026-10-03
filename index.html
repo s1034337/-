@@ -71,7 +71,7 @@
 
         <div class="section-title">
           <h2><i class="fa-solid fa-graduation-cap"></i> 個人十三回合複習闖關</h2>
-          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；目前共有十五回，第十五回為「止端泰幹猛」。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
+          <p>第一到第四回可直接挑戰且可重複作答；第五回起需前一回錯 3 題以內（含 3 題）才解鎖測驗；目前共有十六回，第十六回為「動詞現形」。個人戰每回 25 題，每題 5 秒倒數，作答後自動跳題。</p>
         </div>
 
         <!-- 複習單元卡片網格 -->
@@ -218,10 +218,20 @@
             <div class="round-badge">第十五回</div>
             <div class="round-icon"><i class="fa-solid fa-book-open"></i></div>
             <h3>止端泰幹猛</h3>
-            <p>開始複習已開放；第十五回測驗需第十四回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <p>開始複習已開放；第十五回測驗需第十四回錯 3 題以內（含 3 題）才解鎖。完成第十五回測驗且錯 3 題以內（含 3 題），第十六回測驗才會解鎖。</p>
             <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r15" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r15">複習已開放，測驗需第十四回錯 3 題以內</span></div>
             <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r15"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
             <div class="card-actions"><button class="btn btn-primary" id="btn-review-r15" onclick="app.startReview(15)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r15" onclick="app.startQuiz(15)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
+          </div>
+
+          <div class="round-card" id="card-round-16">
+            <div class="round-badge">第十六回</div>
+            <div class="round-icon"><i class="fa-solid fa-person-running"></i></div>
+            <h3>動詞現形</h3>
+            <p>開始複習已開放；第十六回測驗需第十五回錯 3 題以內（含 3 題）才解鎖。完成後可重複作答並登上本回合排行榜。</p>
+            <div class="progress-container"><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-r16" style="width: 0%"></div></div><span class="progress-text" id="progress-text-r16">複習已開放，測驗需第十五回錯 3 題以內</span></div>
+            <div class="round-leaderboard"><div class="round-leaderboard-title"><i class="fa-solid fa-ranking-star"></i> 本回合前三名</div><ol id="round-leaderboard-r16"><li class="empty-rank">尚無挑戰紀錄</li></ol></div>
+            <div class="card-actions"><button class="btn btn-primary" id="btn-review-r16" onclick="app.startReview(16)"><i class="fa-solid fa-book"></i> 開始複習</button><button class="btn btn-secondary" id="btn-quiz-r16" onclick="app.startQuiz(16)"><i class="fa-solid fa-pen-clip"></i> 模擬測驗</button></div>
           </div>
         </div>
         <div class="section-title">
@@ -567,7 +577,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20261003-two-player-pk"></script>
-  <script src="script.js?v=20261003-two-player-pk"></script>
+  <script src="data.js?v=20261003-round16"></script>
+  <script src="script.js?v=20261003-round16"></script>
 </body>
 </html>
