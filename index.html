@@ -11,7 +11,7 @@
   <!-- 引入 FontAwesome 圖標 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 引入自訂樣式表 -->
-  <link rel="stylesheet" href="style.css?v=20261003-stage-entry">
+  <link rel="stylesheet" href="style.css?v=20261003-remove-admin">
 </head>
 <body class="dark-theme"> <!-- 預設為暗黑極光主題 -->
 
@@ -31,10 +31,6 @@
       </div>
       
       <div class="header-actions">
-        <!-- 排行榜後台 -->
-        <button class="nav-btn" onclick="app.showPage('leaderboard-admin')" title="查看排行榜後台" aria-label="查看排行榜後台">
-          <i class="fa-solid fa-ranking-star"></i>
-        </button>
         <!-- 主題切換按鈕 -->
         <button class="theme-toggle-btn" id="theme-toggle" title="切換主題">
           <i class="fa-solid fa-sun"></i>
@@ -633,24 +629,6 @@
         </div>
       </section>
 
-      <!-- 排行榜後台頁面 -->
-      <section id="page-leaderboard-admin" class="page">
-        <div class="leaderboard-admin-wrapper">
-          <div class="leaderboard-admin-header">
-            <div>
-              <h2><i class="fa-solid fa-ranking-star"></i> 排行榜後台</h2>
-              <p>集中查看這台裝置已儲存的第 1～15 回前三名佳績。</p>
-            </div>
-            <div class="leaderboard-admin-actions">
-              <button class="btn btn-primary" onclick="app.showPage('dashboard')">
-                <i class="fa-solid fa-house"></i> 返回首頁
-              </button>
-            </div>
-          </div>
-          <div class="leaderboard-admin-grid" id="leaderboard-admin-grid"></div>
-        </div>
-      </section>
-
     </main>
 
     <!-- 底部版權宣告 -->
@@ -661,6 +639,6 @@
 
   <!-- 引入資料檔案與核心邏輯 -->
   <script src="data.js?v=20261003-round20"></script>
-  <script src="script.js?v=20261003-all-reviews-open"></script>
+  <script src="script.js?v=20261003-remove-admin"></script>
 </body>
 </html>
