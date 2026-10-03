@@ -942,24 +942,21 @@ const app = {
 };
 
 // ==========================================================================
-// 課堂上臺作答 PK 賽控制邏輯
+// 兩人上臺作答 PK 賽控制邏輯
 // ==========================================================================
 const GAME_GROUPS = [
-  { id: 1, title: "第一組", name: "第一組同學", boss: "總複習魔王", icon: "fa-users" },
-  { id: 2, title: "第二組", name: "第二組同學", boss: "總複習魔王", icon: "fa-users" },
-  { id: 3, title: "第三組", name: "第三組同學", boss: "總複習魔王", icon: "fa-users" },
-  { id: 4, title: "第四組", name: "第四組同學", boss: "總複習魔王", icon: "fa-users" },
-  { id: 5, title: "第五組", name: "第五組同學", boss: "總複習魔王", icon: "fa-users" },
-  { id: 6, title: "第六組", name: "第六組同學", boss: "總複習魔王", icon: "fa-users" }
+  { id: 1, title: "玩家 A", name: "第一位挑戰者", boss: "總複習魔王", icon: "fa-user" },
+  { id: 2, title: "玩家 B", name: "第二位挑戰者", boss: "總複習魔王", icon: "fa-user" }
 ];
 
 const GROUP_TEST_WRONG_CHANCES = 6;
 const GROUP_TEST_QUESTION_COUNT = 10;
 const FIRST_GROUP_BATTLE_ROUNDS = [1, 2, 3, 4, 5, 6];
 const GROUP_TEST_TOTAL_QUESTIONS = GROUP_TEST_QUESTION_COUNT * FIRST_GROUP_BATTLE_ROUNDS.length;
+const CLASSROOM_PK_VERSION = 2;
 
 const GROUP_BATTLE_SETS = [
-  { id: 1, label: "課堂上臺作答 PK 賽", shortLabel: "課堂PK", desc: "第 1-6 回六組上臺作答競賽" }
+  { id: 1, label: "兩人上臺作答 PK 賽", shortLabel: "兩人PK", desc: "玩家 A 與玩家 B 各挑戰一次" }
 ];
 
 function createGroupBattleRecord() {
@@ -1020,6 +1017,16 @@ function normalizeGroupPlayerKey(name) {
 }
 
 function ensureGroupBattleState() {
+  if (state.scores.classroomPkVersion !== CLASSROOM_PK_VERSION) {
+    state.scores.classroomPkVersion = CLASSROOM_PK_VERSION;
+    state.scores.groupBattles = {};
+    state.scores.gameHigh = 0;
+    state.scores.gameClearedGroups = [];
+    state.scores.gameGroupBest = {};
+    state.scores.gameGroupBestTime = {};
+    state.scores.gameGroupFinishOrder = [];
+    state.scores.gameGroupStats = {};
+  }
   state.scores.activeGroupBattle = GROUP_BATTLE_SETS.some(set => set.id === Number(state.scores.activeGroupBattle))
     ? Number(state.scores.activeGroupBattle)
     : 1;
@@ -1127,7 +1134,7 @@ const game = {
     const desc = document.getElementById("game-battle-desc");
     const summary = document.getElementById("battle-set-summary");
     if (title) title.textContent = config.label;
-    if (desc) desc.textContent = `${config.desc}，每位同學輸入姓名後只能作答一次，人數不限；排名先比正確率，同分再比累積秒數。`;
+    if (desc) desc.textContent = `${config.desc}，每位玩家輸入姓名後作答一次；排名先比正確率，同分再比作答秒數。`;
     if (summary) summary.textContent = `目前顯示：${config.label}，排名以正確率優先，同分比較少秒數。`;
     GROUP_BATTLE_SETS.forEach(set => {
       const btn = document.getElementById(`battle-set-${set.id}`);
@@ -1144,15 +1151,16 @@ const game = {
       card.type = "button";
       card.onclick = () => this.start(group.id);
       const stateText = rank > 0 ? `${config.shortLabel}第 ${rank} 名` : `${config.shortLabel}尚未挑戰`;
+      const displayName = stats.players[0] || group.name;
       card.innerHTML = `
         <span class="boss-group-state">${stateText}</span>
         <span class="boss-group-icon"><i class="fa-solid ${group.icon}"></i></span>
         <span class="boss-group-title">${group.title}</span>
-        <strong>${group.name}</strong>
+        <strong>${displayName}</strong>
         <span class="boss-name"><i class="fa-solid fa-dragon"></i> ${group.boss}</span>
-        <span class="boss-best">人數不限 · 一人限答一次 · 每人 ${count} 題</span>
+        <span class="boss-best">每位玩家限答一次 · 共 ${count} 題</span>
         <span class="boss-best">正確率 ${formatGroupAccuracy(stats)} · ${stats.correct}/${stats.total || 0} 題</span>
-        <span class="boss-best">累積秒數 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒） · ${stats.attempts} 人</span>
+        <span class="boss-best">作答秒數 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒）</span>
       `;
       grid.appendChild(card);
     });
@@ -1173,7 +1181,7 @@ const game = {
   resetRace() {
     this.getActiveBattle();
     const config = this.getBattleConfig();
-    if (!confirm(`確定要重置${config.label}的六組累積排行嗎？正確率、總秒數與名次會重新開始。`)) return;
+    if (!confirm(`確定要重置兩位玩家的 PK 紀錄嗎？正確率、秒數與名次會重新開始。`)) return;
     state.scores.groupBattles[this.activeBattleId] = createGroupBattleRecord();
     if (this.activeBattleId === 1) {
       state.scores.gameHigh = 0;
@@ -1189,16 +1197,21 @@ const game = {
   },
   start(groupId = 1) {
     this.currentGroup = GAME_GROUPS.find(group => group.id === groupId) || GAME_GROUPS[0];
-    const playerName = prompt(`${this.getBattleConfig().shortLabel} · ${this.currentGroup.title}\n請輸入作答者姓名（一人只能作答一次）：`, "");
-    const playerKey = normalizeGroupPlayerKey(playerName);
-    if (!playerKey) {
-      alert("請先輸入姓名，才能上臺參加 PK 賽。");
+    const stats = this.getGroupStats(this.currentGroup.id);
+    if (stats.attempts > 0) {
+      alert(`${this.currentGroup.title} 已完成作答。如需重新比賽，請先按「重置 PK 紀錄」。`);
       return;
     }
 
-    const stats = this.getGroupStats(this.currentGroup.id);
+    const playerName = prompt(`${this.getBattleConfig().shortLabel} · ${this.currentGroup.title}\n請輸入玩家姓名：`, "");
+    const playerKey = normalizeGroupPlayerKey(playerName);
+    if (!playerKey) {
+      alert("請先輸入玩家姓名，才能開始 PK 賽。");
+      return;
+    }
+
     if (stats.playerRecords[playerKey]) {
-      alert(`${playerName.trim()} 已經為 ${this.currentGroup.title} 作答過，課堂 PK 賽一人只能作答一次。`);
+      alert(`${playerName.trim()} 已經完成作答。`);
       return;
     }
 
@@ -1459,6 +1472,6 @@ const game = {
         const wrongText = this.wrongCount === 0 ? "完全沒有失誤" : `本次錯 ${this.wrongCount} 次`;
     const accuracyText = formatGroupAccuracy(stats);
     const playerText = this.currentPlayerName ? `${this.currentPlayerName} ` : "";
-    summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} ${playerText}本次答對 ${this.correctCount}/${this.groupQuestions.length} 題，${wrongText}，本次用時 ${this.formatTime(this.timeLeft)}。目前本組正確率 ${accuracyText}（${stats.correct}/${stats.total || 0} 題）、累積秒數 ${this.formatTime(stats.totalTime)}（${stats.totalTime}秒），排名第 ${rank} 名。`;
+    summaryEl.textContent = `${this.getBattleConfig().label} · ${this.currentGroup.title} ${playerText}答對 ${this.correctCount}/${this.groupQuestions.length} 題，${wrongText}，用時 ${this.formatTime(this.timeLeft)}（${stats.totalTime}秒）。正確率 ${accuracyText}，目前排名第 ${rank} 名。`;
   }
 };

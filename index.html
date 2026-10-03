@@ -225,8 +225,8 @@
           </div>
         </div>
         <div class="section-title">
-          <h2><i class="fa-solid fa-people-group"></i> 課堂上臺作答 PK 賽</h2>
-          <p>六組輪流派同學上臺作答；每位同學只能參賽一次，一組人數不限。每次從第 1-6 回各抽 10 題，共 60 題；排名先比正確率，同分比累積秒數。</p>
+          <h2><i class="fa-solid fa-user-group"></i> 兩人上臺作答 PK 賽</h2>
+          <p>兩位同學依序上臺作答，每人只能挑戰一次。每次從第 1-6 回各抽 10 題，共 60 題；排名先比正確率，同分比作答秒數。</p>
         </div>
 
         <!-- 輔助區網格 -->
@@ -235,8 +235,8 @@
           <div class="tool-card game-promo" onclick="app.showPage('game')">
             <div class="tool-content">
               <span class="mini-tag">課堂競賽</span>
-              <h3><i class="fa-solid fa-shield-halved"></i> 六組上臺作答 PK</h3>
-              <p>各組派同學輪流上臺，每人作答一次；先比正確率，同分時累積秒數越少排名越高。</p>
+              <h3><i class="fa-solid fa-shield-halved"></i> 兩人 PK 賽</h3>
+              <p>玩家 A、玩家 B 各作答一次；先比正確率，同分時作答秒數越少獲勝。</p>
             </div>
             <div class="tool-btn">
               <i class="fa-solid fa-play"></i>
@@ -431,14 +431,14 @@
             <div class="game-logo-large">
               <i class="fa-solid fa-dragon"></i>
             </div>
-            <h2 id="game-battle-title">課堂上臺作答 PK 賽</h2>
-            <p id="game-battle-desc">PK 賽包含第 1-6 回，六組輪流派同學上臺挑戰；每位同學輸入姓名後只能作答一次，一組人數不限。每次從每一回隨機抽 10 題，共 60 題；正確率高者獲勝，同分比總秒數。</p>
+            <h2 id="game-battle-title">兩人上臺作答 PK 賽</h2>
+            <p id="game-battle-desc">玩家 A、玩家 B 依序輸入姓名並各作答一次。每人從第 1-6 回各抽 10 題，共 60 題；正確率高者獲勝，同分比作答秒數。</p>
             <div class="game-rules">
-              <div><i class="fa-solid fa-people-group"></i> 每組人數不限；每位同學只能作答一次；第 1-6 回各抽 10 題，共 60 題。</div>
-              <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時；排名先比正確率，正確率相同時，比累積秒數，秒數越少越前面。</div>
-              <div><i class="fa-solid fa-heart red-heart"></i> 分組回合保留 6 次錯誤機會；超過錯誤次數會結束該位同學本次作答。</div>
+              <div><i class="fa-solid fa-user-group"></i> 兩位玩家各作答一次；第 1-6 回各抽 10 題，共 60 題。</div>
+              <div><i class="fa-solid fa-stopwatch"></i> 計時採正計時；先比正確率，正確率相同時，秒數越少者獲勝。</div>
+              <div><i class="fa-solid fa-heart red-heart"></i> 每位玩家保留 6 次錯誤機會；超過次數即結束本次作答。</div>
             </div>
-            <div class="battle-set-summary" id="battle-set-summary">課堂上臺作答 PK 賽：第 1-6 回各抽 10 題，共 60 題；正確率優先，同分比較少秒數。</div>
+            <div class="battle-set-summary" id="battle-set-summary">兩人 PK 賽：每人 60 題；正確率優先，同分比較少秒數。</div>
             <div class="result-actions">
               <button class="btn btn-secondary-outline" onclick="game.resetRace()">
                 <i class="fa-solid fa-flag-checkered"></i> 重置PK紀錄
@@ -473,7 +473,7 @@
 
           <div class="boss-battle-header">
             <div>
-              <span class="subtitle-label" id="game-group-label">第一組</span>
+              <span class="subtitle-label" id="game-group-label">玩家 A</span>
               <h2 id="game-boss-name">貪食錯字獸</h2>
             </div>
             <div class="game-question-count" id="game-question-count">1 / 5</div>
@@ -533,10 +533,7 @@
                 <i class="fa-solid fa-house"></i> 回首頁
               </button>
               <button class="btn btn-secondary" onclick="game.showMenu()">
-                <i class="fa-solid fa-map"></i> 回組別地圖
-              </button>
-              <button class="btn btn-accent" onclick="game.restartCurrentGroup()">
-                <i class="fa-solid fa-rotate-left"></i> 再戰一局
+                <i class="fa-solid fa-users-viewfinder"></i> 回 PK 選單
               </button>
             </div>
           </div>
@@ -570,7 +567,7 @@
   </div>
 
   <!-- 引入資料檔案與核心邏輯 -->
-  <script src="data.js?v=20261003-class-pk"></script>
-  <script src="script.js?v=20261003-class-pk"></script>
+  <script src="data.js?v=20261003-two-player-pk"></script>
+  <script src="script.js?v=20261003-two-player-pk"></script>
 </body>
 </html>
